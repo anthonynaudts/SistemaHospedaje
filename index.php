@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Login</title>
+  <title>NiceAdmin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -87,7 +87,7 @@
                       <button class="btn btn-primary w-100" type="submit">Acceder</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">¿No tienes cuenta? <a href="pages-register.html">Crear una cuenta</a></p>
+                      <p class="small mb-0">¿No tienes cuenta? <a href="registro2">Crear una cuenta</a></p>
                     </div>
                   </form>
 

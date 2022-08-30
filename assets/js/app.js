@@ -29,6 +29,10 @@ window.addEventListener("load", function(event) {
         this.document.getElementById("tablero").classList.remove("collapsed")
         return
     }
+    if(URLactual == "perfil"){
+        this.document.getElementById("perfil").classList.remove("collapsed")
+        return
+    }
     
     id = URLactual
     elemento = this.document.getElementById(id)

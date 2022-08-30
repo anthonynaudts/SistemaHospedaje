@@ -123,7 +123,9 @@
                             echo $_SESSION["imagenPerfil"]; 
                         ?>" alt="Profile">
                         <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <label for="profilePicture" class="btn btn-primary btn-sm text-white" title="Upload new profile image"><i class="bi bi-upload"></i></label>
+                          <input class="d-none" type="file" name="profilePicture" id="profilePicture">
+                          <!-- <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a> -->
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>

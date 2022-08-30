@@ -1017,7 +1017,10 @@ h6 {
 # Profie Page
 --------------------------------------------------------------*/
 .profile .profile-card img {
-  max-width: 120px;
+  max-height: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  object-fit: cover;
 }
 
 .profile .profile-card h2 {
