@@ -20,6 +20,11 @@ function consultaGeneral(query){
 window.addEventListener("load", function(event) {
     var URLactual = window.location.pathname;
     URLactual = URLactual.replace("/", "")
+
+    titulo = URLactual.charAt(0).toUpperCase() + URLactual.slice(1);
+    titulocabeza = document.querySelector('title').textContent
+    document.querySelector('title').textContent = titulocabeza + " · " + titulo
+
     if(URLactual == "tablero"){
         this.document.getElementById("tablero").classList.remove("collapsed")
         return
@@ -35,7 +40,7 @@ window.addEventListener("load", function(event) {
     padre2 = padre.parentElement.firstElementChild
     padre2.classList.remove('collapsed')
     padre2.setAttribute("aria-expanded", "true");
-    // alert("'Todos los recursos terminaron de cargar!");
+    
   });
 
 function validarFormularios(formulario){
