@@ -45,7 +45,7 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
@@ -63,7 +63,13 @@
                     <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
                   </div>
                   
-                  <form onsubmit="login(event)" class="row g-3 needs-validation" novalidate>
+                  <form id="formularioLogin" onsubmit="login(event)" class="row g-3 needs-validation" novalidate>
+<!-- 
+                  <div id="notificacion" class="d-none alert alert-danger alert-dismissible fade show" role="alert">
+                      <i class="bi bi-exclamation-octagon me-1"></i>
+                    ¡Usuario o contraseña incorrectos!
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div> -->
 
                     <div class="col-12 has-validation">
                       <label for="yourUsername" class="form-label">Nombre de usuario</label>

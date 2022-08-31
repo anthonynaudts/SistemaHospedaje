@@ -66,6 +66,41 @@ function validarFormularios(formulario){
     return true
 }
 
+function alertaFormularios(contenedor, mensaje, tipoMensaje){
+    tiposAlertas = {
+        "success":{
+            clase: "alert-success",
+            icono: "bi-check-circle"
+        },
+        "danger":{
+            clase: "alert-danger",
+            icono: "bi-exclamation-octagon"
+        },
+        "info":{
+            clase: "alert-info",
+            icono: "bi-info-circle"
+        },
+        "warning":{
+            clase: "alert-warning",
+            icono: "bi-exclamation-triangle"
+        }
+    };
+
+    contenedorExis = document.getElementById(contenedor.srcElement.id)
+// var capa = document.getElementById("capa");
+    var div = document.createElement("div");
+    div.classList.add("alert", tiposAlertas[tipoMensaje].clase, "alert-dismissible", "fade", "show")
+    div.setAttribute("role", "alert")
+//   < class="alert alert-danger alert-dismissible fade show" role="alert">
+    div.innerHTML = `
+        <i class="bi ${tiposAlertas[tipoMensaje].icono} me-1"></i>
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+// contenedorExis.appendChild(div);
+    contenedorExis.insertBefore(div, contenedorExis.getElementsByTagName('div')[0])
+
+}
+
 function limpiarFormulario(formulario){
     // formulario.preventDefault();
     // console.log(formulario.srcElement)
@@ -106,6 +141,9 @@ function login(event){
         try {
             if(res)
                 window.location="tablero";
+            else
+                alertaFormularios(event, "Usuario o contraseña incorrectos", "danger")
+                
         } catch (error) {
             console.log(error)
         }
@@ -139,10 +177,13 @@ function ActualizarUsuario(event){
     }).done(function(res) {
         try {
             if(res){
+                alertaFormularios(event, "Usuario creado correctamente!", "success")
                 limpiarFormulario(event)
+            }else{
+                alertaFormularios(event, "Ocurrió un error al momento de crear el usuario!", "warning")
             }
-            console.log(res)
         } catch (error) {
+            alertaFormularios(event, "Ocurrió un error al momento de crear el usuario!", "warning")
             console.log(error)
         }
     });
