@@ -61,6 +61,7 @@
                 $_SESSION['correo'] = $row["correo"];
                 $_SESSION['usuario'] = $row["usuario"];
                 $_SESSION['imagenPerfil'] = $row["imagenPerfil"];
+                $_SESSION['idPosicion'] = $row["idPosicion"];
                 $_SESSION['posicion'] = $row["posicion"];
             }
             echo isset($_SESSION['session_id']);

@@ -223,6 +223,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6><?php echo $_SESSION["nombre"]; ?></h6>
+              <span style="font-size: 11px !important;" class="badge bg-primary d-inline-block"> <i class="bi bi-star me-1"></i> Admin</span>
               <span><?php echo $_SESSION["posicion"]; ?></span>
             </li>
             <li>
@@ -543,3 +544,5 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+    
+<?php include("assets/db/permisos.php"); ?>

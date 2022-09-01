@@ -187,6 +187,6 @@ function ActualizarUsuario(event){
             console.log(error)
         }
     });
-}
+} 
 
 
