@@ -318,6 +318,19 @@
         </ul>
       </li><!-- End Components Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Mantenimientos-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gear"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Mantenimientos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="paginas" id="paginas">
+              <i class="bi bi-circle"></i><span>Páginas</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -544,5 +557,5 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-    
+
 <?php include("assets/db/permisos.php"); ?>

@@ -73,6 +73,73 @@
         }
     }
 
+
+    function consultaPosiciones(){
+        try{
+            $query = "SELECT * FROM posiciones order by nombrePuesto ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+            // return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
+    function consultaPaginas(){
+        try{
+            $query = "SELECT * FROM paginas order by pagina ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+            // return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+    
+    function consultaPermisos($idPagina){
+        try{
+            $query = "SELECT idPosicion FROM permisos_paginas WHERE idPagina = '".$idPagina."'";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+            // return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
     // Procedimientos almacenados
     function insertarGeneral($query){
         try{
@@ -98,5 +165,10 @@
     function actualizarUsuarios($idUsuario, $nombre, $idPosicion, $correo, $usuario, $contrasena, $imagenPerfil){
         $datos = json_decode(insertarGeneral("EXEC ActualizarUsuarios '".intval($idUsuario)."','".$nombre."','".$correo."','".$usuario."','".md5($contrasena)."', '".$imagenPerfil."', '".intval($idPosicion)."'"), true);
         echo ($datos[0]["idUsuario"] > 0)? true : false;
+    }
+
+    function actualizarPaginas($idPagina, $pagina){
+        $datos = json_decode(insertarGeneral("EXEC ActualizarPaginas '".intval($idPagina)."','".$pagina."'"), true);
+        echo ($datos[0]["idPagina"] > 0)? true : false;
     }
 ?>

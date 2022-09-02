@@ -33,6 +33,11 @@ window.addEventListener("load", function(event) {
         this.document.getElementById("perfil").classList.remove("collapsed")
         return
     }
+
+    if(URLactual == "paginas"){
+        cargarPosiciones();
+        cargarPaginas();
+    }
     
     id = URLactual
     elemento = this.document.getElementById(id)
@@ -190,3 +195,117 @@ function ActualizarUsuario(event){
 } 
 
 
+function cargarPosiciones(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaPosiciones" + ".php",
+        method: "POST",
+        // data: {
+        //     usuario: usuario.trim(),
+        //     contrasena: contrasena.trim()
+        // },
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("paginaPosiciones")
+            contenedorExis.innerHTML = ""
+            result.forEach(element => {
+                carga = `<div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="idPos-${element.idPosicion}">
+                            <label class="form-check-label" for="idPos-${element.idPosicion}">${element.nombrePuesto}</label>
+                        </div>`
+                contenedorExis.innerHTML += carga
+            });
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function cargarPaginas(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaPaginas" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("listarPaginas")
+            contenedorExis.innerHTML = ""
+            contador = 0
+            result.forEach(element => {
+                contador++
+                carga = `<tr class="text-center">
+                <th scope="row">${contador}</th>
+                <td>${element.pagina}</td>
+                <td><span class="text-primary" style="cursor:pointer;" onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})'>Seleccionar</span></td>
+                </tr>`
+                contenedorExis.innerHTML += carga
+            });
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function seleccionarPagina(datos){
+    cargarPermisos(datos.idPagina)
+    $("#idPagina").val(datos.idPagina)
+    $("#URLPagina").val(datos.paginaNombre)
+}
+
+function ElementoEnArreglo(objeto, elemento){
+    array =Object.values(objeto)
+    for(i = 0; i < array.length; i++){
+        if(array[i].idPosicion == elemento)
+            return true
+        else
+            return false
+    }
+}
+
+function cargarPermisos(idPagina){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaPermisos" + ".php",
+        method: "POST",
+        data: {
+            idPagina: idPagina
+        },
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            // console.log(result[0]);
+
+            elementos = document.getElementById("paginaPosiciones").childNodes
+            
+            contador = 0
+            elementos.forEach(element => {
+                id = element.children[0].id.split("-")
+                input = document.getElementById("idPos-"+id[1])
+                if(ElementoEnArreglo(result, id[1])){
+                    input.checked = true
+                }else{
+                    input.checked = false
+                }
+                contador++
+            });
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+
+
+// let datos = Object.fromEntries(new FormData(e.target));
+// JSON.stringify(datos);
+
+
+
+// event.preventDefault();
+//         console.log(event)
+//         let datos = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(event.target))));
+//         // info = JSON.stringify(datos);
+//         // result = JSON.parse(info)
+//         console.log(datos)
