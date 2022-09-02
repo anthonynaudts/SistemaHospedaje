@@ -112,7 +112,7 @@ function limpiarFormulario(formulario){
     
     formulario1 = document.getElementById(formulario.srcElement.id)
     formulario1.classList.remove('was-validated')
-    console.log(formulario1.classList)
+    // console.log(formulario1.classList)
     
     $(`#${formulario.srcElement.id}`).trigger("reset"); 
     // $(`#${formulario.srcElement.id}`).removeClass('was-validated');
@@ -237,11 +237,15 @@ function cargarPaginas(){
                 carga = `<tr class="text-center">
                 <th scope="row">${contador}</th>
                 <td>${element.pagina}</td>
-                <td><span class="text-primary" style="cursor:pointer;" onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})'>Seleccionar</span></td>
+                <td>
+                    <!--<span class="text-primary" style="cursor:pointer;" onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})'>Seleccionar</span>-->
+                    <span onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})' class="btn btn-warning btn-sm text-white" title="Eeditar"><i class="bi bi-pencil"></i></span>
+                    <span onclick='EliminarPagina(${element.idPagina})' class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></span>
+                </td>
                 </tr>`
                 contenedorExis.innerHTML += carga
             });
-                
+            
         } catch (error) {
             console.log(error)
         }
@@ -295,6 +299,64 @@ function cargarPermisos(idPagina){
         }
     });
 }
+
+
+function ActualizarPaginas(event){
+    if(!validarFormularios(event))
+        return
+
+        let datos = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(event.target))));
+        info = JSON.stringify(datos);
+        result = JSON.parse(info)
+        console.log(result.urlPagina)
+        id = document.getElementById("idPagina").value
+        if(id == "")
+            id = 0
+
+    $.ajax({
+        url: RUTACONSULTAS + "actualizarPaginas" + ".php",
+        method: "POST",
+        data: {
+            idPagina: id,
+            pagina: result.urlPagina.trim()
+        },
+    }).done(function(res) {
+        try {
+            if(res){
+                alertaFormularios(event, "Páginas agregada correctamente!", "success")
+                cargarPaginas()
+                limpiarFormulario(event)
+            }else{
+                alertaFormularios(event, "Ocurrió un error al momento de registrar esta página!", "warning")
+            }
+        } catch (error) {
+            alertaFormularios(event, "Ocurrió un error al momento de registrar esta página!", "warning")
+            console.log(error)
+        }
+    });
+} 
+
+function EliminarPagina(idPagina){ //[x]Confirmar eliminar
+    $.ajax({
+        url: RUTACONSULTAS + "eliminarPagina" + ".php",
+        method: "POST",
+        data: {
+            idPagina: idPagina
+        },
+    }).done(function(res) {
+        try {
+            if(res){
+                // console.log(res) 
+                cargarPaginas();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    });
+} 
+
+
+
 
 
 

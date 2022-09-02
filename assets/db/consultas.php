@@ -140,6 +140,34 @@
         }
     }
 
+
+    // Eliminar datos
+    function eliminarGeneral($query){
+        try{
+            $resultado = false;
+            $conn = conectarBD();
+            $insertReview = sqlsrv_query($conn, $query);
+            if($insertReview == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+            else
+                $resultado = true;
+
+            sqlsrv_free_stmt($insertReview);
+            sqlsrv_close($conn);
+            return $resultado;
+        }
+        catch(Exception $e){
+            echo("Error". $e);
+        }
+    }
+
+    function eliminarPagina($idPagina){
+        $datos = json_decode(eliminarGeneral("DELETE FROM paginas WHERE idPagina = '".$idPagina."'"), true);
+        echo ($datos);
+    }
+
+    // echo eliminarPagina(5);
+
     // Procedimientos almacenados
     function insertarGeneral($query){
         try{

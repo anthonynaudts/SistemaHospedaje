@@ -19,16 +19,17 @@
             <div class="card-body">
               <h5 class="card-title">Registrar o actualizar páginas</h5>
 
-              <form id="formularioRegistrarPaginas" onsubmit="(event)" class="row g-3 needs-validation" novalidate>
+              <form id="formularioRegistrarPaginas" onsubmit="ActualizarPaginas(event)" class="row g-3 needs-validation" novalidate>
         
                     <div class="d-flex">
                         <div class="me-2" style="width:20%;">
-                            <label for="URLPagina" class="form-label">ID</label><input id="idPagina" type="text" class="form-control" disabled>
+                            <label for="URLPagina" class="form-label">ID</label>
+                            <input id="idPagina" name="idPagina" type="text" class="form-control" disabled>
                         </div>
 
                         <div class="flex-grow-1 flex-shrink-1">
                             <label for="URLPagina" class="form-label">URL página (Ej. paginas, registro)</label>
-                            <input type="text" name="name" class="form-control" id="URLPagina" required>
+                            <input type="text" name="urlPagina" class="form-control" id="URLPagina" required>
                             <div class="invalid-feedback">¡Por favor, escriba el URL de la página!</div>
                         </div>
                     </div>
