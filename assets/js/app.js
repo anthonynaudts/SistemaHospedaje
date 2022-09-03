@@ -261,11 +261,10 @@ function seleccionarPagina(datos){
 function ElementoEnArreglo(objeto, elemento){
     array =Object.values(objeto)
     for(i = 0; i < array.length; i++){
-        if(array[i].idPosicion == elemento)
+        if(array[i] == elemento)
             return true
-        else
-            return false
     }
+    return false
 }
 
 function cargarPermisos(idPagina){
@@ -278,27 +277,50 @@ function cargarPermisos(idPagina){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
-            // console.log(result[0]);
-
-            elementos = document.getElementById("paginaPosiciones").childNodes
             
-            contador = 0
+            elementos = document.getElementById("paginaPosiciones").childNodes
             elementos.forEach(element => {
                 id = element.children[0].id.split("-")
                 input = document.getElementById("idPos-"+id[1])
+                
                 if(ElementoEnArreglo(result, id[1])){
                     input.checked = true
                 }else{
                     input.checked = false
                 }
-                contador++
             });
                 
+        } catch (error) {
+            console.log(error) //BUG muestra error cuando no tiene permisos
+            elementos.forEach(element => {
+                id = element.children[0].id.split("-")
+                input = document.getElementById("idPos-"+id[1])
+                input.checked = false
+            });
+        }
+    });
+}
+
+function ActualizarPermisos(idPagina, idPosicion, estado){
+
+    $.ajax({
+        url: RUTACONSULTAS + "actualizarPermisos" + ".php",
+        method: "POST",
+        data: {
+            idPagina: idPagina,
+            idPosicion: idPosicion,
+            estado: estado
+        },
+    }).done(function(res) {
+        try {
+            // if(res)
+            // console.log(res)
+
         } catch (error) {
             console.log(error)
         }
     });
-}
+} 
 
 
 function ActualizarPaginas(event){
@@ -323,9 +345,27 @@ function ActualizarPaginas(event){
     }).done(function(res) {
         try {
             if(res){
-                alertaFormularios(event, "Páginas agregada correctamente!", "success")
+                alertaFormularios(event, "Página agregada/actualizada correctamente!", "success")
                 cargarPaginas()
+
+                elementos = document.getElementById("paginaPosiciones").childNodes
+                //[ ]Json resultado para tomar id
+                // let text = '{"posiciones":[]}';
+                // const obj = JSON.parse(text);
+                // obj.posiciones[0]={idPosicion:3, estado: false}
+
+                contador = 0
+                elementos.forEach(element => {
+                    id = element.children[0].id.split("-")
+                    input = document.getElementById("idPos-"+id[1])
+                    // obj.posiciones[contador]={idPosicion:id[1], estado: input.checked}
+                    ActualizarPermisos(res, id[1], (input.checked)? 1: 0)
+                    contador++
+                });
+                // cargarPermisos(res)
                 limpiarFormulario(event)
+
+
             }else{
                 alertaFormularios(event, "Ocurrió un error al momento de registrar esta página!", "warning")
             }
@@ -354,6 +394,25 @@ function EliminarPagina(idPagina){ //[x]Confirmar eliminar
         }
     });
 } 
+
+
+
+function prueba(){
+    elementos = document.getElementById("paginaPosiciones").childNodes
+                let text = '{"posiciones":[]}';
+                const obj = JSON.parse(text);
+                // obj.posiciones[0]={idPosicion:3, estado: false}
+
+                contador = 0
+                elementos.forEach(element => {
+                    id = element.children[0].id.split("-")
+                    input = document.getElementById("idPos-"+id[1])
+                    obj.posiciones[contador]={idPosicion:id[1], estado: input.checked}
+                    contador++
+                });
+
+                console.log(obj.posiciones)
+}
 
 
 

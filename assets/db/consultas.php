@@ -127,10 +127,10 @@
                 die(print_r(sqlsrv_errors(),true));
                 $cont = 0;
             while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
-                $datos[$cont] = $row;
+                $datos[$cont] = $row["idPosicion"];
                 $cont++;
             }
-            return json_encode($datos);
+            echo json_encode($datos);
             sqlsrv_free_stmt($obtenerDatos);
             sqlsrv_close($conn);
             // return json_encode($datos);
@@ -162,11 +162,10 @@
     }
 
     function eliminarPagina($idPagina){
+        //BUG eliminar datos tambien de la tabla permisos_paginas
         $datos = json_decode(eliminarGeneral("DELETE FROM paginas WHERE idPagina = '".$idPagina."'"), true);
         echo ($datos);
     }
-
-    // echo eliminarPagina(5);
 
     // Procedimientos almacenados
     function insertarGeneral($query){
@@ -197,6 +196,11 @@
 
     function actualizarPaginas($idPagina, $pagina){
         $datos = json_decode(insertarGeneral("EXEC ActualizarPaginas '".intval($idPagina)."','".$pagina."'"), true);
-        echo ($datos[0]["idPagina"] > 0)? true : false;
+        echo $datos[0]["idPagina"];
+    }
+
+    function ActualizarPermisos($idPagina, $idPosicion, $estado){
+        $datos = json_decode(insertarGeneral("EXEC ActualizarPermisos '".intval($idPagina)."','".intval($idPosicion)."', '".$estado."'"), true);
+        echo $datos;
     }
 ?>
