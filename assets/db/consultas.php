@@ -162,8 +162,8 @@
     }
 
     function eliminarPagina($idPagina){
-        //BUG eliminar datos tambien de la tabla permisos_paginas
-        $datos = json_decode(eliminarGeneral("DELETE FROM paginas WHERE idPagina = '".$idPagina."'"), true);
+        //[ ] eliminar datos tambien de la tabla permisos_paginas
+        $datos = json_decode(eliminarGeneral("DELETE FROM paginas WHERE idPagina = '".$idPagina."'; DELETE FROM permisos_paginas WHERE idPagina = '".$idPagina."' "), true);
         echo ($datos);
     }
 
