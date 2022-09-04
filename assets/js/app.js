@@ -360,7 +360,7 @@ function ActualizarPaginas(event){
         let datos = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(event.target))));
         info = JSON.stringify(datos);
         result = JSON.parse(info)
-        console.log(result.urlPagina)
+        // console.log(result.urlPagina)
         id = document.getElementById("idPagina").value
         if(id == "")
             id = 0
@@ -464,7 +464,7 @@ function prueba(){
                     contador++
                 });
 
-                console.log(obj.posiciones)
+                // console.log(obj.posiciones)
 }
 
 
