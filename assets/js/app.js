@@ -1,5 +1,30 @@
 const RUTACONSULTAS = "./assets/db/peticiones/"; 
 
+function desactivarLinksSinPermisos(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaPermisosGeneral" + ".php",
+        method: "POST"
+    }).done(function(res) {
+        try {
+            var result = JSON.parse(res);
+            result.forEach(pagina => {
+                if(pagina.estado != 1){
+                    document.getElementById(pagina.pagina).classList.add("desactivarLink")
+                    document.getElementById(pagina.pagina).setAttribute("onclick", "return false;");
+                    
+                    // [ ] asignar onclick return false a cada página para que desactive el click
+                }else{
+                    document.getElementById(pagina.pagina).classList.remove("desactivarLink")
+                    document.getElementById(pagina.pagina).setAttribute("onclick", "return true;");
+                }
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+
 function consultaGeneral(query){
     $.ajax({
         url: RUTACONSULTAS + "consultaGeneral" + ".php",
@@ -27,17 +52,19 @@ window.addEventListener("load", function(event) {
 
     if(URLactual == "tablero"){
         this.document.getElementById("tablero").classList.remove("collapsed")
-        return
+        // return
     }
     if(URLactual == "perfil"){
         this.document.getElementById("perfil").classList.remove("collapsed")
-        return
+        // return
     }
 
     if(URLactual == "paginas"){
         cargarPosiciones();
         cargarPaginas();
     }
+
+    desactivarLinksSinPermisos();
     
     id = URLactual
     elemento = this.document.getElementById(id)
@@ -91,6 +118,8 @@ function alertaFormularios(contenedor, mensaje, tipoMensaje){
         }
     };
 
+    //[p] Eliminar alerta después de 5 segundos
+
     contenedorExis = document.getElementById(contenedor.srcElement.id)
 // var capa = document.getElementById("capa");
     var div = document.createElement("div");
@@ -101,7 +130,7 @@ function alertaFormularios(contenedor, mensaje, tipoMensaje){
         <i class="bi ${tiposAlertas[tipoMensaje].icono} me-1"></i>
         ${mensaje}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-// contenedorExis.appendChild(div);
+
     contenedorExis.insertBefore(div, contenedorExis.getElementsByTagName('div')[0])
 
 }
@@ -230,6 +259,7 @@ function cargarPaginas(){
         try {
             result = JSON.parse(res)
             contenedorExis = document.getElementById("listarPaginas")
+            
             contenedorExis.innerHTML = ""
             contador = 0
             result.forEach(element => {
@@ -291,7 +321,7 @@ function cargarPermisos(idPagina){
             });
                 
         } catch (error) {
-            console.log(error) //BUG muestra error cuando no tiene permisos
+            console.log(error) //[ ] muestra error cuando no tiene permisos
             elementos.forEach(element => {
                 id = element.children[0].id.split("-")
                 input = document.getElementById("idPos-"+id[1])
@@ -350,19 +380,16 @@ function ActualizarPaginas(event){
 
                 elementos = document.getElementById("paginaPosiciones").childNodes
                 //[ ]Json resultado para tomar id
-                // let text = '{"posiciones":[]}';
-                // const obj = JSON.parse(text);
-                // obj.posiciones[0]={idPosicion:3, estado: false}
 
                 contador = 0
                 elementos.forEach(element => {
                     id = element.children[0].id.split("-")
                     input = document.getElementById("idPos-"+id[1])
-                    // obj.posiciones[contador]={idPosicion:id[1], estado: input.checked}
                     ActualizarPermisos(res, id[1], (input.checked)? 1: 0)
                     contador++
                 });
                 // cargarPermisos(res)
+                desactivarLinksSinPermisos()
                 limpiarFormulario(event)
 
 
@@ -376,23 +403,49 @@ function ActualizarPaginas(event){
     });
 } 
 
-function EliminarPagina(idPagina){ //[x]Confirmar eliminar
-    $.ajax({
-        url: RUTACONSULTAS + "eliminarPagina" + ".php",
-        method: "POST",
-        data: {
-            idPagina: idPagina
+function EliminarPagina(idPagina){ //[ ]Confirmar eliminar
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-outline-danger me-2'
         },
-    }).done(function(res) {
-        try {
-            if(res){
-                // console.log(res) 
-                cargarPaginas();
-            }
-        } catch (error) {
-            console.log(error)
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: '¿Estas seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '¡Sí, borrar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+
+            $.ajax({
+                url: RUTACONSULTAS + "eliminarPagina" + ".php",
+                method: "POST",
+                data: {
+                    idPagina: idPagina
+                },
+            }).done(function(res) {
+                try {
+                    if(res){
+                        cargarPaginas();
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            });
+
+
+          swalWithBootstrapButtons.fire( 'Eliminado!', 'success')
         }
-    });
+      })
+      
 } 
 
 

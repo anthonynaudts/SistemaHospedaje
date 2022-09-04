@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>NiceAdmin</title>
+  <title>ReHot</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -29,13 +29,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.3.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -46,7 +39,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <span class="d-none d-lg-block">ReHot</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -311,6 +304,7 @@
         </a>
         <ul id="reservaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+          <!-- class="desactivarLink" onclick="return false;" -->
             <a href="reservacion" id="reservacion">
               <i class="bi bi-circle"></i><span>Reservación</span>
             </a>

@@ -3,7 +3,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. Todos los derechos reservados
+      &copy; Copyright <strong><span>ReHot</span></strong>. Todos los derechos reservados
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
@@ -30,7 +30,8 @@
   
   <script src="assets/js/main.js"></script>
   <script src="assets/js/jquery-3.6.1.min.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/app.js"></script>  
+  <script src="assets/js/sweetalert2.js"></script>
 
 </body>
 

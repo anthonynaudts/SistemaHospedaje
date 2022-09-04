@@ -130,7 +130,10 @@
                 $datos[$cont] = $row["idPosicion"];
                 $cont++;
             }
-            echo json_encode($datos);
+            if(!empty($datos))
+                echo json_encode($datos);
+            else
+                echo json_encode("NULL"); 
             sqlsrv_free_stmt($obtenerDatos);
             sqlsrv_close($conn);
             // return json_encode($datos);
@@ -140,6 +143,32 @@
         }
     }
 
+    function consultaPermisosGeneral(){
+        try{
+            session_start();
+            $query = "select * FROM paginasSinAcceso(".$_SESSION["idPosicion"].")";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            if(!empty($datos))
+                echo json_encode($datos);
+            else
+                echo json_encode("NULL"); 
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
+    // echo consultaPermisosGeneral(1);
 
     // Eliminar datos
     function eliminarGeneral($query){
