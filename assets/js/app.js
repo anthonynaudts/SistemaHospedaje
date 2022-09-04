@@ -63,8 +63,10 @@ window.addEventListener("load", function(event) {
         cargarPosiciones();
         cargarPaginas();
     }
-
-    desactivarLinksSinPermisos();
+    
+    if(urlPagina != ""){
+        desactivarLinksSinPermisos();
+    }
     
     id = URLactual
     elemento = this.document.getElementById(id)
@@ -118,7 +120,7 @@ function alertaFormularios(contenedor, mensaje, tipoMensaje){
         }
     };
 
-    //[p] Eliminar alerta después de 5 segundos
+    //[ ] Eliminar alerta después de 5 segundos
 
     contenedorExis = document.getElementById(contenedor.srcElement.id)
 // var capa = document.getElementById("capa");
@@ -129,9 +131,14 @@ function alertaFormularios(contenedor, mensaje, tipoMensaje){
     div.innerHTML = `
         <i class="bi ${tiposAlertas[tipoMensaje].icono} me-1"></i>
         ${mensaje}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+        <button id="botonCerrarAlertas" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
 
     contenedorExis.insertBefore(div, contenedorExis.getElementsByTagName('div')[0])
+    
+    setTimeout(()=>{
+        document.getElementById("botonCerrarAlertas").click()
+    }, 3500)
+
 
 }
 
