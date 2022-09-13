@@ -61,6 +61,7 @@
                     <th scope="col">Acción</th>
                   </tr>
                 </thead>
+                <!-- //[p] eliminar tablas filas con diferentes colores y lineas de bordes -->
                 <tbody id="listarPaginas">
                   <!-- <tr>
                     <th scope="row">1</th>

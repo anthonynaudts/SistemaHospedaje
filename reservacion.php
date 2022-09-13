@@ -4,6 +4,11 @@
 <script src='assets/calendario_lib/main.js'></script>
 <script src='assets/calendario_lib/locales-all.js'></script>
 
+
+//[p] Notificacion 2 horas antes de la salida
+//[p] Colores de estados de reservas (Verde confirmada, amarillo pendiente, rojo cancelada)
+
+
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {

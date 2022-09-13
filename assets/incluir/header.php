@@ -312,6 +312,8 @@
         </ul>
       </li><!-- End Components Nav -->
 
+      <li class="nav-heading">Mantenimientos</li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#Mantenimientos-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gear"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
