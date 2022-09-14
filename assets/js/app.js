@@ -64,7 +64,7 @@ window.addEventListener("load", function(event) {
         cargarPaginas();
     }
     
-    if(urlPagina != ""){
+    if(URLactual != ""){
         desactivarLinksSinPermisos();
     }
     
@@ -265,6 +265,7 @@ function cargarPaginas(){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
+            console.table(result)
             contenedorExis = document.getElementById("listarPaginas")
             
             contenedorExis.innerHTML = ""

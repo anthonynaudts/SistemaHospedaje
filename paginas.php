@@ -53,7 +53,7 @@
             <div class="card-body">
               <h5 class="card-title">Páginas</h5>
 
-              <table class="table table-striped">
+              <table class="table">
                 <thead>
                   <tr class="text-center">
                     <th scope="col">#</th>
@@ -61,7 +61,7 @@
                     <th scope="col">Acción</th>
                   </tr>
                 </thead>
-                <!-- //[p] eliminar tablas filas con diferentes colores y lineas de bordes -->
+                <!-- //[ ] eliminar tablas filas con diferentes colores y lineas de bordes -->
                 <tbody id="listarPaginas">
                   <!-- <tr>
                     <th scope="row">1</th>
