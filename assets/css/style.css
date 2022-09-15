@@ -8,14 +8,32 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@import url('fuentes.css');
+
 :root {
   scroll-behavior: smooth;
+  /* --color-principal: rgba(255, 255, 255, 0.801);
+  --color-secundario: #ebebeb;
+  --color-claro: #181924;
+  --color-blanco: #2a2b36; */
+
   --color-principal: #012970;
   --color-secundario: #4154f1;
   --color-claro: #f6f9ff;
   --color-blanco: #fff;
 
 }
+
+/* .card{  
+  background-color: var(--color-blanco) !important;
+  color: var(--color-principal) !important;
+} */
+
+/* form *{
+  color: var(--color-principal) !important;
+  background-color: var(--color-blanco) !important;
+} */
+
 
 body {
   font-family: "Open Sans", sans-serif;

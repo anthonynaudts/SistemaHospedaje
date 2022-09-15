@@ -5,8 +5,8 @@
 <script src='assets/calendario_lib/locales-all.js'></script>
 
 
-//[p] Notificacion 2 horas antes de la salida
-//[p] Colores de estados de reservas (Verde confirmada, amarillo pendiente, rojo cancelada)
+<!-- //[p] Notificacion 2 horas antes de la salida -->
+<!-- //[p] Colores de estados de reservas (Verde confirmada, amarillo pendiente, rojo cancelada) -->
 
 
 <script>
@@ -129,7 +129,8 @@
   }
 
 </style>
-<section class="section" style="max-height: 80vh;">
+<section class="section">
+<!-- <section class="section" style="max-height: 80vh;"> -->
     <div class="row d-flex justify-content-center">
         <div class="card">
             <div class="card-body">
