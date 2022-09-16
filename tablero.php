@@ -227,7 +227,8 @@
                 <div class="card-body">
                   <h5 class="card-title">Ventas Recientes <span>| Hoy</span></h5>
 
-                  <!-- //[p] buscar filtro de la tabla para traducir -->
+                  <!-- //[ ] buscar filtro de la tabla para traducir -->
+                  <!-- //[ ] Traducir archivo, vendor/simple-datatable/archivo js -->
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>

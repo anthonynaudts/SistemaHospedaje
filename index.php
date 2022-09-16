@@ -36,7 +36,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<!-- //[p] cambiar colores -->
+
 <body>
 
   <main>
