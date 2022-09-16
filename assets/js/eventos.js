@@ -4,7 +4,6 @@
     }).done(function(res) {
         try {
             var result = JSON.parse(res);
-            // console.log(result)
             console.table(result)
 
 
@@ -48,6 +47,14 @@
                     //   arg.event.remove()
                     // }
                   },
+                  eventDrop: function(arg){
+                    console.table(arg.event.id)
+                    // [p] Actualizar fechas en base de datos
+                  },
+                  eventResize: function(arg){
+                    console.table(arg.event.id)
+                    // [p] Actualizar fechas en base de datos
+                  },
                   editable: true,
                   dayMaxEvents: true, // allow "more" link when too many events
                   events: result
@@ -62,8 +69,3 @@
             console.log(error)
         }
     });
-  
-  
-  
-  
-  
