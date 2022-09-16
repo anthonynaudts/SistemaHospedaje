@@ -258,4 +258,32 @@
         $datos = json_decode(insertarGeneral("EXEC ActualizarPermisos '".intval($idPagina)."','".intval($idPosicion)."', '".$estado."'"), true);
         echo $datos;
     }
+
+
+    // Funcionar para manejo de eventos
+    function ActualizarGeneral($query){
+        try{
+            $conn = conectarBD();
+            $insertReview = sqlsrv_query($conn, $query);
+            if($insertReview == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+            $cont = 0;
+            while($row = sqlsrv_fetch_array($insertReview, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+
+            sqlsrv_free_stmt($insertReview);
+            sqlsrv_close($conn);
+            return true;
+        }
+        catch(Exception $e){
+            echo("Error". $e);
+        }
+    }
+
+    function ActualizarFechaEvento($idEvento, $fechaInicio, $fechaFinal){
+        $datos = ActualizarGeneral("UPDATE eventos SET inicia='".$fechaInicio."', finaliza='".$fechaFinal."' WHERE idEvento = '".$idEvento."'");
+        echo $datos;
+    }
 ?>

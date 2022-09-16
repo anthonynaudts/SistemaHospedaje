@@ -1,12 +1,28 @@
 
+    function actualizarFechasEvento(idEvento, fechaInicio, fechaFinal){
+      $.ajax({
+          url: RUTACONSULTAS + "actualizarFechaEvento" + ".php",
+          method: "POST",
+          data: {
+            idEvento: idEvento,
+            fechaInicio: fechaInicio,
+            fechaFinal: fechaFinal
+          },
+      }).done(function(res) {
+          try {
+              console.log("Evento actualizado...")
+          } catch (error) {
+              console.log(error)
+          }
+      });
+  }    
+    
     $.ajax({
         url: "./assets/db/peticiones/cargarEventos.php",
     }).done(function(res) {
         try {
-            var result = JSON.parse(res);
-            console.table(result)
-
-
+            let result = JSON.parse(res);
+            // console.table(result)
 
 
             // document.addEventListener('DOMContentLoaded', function() {
@@ -31,7 +47,7 @@
                 },
                   select: function(arg) {
                     var title = prompt('Event Title:');
-                    if (title) {
+                    if (title) { 
                       calendar.addEvent({
                         title: title,
                         start: arg.start,
@@ -48,11 +64,16 @@
                     // }
                   },
                   eventDrop: function(arg){
-                    console.table(arg.event.id)
+                    // Evento arrastrar
+                    // console.table(arg.event.id)
+                    // console.log(arg.event.id, arg.event.startStr, arg.event.endStr)
+                    actualizarFechasEvento(arg.event.id, arg.event.startStr, arg.event.endStr)
                     // [p] Actualizar fechas en base de datos
                   },
                   eventResize: function(arg){
-                    console.table(arg.event.id)
+                    // Evento cambiar tamaño
+                    actualizarFechasEvento(arg.event.id, arg.event.startStr, arg.event.endStr)
+                    // console.log(arg.event.id, arg.event.startStr, arg.event.endStr)
                     // [p] Actualizar fechas en base de datos
                   },
                   editable: true,
