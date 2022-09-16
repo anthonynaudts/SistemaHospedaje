@@ -265,7 +265,7 @@ function cargarPaginas(){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
-            console.table(result)
+            // console.table(result)
             contenedorExis = document.getElementById("listarPaginas")
             
             contenedorExis.innerHTML = ""
