@@ -168,34 +168,7 @@
         }
     }
 
-    function cargarEventos(){
-        try{
-            $query = "SELECT * FROM cargarEventos";
-            $conn = conectarBD();
-            $obtenerDatos = sqlsrv_query($conn, $query);
-            if ($obtenerDatos == FALSE)
-                die(print_r(sqlsrv_errors(),true));
-                $cont = 0;
-            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
-                // $datos[$cont]["id"]=$row["id"];
-                // $datos[$cont]["title"]=$row["title"];
-                // $datos[$cont]["inicia"]=$row["inicia"];
-                // $datos[$cont]["end"]=$row["end"];
-                $datos[$cont] = $row;
-                
-                $cont++;
-            }
-            // print_r($datos[0]["inicia"]);
-            echo json_encode($datos);
-            sqlsrv_free_stmt($obtenerDatos);
-            sqlsrv_close($conn);
-            // return json_encode($datos);
-        }
-        catch(Exception $e){
-            echo("Error " . $e);
-        }
-    }
-// echo cargarEventos();
+    
     // Eliminar datos
     function eliminarGeneral($query){
         try{
@@ -261,6 +234,37 @@
 
 
     // Funcionar para manejo de eventos
+
+    function cargarEventos(){
+        try{
+            $query = "SELECT * FROM cargarEventos";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont]["id"]=$row["id"];
+                $datos[$cont]["title"]=$row["title"];
+                $datos[$cont]["backgroundColor"]=$row["backgroundColor"];
+                $datos[$cont]["borderColor"]=$row["backgroundColor"];                
+                $datos[$cont]["start"]=($row["start"] == NULL)? 0 :$row["start"]->format('Y-m-d H:i:s');
+                $datos[$cont]["end"]=($row["end"] == NULL)? "" :$row["end"]->format('Y-m-d H:i:s');
+                // $datos[$cont] = $row;
+                $cont++;
+            }
+            
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+            // print_r($datos[0]["start"]->format('Y-m-d H:i:s'));
+            // echo json_encode($datos);
+            return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
     function ActualizarGeneral($query){
         try{
             $conn = conectarBD();

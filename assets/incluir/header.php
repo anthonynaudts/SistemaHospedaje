@@ -22,6 +22,7 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <!-- <link href="assets/css/fuentes.css" rel="stylesheet"> -->
@@ -56,13 +57,6 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <!-- //ERROR pantalla completa no funciona -->
-            <i class="bi bi-arrows-fullscreen"></i>
-          </a><!-- End Fullscreen Icon -->
-        </li><!-- End Fullscreen Nav -->
 
         <li class="nav-item dropdown">
 
@@ -316,9 +310,9 @@
         </ul>
       </li><!-- End Components Nav -->
 
-      <li class="nav-heading">Mantenimientos</li>
+      <li id="mantenimientos" class="nav-heading">Mantenimientos</li>
 
-      <li class="nav-item">
+      <li id="mantenimientos" class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#Mantenimientos-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gear"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

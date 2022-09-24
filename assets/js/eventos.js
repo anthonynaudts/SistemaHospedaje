@@ -1,5 +1,5 @@
 
-    function actualizarFechasEvento(idEvento, fechaInicio, fechaFinal){
+  function actualizarFechasEvento(idEvento, fechaInicio, fechaFinal){
       $.ajax({
           url: RUTACONSULTAS + "actualizarFechaEvento" + ".php",
           method: "POST",
@@ -10,19 +10,35 @@
           },
       }).done(function(res) {
           try {
+            if(res == 1)
               console.log("Evento actualizado...")
           } catch (error) {
               console.log(error)
           }
       });
-  }    
+  }
+
+  function mostrarDatosEvento(datos){
+
+    document.getElementById("datosEvento").innerHTML = `
+    <h5>${datos.title}</h5>
+    <p class="m-0">${datos.startStr} - ${datos.endStr}</p>
+    <p class="m-0">Persona</p>
+    <p class="m-0">habitacion</p>
+    `
+
+    apEstilos = document.querySelector(".modal-content-custom")
+    apEstilos.style.borderColor = datos.backgroundColor
+    document.getElementById("abrirModal").click()
+  }
+
     
     $.ajax({
         url: "./assets/db/peticiones/cargarEventos.php",
     }).done(function(res) {
         try {
             let result = JSON.parse(res);
-            // console.table(result)
+            console.table(result)
 
 
             // document.addEventListener('DOMContentLoaded', function() {
@@ -58,10 +74,14 @@
                     calendar.unselect()
                   },
                   eventClick: function(arg) {
-                     console.log(arg.event)
-                    // if (confirm('Are you sure you want to delete this event?')) {
-                    //   arg.event.remove()
-                    // }
+                    //  console.log(arg)
+                    console.log(arg.event)
+                    // document.getElementById("abrirModal").click()
+                    // objeto = arg.event
+                    // console.log(objeto)
+
+                    // document.getElementById("datosEvento").innerText = objeto
+                    mostrarDatosEvento(arg.event)
                   },
                   eventDrop: function(arg){
                     // Evento arrastrar
@@ -84,7 +104,7 @@
                 calendar.render();
             //   });
 
-
+            document.getElementById("abrirModal").click() // BUG Eliminar al arreglar modal
                 
         } catch (error) {
             console.log(error)

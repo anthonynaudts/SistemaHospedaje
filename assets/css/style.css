@@ -24,6 +24,27 @@
 
 }
 
+.modal-title-custom{
+  font-size: 17px !important;
+  margin: 0;
+}
+
+.modal-header-custom{
+  padding: 0.7rem 1rem 0.3rem !important;
+}
+
+.modal-content-custom{
+  border-radius: 0 !important;
+  border-style: solid !important;
+  border-width: 6px 0 0 !important; 
+}
+
+#datosEvento{
+  padding: 0.5rem 1rem;
+}
+
+
+
 /* .card{  
   background-color: var(--color-blanco) !important;
   color: var(--color-principal) !important;
@@ -80,6 +101,7 @@ h6 {
   cursor: not-allowed;
   opacity: 0.5;
   text-decoration: none;
+  display: none !important;
 }
 
 /*--------------------------------------------------------------

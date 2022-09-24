@@ -1,6 +1,7 @@
 const RUTACONSULTAS = "./assets/db/peticiones/"; 
 
 function desactivarLinksSinPermisos(){
+    //[p] Buscar con queryselector los elementos id de mantenimiento ej, y si es menor que 2 desactivar todos
     $.ajax({
         url: RUTACONSULTAS + "consultaPermisosGeneral" + ".php",
         method: "POST"
@@ -43,6 +44,9 @@ function consultaGeneral(query){
 }
 
 window.addEventListener("load", function(event) {
+
+    
+
     var URLactual = window.location.pathname;
     URLactual = URLactual.replace("/", "")
 
@@ -100,7 +104,29 @@ function validarFormularios(formulario){
     return true
 }
 
-function alertaFormularios(contenedor, mensaje, tipoMensaje){
+function alertaFormularios(mensaje, tipoMensaje){
+
+    new Notify ({
+        status: tipoMensaje,
+        title: mensaje,
+        text: '',
+        effect: 'slide',
+        speed: 300,
+        customClass: '',
+        customIcon: '',
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 4000,
+        gap: 20,
+        distance: 20,
+        type: 1,
+        position: 'right bottom',
+        customWrapper: '',
+      })
+return
+//[p] nueva alerta
+
     tiposAlertas = {
         "success":{
             clase: "alert-success",
@@ -120,7 +146,7 @@ function alertaFormularios(contenedor, mensaje, tipoMensaje){
         }
     };
 
-    //[ ] Eliminar alerta después de 5 segundos
+    
 
     contenedorExis = document.getElementById(contenedor.srcElement.id)
 // var capa = document.getElementById("capa");
@@ -183,7 +209,7 @@ function login(event){
             if(res)
                 window.location="tablero";
             else
-                alertaFormularios(event, "Usuario o contraseña incorrectos", "danger")
+                alertaFormularios("Usuario o contraseña incorrectos", "error")
                 
         } catch (error) {
             console.log(error)
@@ -218,13 +244,13 @@ function ActualizarUsuario(event){
     }).done(function(res) {
         try {
             if(res){
-                alertaFormularios(event, "Usuario creado correctamente!", "success")
+                alertaFormularios("Usuario creado correctamente!", "success")
                 limpiarFormulario(event)
             }else{
-                alertaFormularios(event, "Ocurrió un error al momento de crear el usuario!", "warning")
+                alertaFormularios("Ocurrió un error al momento de crear el usuario!", "warning")
             }
         } catch (error) {
-            alertaFormularios(event, "Ocurrió un error al momento de crear el usuario!", "warning")
+            alertaFormularios("Ocurrió un error al momento de crear el usuario!", "warning")
             console.log(error)
         }
     });
@@ -383,7 +409,7 @@ function ActualizarPaginas(event){
     }).done(function(res) {
         try {
             if(res){
-                alertaFormularios(event, "Página agregada/actualizada correctamente!", "success")
+                alertaFormularios("Página agregada/actualizada correctamente!", "success")
                 cargarPaginas()
 
                 elementos = document.getElementById("paginaPosiciones").childNodes
@@ -402,10 +428,10 @@ function ActualizarPaginas(event){
 
 
             }else{
-                alertaFormularios(event, "Ocurrió un error al momento de registrar esta página!", "warning")
+                alertaFormularios("Ocurrió un error al momento de registrar esta página!", "warning")
             }
         } catch (error) {
-            alertaFormularios(event, "Ocurrió un error al momento de registrar esta página!", "warning")
+            alertaFormularios("Ocurrió un error al momento de registrar esta página!", "warning")
             console.log(error)
         }
     });
