@@ -282,7 +282,7 @@
         <a class="nav-link collapsed" data-bs-target="#usuarios-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="usuarios-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="usuarios-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
           <li>
             <a href="registro" id="registro">
               <i class="bi bi-circle"></i><span>Registrar</span>
@@ -300,25 +300,31 @@
         <a class="nav-link collapsed" data-bs-target="#reservaciones-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-calendar-check"></i><span>Reservaciones</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="reservaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
+        <ul id="reservaciones-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
+          <li id="reservacion">
           <!-- class="desactivarLink" onclick="return false;" -->
-            <a href="reservacion" id="reservacion">
+            <a href="reservacion">
               <i class="bi bi-circle"></i><span>Reservación</span>
+            </a>
+          </li>
+          <li id="reservacion2" class="desactivarLink"> 
+          <!-- class="desactivarLink" onclick="return false;" -->
+            <a href="reservacion">
+              <i class="bi bi-circle"></i><span>Reservación 2</span>
             </a>
           </li>
         </ul>
       </li><!-- End Components Nav -->
 
-      <li id="mantenimientos" class="nav-heading">Mantenimientos</li>
+      <!-- <li id="mantenimientos" class="nav-heading">Mantenimientos</li> -->
 
       <li id="mantenimientos" class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#Mantenimientos-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gear"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="Mantenimientos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="paginas" id="paginas">
+        <ul id="Mantenimientos-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
+          <li id="paginas">
+            <a href="paginas">
               <i class="bi bi-circle"></i><span>Páginas</span>
             </a>
           </li>
@@ -497,8 +503,8 @@
 
       <li class="nav-heading">Páginas</li>
 
-      <li class="nav-item">
-        <a id="perfil" class="nav-link collapsed" href="perfil">
+      <li class="nav-item" id="perfil">
+        <a  class="nav-link collapsed" href="perfil">
           <i class="bi bi-person"></i>
           <span>Perfil</span>
         </a>

@@ -40,6 +40,17 @@
             let result = JSON.parse(res);
             console.table(result)
 
+            // Fecha
+            let date = new Date()
+            let day = date.getDate()
+            let month = date.getMonth() + 1
+            let year = date.getFullYear()
+            // let fechaHoy = ''
+            if(month < 10){
+              fechaHoy = `${year}-0${month}-${day}`
+            }else{
+              fechaHoy = `${year}-${month}-${day}`
+            }
 
             // document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
@@ -50,16 +61,30 @@
                   headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay listDay,listWeek,listMonth'
+                    right: 'dayGridMonth listDay,listWeek,listMonth'
+                    // right: 'dayGridMonth,timeGridWeek,timeGridDay listDay,listWeek,listMonth'
                   },
-                  initialDate: '2022-09-12',
+                  dayRender: function(date, cell){
+                    if (date > maxDate){
+                        $(cell).addClass('disabled');
+                    }
+                  },
+                  // selectConstraint: {
+                  //   start: '2022-10-03',
+                  //   end: '2022-10-12'
+                  // },
+                  // validRange: {
+                  //   start: '2022-10-03',
+                  //   end: '2022-10-12'
+                  // },
+                  initialDate: fechaHoy,
                   navLinks: true, // can click day/week names to navigate views
                   selectable: true,
                   selectMirror: true,
                   views: {
-                  listDay: { buttonText: 'A día' },
-                  listWeek: { buttonText: 'A Semana' },
-                  listMonth: { buttonText: 'A Mes' }
+                  listDay: { buttonText: 'Lista día' },
+                  listWeek: { buttonText: 'Lista semana' },
+                  listMonth: { buttonText: 'Lista mes' }
                 },
                   select: function(arg) {
                     var title = prompt('Event Title:');
@@ -97,7 +122,7 @@
                     // [p] Actualizar fechas en base de datos
                   },
                   editable: true,
-                  dayMaxEvents: true, // allow "more" link when too many events
+                  dayMaxEvents: false, // allow "more" link when too many events
                   events: result
                 });
             

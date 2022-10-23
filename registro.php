@@ -43,6 +43,12 @@
                       <div class="invalid-feedback">¡Por favor, introduce una dirección de correo electrónico válida!</div>
                     </div>
 
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Celular</label>
+                      <input type="text" name="text" class="form-control" id="yourPhone" required>
+                      <div class="invalid-feedback">¡Por favor, introduce el número de celular!</div>
+                    </div>
+
                     <div class="col-12 has-validation">
                       <label for="yourUsername" class="form-label">Nombre de usuario</label>
                       <input type="text" name="username" class="form-control" id="yourUsername" required disabled>
@@ -57,16 +63,13 @@
 
                     <div class="col-12">
                       <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">Estoy de acuerdo y acepto los <a href="#">términos y condiciones</a></label>
+                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms">
+                        <label class="form-check-label" for="acceptTerms">Este usuario puede <a href="#">acceder</a> a la web.</label>
                         <div class="invalid-feedback">Debe estar de acuerdo antes de enviar.</div>
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Crear una cuenta</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">¿Ya tienes una cuenta? <a href="pages-login.html">Acceder</a></p>
+                      <button class="btn btn-primary w-100" type="submit">Registrar usuario</button>
                     </div>
                   </form>
 
@@ -74,6 +77,91 @@
               </div>
           </div>
         </div>
+
+
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+              
+
+                <div class="card-body">
+                  <h5 class="card-title">Usuarios <span>| Listado de usuarios</span></h5>
+                  <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row"><a href="#">#2457</a></th>
+                        <td>Brandon Jacob</td>
+                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                        <td>$64</td>
+                        <td><span class="badge bg-success">Aprobado</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2147</a></th>
+                        <td>Bridie Kessler</td>
+                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                        <td>$47</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2147</a></th>
+                        <td>Bridie Kessler</td>
+                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                        <td>$47</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2147</a></th>
+                        <td>Bridie Kessler</td>
+                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                        <td>$47</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2147</a></th>
+                        <td>Bridie Kessler</td>
+                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                        <td>$47</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Aprobado</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <td>Angus Grady</td>
+                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                        <td>$67</td>
+                        <td><span class="badge bg-danger">Rechazado</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <td>Raheem Lehner</td>
+                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                        <td>$165</td>
+                        <td><span class="badge bg-success">Aprobado</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div>
+
       </div>
     </section>
 

@@ -7,18 +7,48 @@ function desactivarLinksSinPermisos(){
         method: "POST"
     }).done(function(res) {
         try {
+
             var result = JSON.parse(res);
             result.forEach(pagina => {
                 if(pagina.estado != 1){
                     document.getElementById(pagina.pagina).classList.add("desactivarLink")
-                    document.getElementById(pagina.pagina).setAttribute("onclick", "return false;");
+                    // document.getElementById(pagina.pagina).setAttribute("onclick", "return false;");
                     
                     // [ ] asignar onclick return false a cada página para que desactive el click
                 }else{
                     document.getElementById(pagina.pagina).classList.remove("desactivarLink")
-                    document.getElementById(pagina.pagina).setAttribute("onclick", "return true;");
+                    // document.getElementById(pagina.pagina).setAttribute("onclick", "return true;");
                 }
             });
+
+            // [p] Agregar elemento de carga en menú, cuando se ejecute el proceso muestro los datos
+
+            // Codigo prueba
+
+            // ERROR codigo para quitar elementos del menu si no tienen hijos
+            ll = document.querySelectorAll(".modulo")
+
+            // const myElement = document.getElementById('foo');
+            ll.forEach(element => {
+                // console.log(element)
+                // console.log("Elementos Módulo = " +element.childElementCount)
+                let noActivos = 0
+                for (const child of element.children) {
+                    // console.log(child.classList == "desactivarLink");
+                    (child.classList == "desactivarLink")? noActivos ++: ''
+                }
+                // console.log("No activos = " + noActivos)
+                if(element.childElementCount == noActivos)
+                    element.parentElement.style.display = "none"
+                else
+                    element.parentElement.style.display = "block"
+            });
+            // ll = ll.children
+            // console.log(ll) 
+
+            // fin Codigo prueba
+
+
         } catch (error) {
             console.log(error)
         }
@@ -298,13 +328,15 @@ function cargarPaginas(){
             contador = 0
             result.forEach(element => {
                 contador++
+                //ERROR acciones desactivadas
                 carga = `<tr class="text-center">
                 <th scope="row">${contador}</th>
                 <td>${element.pagina}</td>
                 <td>
                     <!--<span class="text-primary" style="cursor:pointer;" onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})'>Seleccionar</span>-->
                     <span onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})' class="btn btn-warning btn-sm text-white" title="Eeditar"><i class="bi bi-pencil"></i></span>
-                    <span onclick='EliminarPagina(${element.idPagina})' class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></span>
+                    <!--<span onclick='EliminarPagina(${element.idPagina})' class="btn ${(element.estado == 1? 'btn-success' : 'btn-secondary')} btn-sm" title="${(element.estado == 1? 'Desactivar' : 'Activar')}">
+                    <i class="bi ${(element.estado == 1? 'bi-record-circle-fill' : 'bi-record-circle')}"></i></span> -->
                 </td>
                 </tr>`
                 contenedorExis.innerHTML += carga

@@ -1,10 +1,11 @@
 <?php
+//BUG token para consusltas
     date_default_timezone_set('America/Santo_Domingo');
 
     // Conexión base de datos SQLServer
     function conectarBD(){
         $Servidor = "DESKTOP-J873FE6";
-        $Basededatos = "ReservasHoteleras";
+        $Basededatos = "SisHospedaje";
         $Usuario = "usuario1";
         $contrasena = "usuario1";
         

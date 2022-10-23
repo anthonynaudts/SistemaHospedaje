@@ -1,7 +1,7 @@
 <?php
  function conectarBD(){
     $Servidor = "DESKTOP-J873FE6";
-    $Basededatos = "ReservasHoteleras";
+    $Basededatos = "SisHospedaje";
     $Usuario = "usuario1";
     $contrasena = "usuario1";
     
