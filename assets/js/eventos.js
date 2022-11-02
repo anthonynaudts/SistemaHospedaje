@@ -41,16 +41,20 @@
             console.table(result)
 
             // Fecha
-            let date = new Date()
-            let day = date.getDate()
-            let month = date.getMonth() + 1
-            let year = date.getFullYear()
-            // let fechaHoy = ''
-            if(month < 10){
-              fechaHoy = `${year}-0${month}-${day}`
-            }else{
-              fechaHoy = `${year}-${month}-${day}`
-            }
+            // let date = new Date()
+            // let day = date.getDate()
+            // let month = date.getMonth() + 1
+            // let year = date.getFullYear()
+            // // let fechaHoy = ''
+            // if(month < 10){
+            //   fechaHoy = `${year}-0${month}-${day}`
+            // }else if(day <10){
+            //   fechaHoy = `${year}-${month}-0${day}`
+            // }else{
+            //   fechaHoy = `${year}-${month}-${day}`
+            // }
+
+            fechaHoy = obtenerFechaHoy()
 
             // document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
