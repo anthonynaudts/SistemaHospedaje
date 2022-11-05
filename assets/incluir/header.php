@@ -21,8 +21,11 @@
   <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <!-- <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
   <link href="assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
+  <link href="assets/vendor/datatable/datatable.css" rel="stylesheet" type="text/css">
+  
+  <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables-classic@latest/dist/style.css" rel="stylesheet" type="text/css"> -->
 
   <!-- Template Main CSS File -->
   <!-- <link href="assets/css/fuentes.css" rel="stylesheet"> -->

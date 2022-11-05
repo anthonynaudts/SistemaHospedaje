@@ -46,6 +46,13 @@
             echo "<option value='".$item["idPosicion"]."'>".$item["nombrePuesto"]."</option>";
         }
     }
+
+    function mostrarProvincias(){
+        $datos = json_decode(consultaGeneral("SELECT * FROM provincias order by nombreProvincia ASC"), true);
+        foreach ($datos as $item) {
+            echo "<option value='".$item["idProvincia"]."'>".$item["nombreProvincia"]."</option>";
+        }
+    }
     
     function login($usuario, $contrasena){
         session_start();
@@ -113,6 +120,27 @@
             sqlsrv_free_stmt($obtenerDatos);
             sqlsrv_close($conn);
             // return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
+    function consultaUsuarios(){
+        try{
+            $query = "SELECT * FROM listarUsuarios order by idUsuario ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
         }
         catch(Exception $e){
             echo("Error " . $e);

@@ -98,6 +98,10 @@ window.addEventListener("load", function(event) {
         cargarPaginas();
     }
     
+    if(URLactual == "registro"){
+        cargarUsuarios();
+    }
+
     if(URLactual != ""){
         desactivarLinksSinPermisos();
     }
@@ -219,6 +223,19 @@ $("#yourEmail").keyup(function(){
     $("#yourUsername").val(nombreUsuario);
 });
 
+$("#idEmpleado").keyup(function(){
+    // $("#idEmpleado").val()
+    var idEmpleado = $("#idEmpleado").val()
+    if(idEmpleado != ''){
+        $("#estadoUsuarios").text("Actualizando usuario")
+    }else{
+        $("#estadoUsuarios").text("Registrar usuarios")   
+    }
+    
+    
+     
+});
+
 function login(event){
     // event.preventDefault();
     if(!validarFormularios(event))
@@ -285,6 +302,95 @@ function ActualizarUsuario(event){
         }
     });
 } 
+
+// function activarDataTable(){
+//     const dataTable = new simpleDatatables.DataTable(".datatable", {
+//         searchable: true,
+//         fixedHeight: true,
+//         fixedColumns: true
+//     })
+// }
+
+
+
+function activarDataTable(){
+    const dataTable = new simpleDatatables.DataTable(".datatable", {
+        searchable: true,
+        fixedHeight: true,
+        paging: true,
+        sortable: true,
+        fixedHeight: true,
+        fixedColumns: true
+    })
+}
+
+
+
+function cargarUsuarios(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaUsuarios" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            // console.table(result)
+            contenedorExis = document.getElementById("listarUsuariosRegistrados")
+            
+            let datos = ""
+            // contenedorExis.innerHTML = ""
+            result.forEach(element => {
+                carga = `
+                <tr>
+                    <th scope="row">${element.idUsuario}</th>
+                    <td>${element.nombre}</td>
+                    <td>${element.correo}</td>
+                    <td>${element.usuario}</td>
+                    <td>${element.nombrePuesto}</td>
+                    <td>${element.horaEntrada}</td>
+                    <td>${element.horaSalida}</td>
+                    <td>${element.nombreProvincia}</td>
+                    <td>${(element.estado)? '<span class="badge bg-success">Activo</span>': '<span class="badge bg-danger">Desvinculado</span>'}</td>
+                </tr>
+                `
+                datos += carga
+            });
+
+
+            contenedor = `<div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title">Usuarios <span>| Listado de usuarios</span></h5>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Cod</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Cargo</th>
+                    <th scope="col">Hora entrada</th>
+                    <th scope="col">Hora salida</th>
+                    <th scope="col">Provincia</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                    <tbody>
+                        ${datos}
+                    </tbody>
+                </table>
+                </div>
+              </div>
+              `
+
+              contenedorExis.innerHTML = contenedor
+
+            activarDataTable();
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
 
 
 function cargarPosiciones(){

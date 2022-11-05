@@ -17,14 +17,19 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Registrar usuarios</h5>
-
+              <h5 id="estadoUsuarios" class="card-title">Registrar usuarios</h5>
 
               <form id="formularioRegistro" onsubmit="ActualizarUsuario(event)" class="row g-3 needs-validation" novalidate>
+
+                    <div class="col-6">
+                      <label for="idEmpleado" class="form-label">idEmp</label>
+                      <input type="text" name="idEmpleado" class="form-control" id="idEmpleado" disabled>
+                      <div class="invalid-feedback">¡Por favor, escriba su nombre!</div>
+                    </div>
               
                     <div class="col-6">
                       <label for="yourName" class="form-label">Nombre</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <input type="text" name="yourName" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">¡Por favor, escriba su nombre!</div>
                     </div>
 
@@ -35,6 +40,7 @@
                                 <!-- <option value="1">One</option> -->
                                 <?php mostrarPosiciones(); ?>
                             </select>
+                            <div class="invalid-feedback">¡Por favor, seleccione una posición!</div>
                     </div>
 
                     <div class="col-6">
@@ -63,15 +69,24 @@
 
                     <div class="col-6 has-validation d-flex flex-wrap justify-content-around">
                       <div class="pe-2 w-50">
-                        <label for="yourUsername" class="form-label">Hora de entrada</label>
-                        <input type="time" name="username" class="form-control" id="horaEntrada" required>
-                        <div class="invalid-feedback">Por favor, elija un nombre de usuario.</div>
+                        <label for="horaEntrada" class="form-label">Hora de entrada</label>
+                        <input type="time" name="horaEntrada" class="form-control" id="horaEntrada" required>
+                        <div class="invalid-feedback">Por favor, elija el horario de entrada.</div>
                       </div>
                       <div class="w-50">
-                        <label for="yourUsername" class="form-label">Hora de Salida</label>
-                        <input type="time" name="username" class="form-control" id="horaSalida" required>
-                        <div class="invalid-feedback">Por favor, elija un nombre de usuario.</div>
+                        <label for="horaSalida" class="form-label">Hora de Salida</label>
+                        <input type="time" name="horaSalida" class="form-control" id="horaSalida" required>
+                        <div class="invalid-feedback">Por favor, elija el horario de salida.</div>
                       </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label class="col-sm-2 col-form-label pt-0">Provincia</label>
+                            <select class="form-select" aria-label="Default select example" name="SelectProvincia" id="SelectProvincia" required>
+                                <option value="" selected>-Seleccionar Provincia</option>
+                                <?php mostrarProvincias(); ?>
+                            </select>
+                            <div class="invalid-feedback">¡Por favor, seleccione una provincia!</div>
                     </div>
 
                     <!-- <div class="col-6">
@@ -91,14 +106,14 @@
                       <div class="invalid-feedback">Por favor, elija un nombre de usuario.</div>
                     </div> -->
 
-                    <div class="col-12">
-                      <div class="col-6">
+                    <div class="col-12 d-flex justify-content-end">
+                      <!-- <div class="col-6">
                         <div class="form-check">
                           <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms">
                           <label class="form-check-label" for="acceptTerms">Este usuario puede <a href="#">acceder</a> a la web.</label>
                           <div class="invalid-feedback">Debe estar de acuerdo antes de enviar.</div>
                         </div>
-                      </div>
+                      </div> -->
                       <button class="btn btn-primary col-6" type="submit">Registrar usuario</button>
                     </div>
                   </form>
@@ -109,92 +124,11 @@
         </div>
 
 
-        <div class="col-12">
-              <div class="card recent-sales overflow-auto">
+        <div class="col-12" id="listarUsuariosRegistrados">
 
-              
-
-                <div class="card-body">
-                  <h5 class="card-title">Usuarios <span>| Listado de usuarios</span></h5>
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Cargo</th>
-                        <th scope="col">Estado</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Brandon Jacob</td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Aprobado</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pendiente</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pendiente</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pendiente</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pendiente</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>$147</td>
-                        <td><span class="badge bg-success">Aprobado</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Angus Grady</td>
-                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                        <td>$67</td>
-                        <td><span class="badge bg-danger">Rechazado</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Raheem Lehner</td>
-                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                        <td>$165</td>
-                        <td><span class="badge bg-success">Aprobado</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-
-              </div>
-            </div>
-
+        </div>
       </div>
     </section>
-
 
 
 <?php require("assets/incluir/footer.php"); ?>

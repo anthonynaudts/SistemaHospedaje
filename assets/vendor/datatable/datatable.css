@@ -29,7 +29,9 @@
 
 .dataTable-selector, .dataTable-input, .dataTable-info, .dataTable-pagination>*, .dataTable-bottom, .dataTable-top, .dataTable-table{
 	font-family: "Poppins", sans-serif;
+	font-size: 14px;
 }
+
 .dataTable-selector {
 	padding: 6px;
 	border: 1px solid var(--color-secundario);
@@ -169,12 +171,12 @@
 }
 
 .dataTable-sorter::before {
-	border-top: 4px solid #000;
+	border-top: 4px solid #202020;
 	bottom: 0px;
 }
 
 .dataTable-sorter::after {
-	border-bottom: 4px solid #000;
+	border-bottom: 4px solid #202020;
 	border-top: 4px solid transparent;
 	top: 0px;
 }
