@@ -271,8 +271,10 @@
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
+    <div id="loader" class="d-flex justify-content-center align-items-center" style="height:100%;">
+      <img src="assets/img/loader.gif" style="width: 90px;">
+    </div>
+    <ul id="menu" class="sidebar-nav d-none" id="sidebar-nav">
 
       <li class="nav-item">
         <a id="tablero" class="nav-link collapsed" href="/">
@@ -286,14 +288,9 @@
           <i class="bi bi-people"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="usuarios-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
-          <li>
+          <li id="registro">
             <a href="registro" id="registro">
               <i class="bi bi-circle"></i><span>Registrar</span>
-            </a>
-          </li>
-          <li>
-            <a href="registro2" id="registro2">
-              <i class="bi bi-circle"></i><span>Registrar 2</span>
             </a>
           </li>
         </ul>

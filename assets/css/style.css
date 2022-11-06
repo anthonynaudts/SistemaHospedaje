@@ -104,6 +104,10 @@ h6 {
   display: none !important;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 /*--------------------------------------------------------------
 # Page Title
 --------------------------------------------------------------*/
@@ -715,7 +719,6 @@ h6 {
 }
 
 @media (min-width: 1200px) {
-
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
     margin-left: 0;

@@ -146,6 +146,27 @@
             echo("Error " . $e);
         }
     }
+
+    function buscarUsuario($idUsuario){
+        try{
+            $query = "SELECT * FROM usuarios WHERE idUsuario = '".$idUsuario."'";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
     
     function consultaPermisos($idPagina){
         try{
@@ -246,10 +267,11 @@
         }
     }
 
-    function actualizarUsuarios($idUsuario, $nombre, $idPosicion, $correo, $usuario, $contrasena, $imagenPerfil){
-        $datos = json_decode(insertarGeneral("EXEC ActualizarUsuarios '".intval($idUsuario)."','".$nombre."','".$correo."','".$usuario."','".md5($contrasena)."', '".$imagenPerfil."', '".intval($idPosicion)."'"), true);
+    function actualizarUsuarios($idUsuario, $nombre, $idPosicion, $correo, $usuario, $contrasena, $imagenPerfil, $horaEntrada, $horaSalida, $idProvincia, $estado, $celular){
+        $contrasena = ($contrasena!="")?md5($contrasena):"";
+        $datos = json_decode(insertarGeneral("EXEC ActualizarUsuarios '".intval($idUsuario)."','".$nombre."','".$correo."','".$usuario."','".$contrasena."', '".$imagenPerfil."', '".intval($idPosicion)."', '".$horaEntrada."', '".$horaSalida."', '".$idProvincia."', '".$celular."', '".$estado."'"), true);
         echo ($datos[0]["idUsuario"] > 0)? true : false;
-    }
+    }   
 
     function actualizarPaginas($idPagina, $pagina){
         $datos = json_decode(insertarGeneral("EXEC ActualizarPaginas '".intval($idPagina)."','".$pagina."'"), true);

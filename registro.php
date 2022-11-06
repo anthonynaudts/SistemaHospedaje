@@ -17,14 +17,13 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 id="estadoUsuarios" class="card-title">Registrar usuarios</h5>
+              <h5 class="card-title">Registrar usuarios</h5>
 
               <form id="formularioRegistro" onsubmit="ActualizarUsuario(event)" class="row g-3 needs-validation" novalidate>
 
                     <div class="col-6">
-                      <label for="idEmpleado" class="form-label">idEmp</label>
+                      <label for="idEmpleado" class="form-label">Código usuario</label>
                       <input type="text" name="idEmpleado" class="form-control" id="idEmpleado" disabled>
-                      <div class="invalid-feedback">¡Por favor, escriba su nombre!</div>
                     </div>
               
                     <div class="col-6">
@@ -50,7 +49,7 @@
                     </div>
 
                     <div class="col-6">
-                      <label for="yourEmail" class="form-label">Celular</label>
+                      <label for="yourPhone" class="form-label">Celular</label>
                       <input type="text" name="text" class="form-control" id="yourPhone" required>
                       <div class="invalid-feedback">¡Por favor, introduce el número de celular!</div>
                     </div>
@@ -63,7 +62,7 @@
 
                     <div class="col-6">
                       <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password" class="form-control" id="yourPassword">
                       <div class="invalid-feedback">¡Por favor, introduzca su contraseña!</div>
                     </div>
 
@@ -89,32 +88,17 @@
                             <div class="invalid-feedback">¡Por favor, seleccione una provincia!</div>
                     </div>
 
-                    <!-- <div class="col-6">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms">
-                        <label class="form-check-label" for="acceptTerms">Este usuario puede <a href="#">acceder</a> a la web.</label>
-                        <div class="invalid-feedback">Debe estar de acuerdo antes de enviar.</div>
+                    <div class="col-6 ">
+                    <label for="horaSalida" class="form-label">Estado del usuario</label>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="estadoUsuario">Activo</label>
+                        <input class="form-check-input" name="estadoUsuario" type="checkbox" id="estadoUsuario">
                       </div>
-                    </div> -->
-
+                    </div>
                     
-                    
-
-                    <!-- <div class="col-6 has-validation">
-                      <label for="yourUsername" class="form-label">Hora de salida</label>
-                      <input type="time" name="username" class="form-control" id="yourUsername" required>
-                      <div class="invalid-feedback">Por favor, elija un nombre de usuario.</div>
-                    </div> -->
-
                     <div class="col-12 d-flex justify-content-end">
-                      <!-- <div class="col-6">
-                        <div class="form-check">
-                          <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms">
-                          <label class="form-check-label" for="acceptTerms">Este usuario puede <a href="#">acceder</a> a la web.</label>
-                          <div class="invalid-feedback">Debe estar de acuerdo antes de enviar.</div>
-                        </div>
-                      </div> -->
-                      <button class="btn btn-primary col-6" type="submit">Registrar usuario</button>
+                      <button class="btn btn-outline-danger col-2 me-2" type="reset" onclick="$('#accionUsuarios').text('Registrar usuario')">Limpiar</button>
+                      <button id="accionUsuarios" class="btn btn-success col-4" type="submit">Registrar usuario</button>
                     </div>
                   </form>
 

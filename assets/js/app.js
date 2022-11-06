@@ -46,7 +46,9 @@ function desactivarLinksSinPermisos(){
             // ll = ll.children
             // console.log(ll) 
 
-            // fin Codigo prueba
+            document.getElementById("loader").classList.remove("d-flex")
+            document.getElementById("loader").classList.add("d-none")
+            document.getElementById("menu").classList.remove("d-none")
 
 
         } catch (error) {
@@ -55,6 +57,7 @@ function desactivarLinksSinPermisos(){
     });
 }
 
+// [p]Validar si correo existe
 
 function consultaGeneral(query){
     $.ajax({
@@ -220,24 +223,10 @@ $("#yourEmail").keyup(function(){
     var nombreUsuario = $("#yourEmail").val()
     nombreUsuario = nombreUsuario.split("@")
     nombreUsuario = nombreUsuario[0]
-    $("#yourUsername").val(nombreUsuario);
-});
-
-$("#idEmpleado").keyup(function(){
-    // $("#idEmpleado").val()
-    var idEmpleado = $("#idEmpleado").val()
-    if(idEmpleado != ''){
-        $("#estadoUsuarios").text("Actualizando usuario")
-    }else{
-        $("#estadoUsuarios").text("Registrar usuarios")   
-    }
-    
-    
-     
+    $("#yourUsername").val(nombreUsuario.toLowerCase().replace("_", "").replace("-", ""));
 });
 
 function login(event){
-    // event.preventDefault();
     if(!validarFormularios(event))
         return
 
@@ -264,17 +253,59 @@ function login(event){
     });
 }
 
+// Busca los datos del usuario correspondiente al idUsuario
+function buscarUsuario(idUsuario){ 
+    $("#accionUsuarios").text("Actualizar usuario")
+    $.ajax({
+        url: RUTACONSULTAS + "buscarUsuario" + ".php",
+        method: "POST",
+        data: {
+            idUsuario: idUsuario
+        },
+    }).done(function(res) {
+        try {
+            var datosEmpleado = JSON.parse(res)[0]
+            if(datosEmpleado){
+                document.getElementById("idEmpleado").value = idUsuario,
+                document.getElementById("yourName").value = datosEmpleado.nombre,
+                document.getElementById("YourPosition").value = datosEmpleado.idPosicion,
+                document.getElementById("yourEmail").value = datosEmpleado.correo,
+                document.getElementById("yourUsername").value = datosEmpleado.usuario,
+                document.getElementById("horaEntrada").value = datosEmpleado.horaEntrada,
+                document.getElementById("horaSalida").value = datosEmpleado.horaSalida,
+                document.getElementById("SelectProvincia").value = datosEmpleado.idProvincia,
+                document.getElementById("estadoUsuario").checked = datosEmpleado.estado,
+                document.getElementById("yourPhone").value = datosEmpleado.celular
+            }
+                
+        } catch (error) {
+            $("#accionUsuarios").text("Registrar usuario") 
+            console.log(error)
+        }
+    });
+}
+
+// Actualiza o crea usuarios
 function ActualizarUsuario(event){
     if(!validarFormularios(event))
         return
 
-    var nombre = document.getElementById("yourName").value,
+    var idEmpleado = document.getElementById("idEmpleado").value,
+    nombre = document.getElementById("yourName").value,
     idPosicion = document.getElementById("YourPosition").value,
     correo = document.getElementById("yourEmail").value,
     usuario = document.getElementById("yourUsername").value,
     contrasena = document.getElementById("yourPassword").value,
+    horaEntrada = document.getElementById("horaEntrada").value,
+    horaSalida = document.getElementById("horaSalida").value,
+    idProvincia = document.getElementById("SelectProvincia").value,
+    estadoUsuario = document.getElementById("estadoUsuario").checked,
+    celular = document.getElementById("yourPhone").value,
     idUsuario = 0,
     imagenPerfil = ''
+
+    if(idEmpleado != "")
+        idUsuario = idEmpleado
 
     $.ajax({
         url: RUTACONSULTAS + "actualizarUsuario" + ".php",
@@ -286,12 +317,22 @@ function ActualizarUsuario(event){
             correo: correo.trim(),
             usuario: usuario.trim(),
             imagenPerfil: imagenPerfil.trim(),
-            contrasena: contrasena.trim()
+            contrasena: contrasena.trim(),
+            horaEntrada: horaEntrada.trim(), 
+            horaSalida: horaSalida.trim(), 
+            idProvincia: idProvincia.trim(), 
+            estado: estadoUsuario,
+            celular: celular.trim()
         },
     }).done(function(res) {
         try {
             if(res){
-                alertaFormularios("Usuario creado correctamente!", "success")
+                if(idUsuario > 0)
+                    alertaFormularios("Usuario actualizar correctamente!", "success")
+                else
+                    alertaFormularios("Usuario creado correctamente!", "success")
+                
+                cargarUsuarios()
                 limpiarFormulario(event)
             }else{
                 alertaFormularios("Ocurrió un error al momento de crear el usuario!", "warning")
@@ -303,16 +344,7 @@ function ActualizarUsuario(event){
     });
 } 
 
-// function activarDataTable(){
-//     const dataTable = new simpleDatatables.DataTable(".datatable", {
-//         searchable: true,
-//         fixedHeight: true,
-//         fixedColumns: true
-//     })
-// }
-
-
-
+// Activa los filtros de las tablas
 function activarDataTable(){
     const dataTable = new simpleDatatables.DataTable(".datatable", {
         searchable: true,
@@ -324,8 +356,20 @@ function activarDataTable(){
     })
 }
 
+// Cambiar formato de 24H a 12H
+function horario12H(hora) {
+    horario = hora.split(":")
+    var hora = horario[0];
+    var minutos = horario[1];
+    var formato = hora >= 12 ? 'PM' : 'AM'; 
+    hora = hora % 12; 
+    hora = hora ? hora : 12; 
+    minutos = minutos < 10 ? minutos : minutos;
+    
+    return hora + ':' + minutos + ' ' + formato;
+}
 
-
+// Carga todos los usuarios y los muestra en una tabla de la página registro
 function cargarUsuarios(){
     $.ajax({
         url: RUTACONSULTAS + "consultaUsuarios" + ".php",
@@ -337,17 +381,20 @@ function cargarUsuarios(){
             contenedorExis = document.getElementById("listarUsuariosRegistrados")
             
             let datos = ""
-            // contenedorExis.innerHTML = ""
+            // Lista todos los datos de los usuarios y los almacena en la variable datos
             result.forEach(element => {
+                
+
                 carga = `
                 <tr>
-                    <th scope="row">${element.idUsuario}</th>
+                    <th scope="row" class="pointer text-primary link-danger" onclick="buscarUsuario(${element.idUsuario})"><span>${element.idUsuario}</span></th>
                     <td>${element.nombre}</td>
                     <td>${element.correo}</td>
                     <td>${element.usuario}</td>
                     <td>${element.nombrePuesto}</td>
-                    <td>${element.horaEntrada}</td>
-                    <td>${element.horaSalida}</td>
+                    <td>${element.celular}</td>
+                    <td>${horario12H(element.horaEntrada)}</td>
+                    <td>${horario12H(element.horaSalida)}</td>
                     <td>${element.nombreProvincia}</td>
                     <td>${(element.estado)? '<span class="badge bg-success">Activo</span>': '<span class="badge bg-danger">Desvinculado</span>'}</td>
                 </tr>
@@ -357,7 +404,6 @@ function cargarUsuarios(){
 
 
             contenedor = `<div class="card recent-sales overflow-auto">
-
             <div class="card-body">
               <h5 class="card-title">Usuarios <span>| Listado de usuarios</span></h5>
               <table class="table table-borderless datatable">
@@ -368,6 +414,7 @@ function cargarUsuarios(){
                     <th scope="col">Correo</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Cargo</th>
+                    <th scope="col">Celular</th>
                     <th scope="col">Hora entrada</th>
                     <th scope="col">Hora salida</th>
                     <th scope="col">Provincia</th>
