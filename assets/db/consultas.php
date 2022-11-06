@@ -1,22 +1,23 @@
 <?php
+    require 'conexion.php';
 //BUG token para consusltas
-    date_default_timezone_set('America/Santo_Domingo');
+    // date_default_timezone_set('America/Santo_Domingo');
 
     // Conexión base de datos SQLServer
-    function conectarBD(){
-        $Servidor = "DESKTOP-J873FE6";
-        $Basededatos = "SisHospedaje";
-        $Usuario = "usuario1";
-        $contrasena = "usuario1";
+    // function conectarBD(){
+    //     $Servidor = "DESKTOP-J873FE6";
+    //     $Basededatos = "SisHospedaje";
+    //     $Usuario = "usuario1";
+    //     $contrasena = "usuario1";
         
-        $connectionOptions = array("Database"=>$Basededatos,
-            "Uid"=>$Usuario, "PWD"=> $contrasena, "CharacterSet" => "UTF-8");
-        $conexion = sqlsrv_connect($Servidor, $connectionOptions);
-        if($conexion == false)
-            die(print_r(sqlsrv_errors(),true));
+    //     $connectionOptions = array("Database"=>$Basededatos,
+    //         "Uid"=>$Usuario, "PWD"=> $contrasena, "CharacterSet" => "UTF-8");
+    //     $conexion = sqlsrv_connect($Servidor, $connectionOptions);
+    //     if($conexion == false)
+    //         die(print_r(sqlsrv_errors(),true));
     
-        return $conexion;
-    }
+    //     return $conexion;
+    // }
 
     // Consultas
     function consultaGeneral($query){
@@ -282,7 +283,6 @@
         $datos = json_decode(insertarGeneral("EXEC ActualizarPermisos '".intval($idPagina)."','".intval($idPosicion)."', '".$estado."'"), true);
         echo $datos;
     }
-
 
     // Funcionar para manejo de eventos
 

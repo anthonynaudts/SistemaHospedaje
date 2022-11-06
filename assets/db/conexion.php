@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Santo_Domingo');
  function conectarBD(){
     $Servidor = "DESKTOP-J873FE6";
     $Basededatos = "SisHospedaje";
@@ -9,9 +10,8 @@
         "Uid"=>$Usuario, "PWD"=> $contrasena, "CharacterSet" => "UTF-8");
     $conexion = sqlsrv_connect($Servidor, $connectionOptions);
     if($conexion == false)
-        die(sqlsrv_errors());
+        die(print_r(sqlsrv_errors(),true));
 
     return $conexion;
 }
-  date_default_timezone_set('America/Santo_Domingo');
 ?>
