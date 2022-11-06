@@ -27,8 +27,8 @@
                     </div>
               
                     <div class="col-6">
-                      <label for="yourName" class="form-label">Nombre</label>
-                      <input type="text" name="yourName" class="form-control" id="yourName" required>
+                      <label for="yourName" class="form-label">Nombre completo</label>
+                      <input type="text" name="yourName" class="form-control" id="yourName" pattern="^[a-zA-Z ]+$" minlength="8" required>
                       <div class="invalid-feedback">¡Por favor, escriba su nombre!</div>
                     </div>
 
@@ -50,7 +50,7 @@
 
                     <div class="col-6">
                       <label for="yourPhone" class="form-label">Celular</label>
-                      <input type="text" name="text" class="form-control" id="yourPhone" required>
+                      <input type="text" name="text" class="form-control" id="yourPhone" pattern="^[0-9]+$" minlength="8" required>
                       <div class="invalid-feedback">¡Por favor, introduce el número de celular!</div>
                     </div>
 
@@ -62,7 +62,7 @@
 
                     <div class="col-6">
                       <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword">
+                      <input type="password" name="password" class="form-control" id="yourPassword" minlength="8">
                       <div class="invalid-feedback">¡Por favor, introduzca su contraseña!</div>
                     </div>
 

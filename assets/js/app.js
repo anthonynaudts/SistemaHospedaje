@@ -21,15 +21,10 @@ function desactivarLinksSinPermisos(){
                 }
             });
 
-            // [p] Agregar elemento de carga en menú, cuando se ejecute el proceso muestro los datos
 
-            // Codigo prueba
-
-            // ERROR codigo para quitar elementos del menu si no tienen hijos
-            ll = document.querySelectorAll(".modulo")
-
+            var listaModulos = document.querySelectorAll(".modulo")
             // const myElement = document.getElementById('foo');
-            ll.forEach(element => {
+            listaModulos.forEach(element => {
                 // console.log(element)
                 // console.log("Elementos Módulo = " +element.childElementCount)
                 let noActivos = 0
@@ -43,8 +38,8 @@ function desactivarLinksSinPermisos(){
                 else
                     element.parentElement.style.display = "block"
             });
-            // ll = ll.children
-            // console.log(ll) 
+            // listaModulos = listaModulos.children
+            // console.log(listaModulos) 
 
             document.getElementById("loader").classList.remove("d-flex")
             document.getElementById("loader").classList.add("d-none")
