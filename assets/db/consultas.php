@@ -72,6 +72,8 @@
                 $_SESSION['imagenPerfil'] = $row["imagenPerfil"];
                 $_SESSION['idPosicion'] = $row["idPosicion"];
                 $_SESSION['posicion'] = $row["posicion"];
+                $_SESSION['celular'] = $row["celular"];
+                $_SESSION['nombreProvincia'] = $row["nombreProvincia"];
             }
             echo isset($_SESSION['session_id']);
             

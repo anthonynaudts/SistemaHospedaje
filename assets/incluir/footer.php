@@ -3,7 +3,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>ReHot</span></strong>. Todos los derechos reservados
+      &copy; Copyright <strong><span>Hosp</span></strong>. Todos los derechos reservados
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

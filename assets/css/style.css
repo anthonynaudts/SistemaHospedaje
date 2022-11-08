@@ -24,6 +24,13 @@
 
 }
 
+.imagenPerfil{
+  max-height: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    object-fit: cover;
+}
+
 .modal-title-custom{
   font-size: 17px !important;
   margin: 0;

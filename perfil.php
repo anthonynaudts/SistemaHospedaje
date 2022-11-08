@@ -54,9 +54,9 @@
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Editar perfil</button>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Ajustes</button>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar contraseña</button>
@@ -66,8 +66,8 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">About</h5>
-                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+                  <!-- <h5 class="card-title">About</h5>
+                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p> -->
 
                   <h5 class="card-title">Detalles del perfil</h5>
 
@@ -83,7 +83,7 @@
 
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Trabajo</div>
+                    <div class="col-lg-3 col-md-4 label">Cargo</div>
                     <div class="col-lg-9 col-md-8"><?php echo $_SESSION["posicion"]; ?></div>
                   </div>
 
@@ -93,13 +93,13 @@
                   </div> -->
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Dirección</div>
-                    <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                    <div class="col-lg-3 col-md-4 label">Provincia</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $_SESSION["nombreProvincia"]; ?></div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Telefono</div>
-                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    <div class="col-lg-3 col-md-4 label">Celular</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $_SESSION["celular"]; ?></div>
                   </div>
 
                   <div class="row">
@@ -116,27 +116,27 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de perfil</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/perfil/<?php 
+                        <img id="vistaPreviaImagen" class="imagenPerfil" src="assets/img/perfil/<?php 
                         if(empty($_SESSION["imagenPerfil"]))
                             echo "nofoto.png";
                         else
                             echo $_SESSION["imagenPerfil"]; 
                         ?>" alt="Profile">
                         <div class="pt-2">
-                          <label for="profilePicture" class="btn btn-primary btn-sm text-white" title="Upload new profile image"><i class="bi bi-upload"></i></label>
-                          <input class="d-none" type="file" name="profilePicture" id="profilePicture">
+                          <label for="profilePicture" class="btn btn-primary btn-sm text-white" title="Subir una nueva imagen de perfil"><i class="bi bi-upload"></i></label>
+                          <input class="d-none" type="file" name="profilePicture" id="profilePicture" onchange="vistaPreviaImg(event, '#vistaPreviaImagen')">
                           <!-- <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a> -->
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          <a href="#" onclick="noFoto('#vistaPreviaImagen')" class="btn btn-danger btn-sm" title="Quitar mi foto de perfil"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre completo</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?php echo $_SESSION["nombre"] ?>">
+                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?php echo $_SESSION["nombre"];?>">
                       </div>
-                    </div>
+                    </div> -->
 <!-- 
                     <div class="row mb-3">
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
@@ -177,25 +177,25 @@
                     </div> -->
 
                     <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Provincia</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                        <input name="address" type="text" class="form-control" id="Address" value="<?php echo $_SESSION["nombreProvincia"];?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Teléfono</label>
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Celular</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="<?php echo $_SESSION["celular"];?>">
                       </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Correo</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="email" type="email" class="form-control" id="Email" value="<?php echo $_SESSION["correo"] ?>">
                       </div>
-                    </div>
+                    </div> -->
 
                     <!-- <div class="row mb-3">
                       <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>

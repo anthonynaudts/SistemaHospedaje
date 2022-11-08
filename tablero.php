@@ -227,8 +227,6 @@
                 <div class="card-body">
                   <h5 class="card-title">Ventas Recientes <span>| Hoy</span></h5>
 
-                  <!-- //[ ] buscar filtro de la tabla para traducir -->
-                  <!-- //[ ] Traducir archivo, vendor/simple-datatable/archivo js -->
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
@@ -408,7 +406,7 @@
                   <div class="activite-label">32 min</div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                   <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                    Lorem ipsum dolor sit elit. <a href="#" class="fw-bold text-dark">voluptates</a> possimus.
                   </div>
                 </div><!-- End activity item-->
 

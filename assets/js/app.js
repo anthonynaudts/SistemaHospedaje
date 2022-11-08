@@ -698,6 +698,25 @@ function obtenerFechaHoy(){
     return fechaHoy
 }
 
+function vistaPreviaImg(event, querySelector){
+	const input = event.target;
+	$vistaPreviaImagen = document.querySelector(querySelector);
+	if(!input.files.length) return
+	archivo = input.files[0];
+	objectURL = URL.createObjectURL(archivo);
+	$vistaPreviaImagen.src = objectURL;
+}
+
+function noFoto(event, querySelector){
+	// const input = event.target;
+	$vistaPreviaImagen = document.querySelector(querySelector);
+	// if(!input.files.length) return
+	// archivo = input.files[0];
+    // console.log(archivo)
+	// objectURL = URL.createObjectURL(archivo);
+	$vistaPreviaImagen.src = "../img/nofoto.png";
+}
+
 
 
 
