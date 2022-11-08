@@ -126,7 +126,7 @@
                           <label for="profilePicture" class="btn btn-primary btn-sm text-white" title="Subir una nueva imagen de perfil"><i class="bi bi-upload"></i></label>
                           <input class="d-none" type="file" name="profilePicture" id="profilePicture" onchange="vistaPreviaImg(event, '#vistaPreviaImagen')">
                           <!-- <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a> -->
-                          <a href="#" onclick="noFoto('#vistaPreviaImagen')" class="btn btn-danger btn-sm" title="Quitar mi foto de perfil"><i class="bi bi-trash"></i></a>
+                          <a onclick="noFoto('#vistaPreviaImagen')" class="btn btn-danger btn-sm" title="Quitar mi foto de perfil"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>
                     </div>
@@ -176,12 +176,12 @@
                       </div>
                     </div> -->
 
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Provincia</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="address" type="text" class="form-control" id="Address" value="<?php echo $_SESSION["nombreProvincia"];?>">
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Celular</label>
@@ -276,26 +276,28 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
-
+                  <form id="formCambiarContrasena" onsubmit="cambiarContrasena(event)" class="needs-validation" novalidate> 
                     <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña actual</label>
+                      <label for="contrasenaActual" class="col-md-4 col-lg-3 col-form-label">Contraseña actual</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="contrasenaActual" type="password" class="form-control" id="contrasenaActual" required>
+                        <div class="invalid-feedback">¡Por favor, introduzca su contraseña!</div>
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
+                      <label for="nuevaContrasena" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="nuevaContrasena" type="password" class="form-control" id="nuevaContrasena" required>
+                        <div class="invalid-feedback">¡Por favor, introduzca su nueva contraseña!</div>
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-ingrese nueva contraseña</label>
+                      <label for="confirmarNuevaContrasena" class="col-md-4 col-lg-3 col-form-label">Re-ingrese nueva contraseña</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="confirmarNuevaContrasena" type="password" class="form-control" id="confirmarNuevaContrasena" required>
+                        <div class="invalid-feedback">¡Por favor, confirme su nueva contraseña!</div>
                       </div>
                     </div>
 

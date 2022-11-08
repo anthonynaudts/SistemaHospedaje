@@ -33,13 +33,13 @@
                     </div>
 
                     <div class="col-6">
-                        <label class="col-sm-2 col-form-label pt-0">Posición</label>
+                        <label class="col-sm-2 col-form-label pt-0">Cargo</label>
                             <select class="form-select" aria-label="Default select example" name="YourPosition" id="YourPosition" required>
-                                <option value="" selected>-Seleccionar posición</option>
+                                <option value="" selected>-Seleccionar cargo</option>
                                 <!-- <option value="1">One</option> -->
                                 <?php mostrarPosiciones(); ?>
                             </select>
-                            <div class="invalid-feedback">¡Por favor, seleccione una posición!</div>
+                            <div class="invalid-feedback">¡Por favor, seleccione un cargo!</div>
                     </div>
 
                     <div class="col-6">

@@ -248,6 +248,42 @@ function login(event){
     });
 }
 
+function cambiarContrasena(event){
+    if(!validarFormularios(event))
+        return
+        
+    nuevaContrasena = document.getElementById("nuevaContrasena").value
+    confirmarNuevaContrasena = document.getElementById("confirmarNuevaContrasena").value
+
+    if(nuevaContrasena != confirmarNuevaContrasena){
+        alertaFormularios("La contraseña de confirmación no coincide con la nueva contraseña", "error")
+        return
+    }
+
+    // [p] Hacer procedicimiento almacenado que verifique si la contraseña actual coninciden, de lo contrario enviar error
+
+    contrasenaActual = document.getElementById("contrasenaActual").value
+    
+    $.ajax({
+        url: RUTACONSULTAS + "" + ".php",
+        method: "POST",
+        data: {
+            usuario: usuario.trim(),
+            contrasena: contrasena.trim()
+        },
+    }).done(function(res) {
+        try {
+            if(res)
+                window.location="tablero";
+            else
+                alertaFormularios("Usuario o contraseña incorrectos", "error")
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
 // Busca los datos del usuario correspondiente al idUsuario
 function buscarUsuario(idUsuario){ 
     $("#accionUsuarios").text("Actualizar usuario")
@@ -566,7 +602,6 @@ function ActualizarPermisos(idPagina, idPosicion, estado){
     });
 } 
 
-
 function ActualizarPaginas(event){
     if(!validarFormularios(event))
         return
@@ -617,6 +652,38 @@ function ActualizarPaginas(event){
     });
 } 
 
+function obtenerFechaHoy(){
+    let date = new Date()
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+            // let fechaHoy = ''
+    if(month < 10){
+        fechaHoy = `${year}-0${month}-${day}`
+    }else if(day <10){
+        fechaHoy = `${year}-${month}-0${day}`
+    }else{
+        fechaHoy = `${year}-${month}-${day}`
+    }
+
+    return fechaHoy
+}
+
+function vistaPreviaImg(event, querySelector){
+	const input = event.target;
+	$vistaPreviaImagen = document.querySelector(querySelector);
+	if(!input.files.length) return
+	archivo = input.files[0];
+	objectURL = URL.createObjectURL(archivo);
+	$vistaPreviaImagen.src = objectURL;
+}
+
+function noFoto(querySelector){
+	$vistaPreviaImagen = document.querySelector(querySelector);
+	$vistaPreviaImagen.src = "assets/img/perfil/nofoto.png";
+}
+
+
 function EliminarPagina(idPagina){ //[ ]Confirmar eliminar
 
     const swalWithBootstrapButtons = Swal.mixin({
@@ -661,61 +728,6 @@ function EliminarPagina(idPagina){ //[ ]Confirmar eliminar
       })
       
 } 
-
-
-
-function prueba(){
-    elementos = document.getElementById("paginaPosiciones").childNodes
-                let text = '{"posiciones":[]}';
-                const obj = JSON.parse(text);
-                // obj.posiciones[0]={idPosicion:3, estado: false}
-
-                contador = 0
-                elementos.forEach(element => {
-                    id = element.children[0].id.split("-")
-                    input = document.getElementById("idPos-"+id[1])
-                    obj.posiciones[contador]={idPosicion:id[1], estado: input.checked}
-                    contador++
-                });
-
-                // console.log(obj.posiciones)
-}
-
-function obtenerFechaHoy(){
-    let date = new Date()
-    let day = date.getDate()
-    let month = date.getMonth() + 1
-    let year = date.getFullYear()
-            // let fechaHoy = ''
-    if(month < 10){
-        fechaHoy = `${year}-0${month}-${day}`
-    }else if(day <10){
-        fechaHoy = `${year}-${month}-0${day}`
-    }else{
-        fechaHoy = `${year}-${month}-${day}`
-    }
-
-    return fechaHoy
-}
-
-function vistaPreviaImg(event, querySelector){
-	const input = event.target;
-	$vistaPreviaImagen = document.querySelector(querySelector);
-	if(!input.files.length) return
-	archivo = input.files[0];
-	objectURL = URL.createObjectURL(archivo);
-	$vistaPreviaImagen.src = objectURL;
-}
-
-function noFoto(event, querySelector){
-	// const input = event.target;
-	$vistaPreviaImagen = document.querySelector(querySelector);
-	// if(!input.files.length) return
-	// archivo = input.files[0];
-    // console.log(archivo)
-	// objectURL = URL.createObjectURL(archivo);
-	$vistaPreviaImagen.src = "../img/nofoto.png";
-}
 
 
 
