@@ -359,7 +359,7 @@ function ActualizarUsuario(event){
         try {
             if(res){
                 if(idUsuario > 0)
-                    alertaFormularios("Usuario actualizar correctamente!", "success")
+                    alertaFormularios("Usuario actualizado correctamente!", "success")
                 else
                     alertaFormularios("Usuario creado correctamente!", "success")
                 
@@ -512,7 +512,7 @@ function cargarPaginas(){
             contador = 0
             result.forEach(element => {
                 contador++
-                //ERROR acciones desactivadas
+                
                 carga = `<tr class="text-center">
                 <th scope="row">${contador}</th>
                 <td>${element.pagina}</td>

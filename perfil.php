@@ -294,7 +294,7 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="confirmarNuevaContrasena" class="col-md-4 col-lg-3 col-form-label">Re-ingrese nueva contraseña</label>
+                      <label for="confirmarNuevaContrasena" class="col-md-4 col-lg-3 col-form-label">Confirmar contraseña</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="confirmarNuevaContrasena" type="password" class="form-control" id="confirmarNuevaContrasena" required>
                         <div class="invalid-feedback">¡Por favor, confirme su nueva contraseña!</div>
