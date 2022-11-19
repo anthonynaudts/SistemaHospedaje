@@ -72,9 +72,6 @@ function consultaGeneral(query){
 }
 
 window.addEventListener("load", function(event) {
-
-    
-
     var URLactual = window.location.pathname;
     URLactual = URLactual.replace("/", "")
 
@@ -98,6 +95,10 @@ window.addEventListener("load", function(event) {
     
     if(URLactual == "registro"){
         cargarUsuarios();
+    }
+
+    if(URLactual == "hab"){
+        cargarTipoHab();
     }
 
     if(URLactual != ""){
@@ -518,11 +519,49 @@ function cargarPaginas(){
                 <td>${element.pagina}</td>
                 <td>
                     <!--<span class="text-primary" style="cursor:pointer;" onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})'>Seleccionar</span>-->
-                    <span onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})' class="btn btn-warning btn-sm text-white" title="Eeditar"><i class="bi bi-pencil"></i></span>
+                    <span onclick='seleccionarPagina({"paginaNombre":"${element.pagina}", "idPagina": ${element.idPagina}})' class="btn btn-warning btn-sm text-white" title="Editar"><i class="bi bi-pencil"></i></span>
                     <!--<span onclick='EliminarPagina(${element.idPagina})' class="btn ${(element.estado == 1? 'btn-success' : 'btn-secondary')} btn-sm" title="${(element.estado == 1? 'Desactivar' : 'Activar')}">
                     <i class="bi ${(element.estado == 1? 'bi-record-circle-fill' : 'bi-record-circle')}"></i></span> -->
                 </td>
                 </tr>`
+                contenedorExis.innerHTML += carga
+            });
+            
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function cargarTipoHab(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaTipoHab" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("listadoTipoHab")
+            
+            contenedorExis.innerHTML = ""
+            contador = 0
+            result.forEach(element => {
+                contador++
+                
+                carga = `
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="h-h-${element.idTipoHab}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f-c-${element.idTipoHab}" aria-expanded="false" aria-controls="f-c-${element.idTipoHab}">
+                    <strong>
+                      ${element.nombreTipoHab}
+                    </strong>
+                    </button>
+                  </h2>
+                  <div id="f-c-${element.idTipoHab}" class="accordion-collapse collapse" aria-labelledby="h-h-${element.idTipoHab}" data-bs-parent="#listadoTipoHab">
+                    <div class="accordion-body">${element.descripcionTipoHab}</div>
+                    <span class="btn btn-warning btn-sm text-white mb-2" title="Editar"><i class="bi bi-pencil"></i> Editar</span>
+                  </div>
+                </div>
+                `
                 contenedorExis.innerHTML += carga
             });
             

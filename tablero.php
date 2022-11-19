@@ -15,7 +15,7 @@
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <div class="row">
 
             <!-- Sales Card -->
@@ -142,7 +142,7 @@
                   </ul>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body d-none">
                   <h5 class="card-title">Informe <span>/Hoy</span></h5>
 
                   <!-- Line Chart -->
@@ -380,7 +380,7 @@
         </div><!-- End Left side columns -->
 
         <!-- Right side columns -->
-        <div class="col-lg-4">
+        <div class="col-lg-4 d-none">
 
           <!-- Recent Activity -->
           <div class="card">

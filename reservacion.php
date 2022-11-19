@@ -20,7 +20,8 @@
   #calendar {
     max-width: 100%;
     margin: 0 auto;
-    max-height: 80vh;
+    /* max-height: 130vh; */
+    min-height: 1235px;
   }
 
 </style>

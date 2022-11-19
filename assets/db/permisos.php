@@ -1,5 +1,5 @@
 <?php
-if(!PermisosPagina($url)){
+if(!PermisosPagina()){
 ?>
 <div class="w-100 d-flex justify-content-center">
     <div class="mt-5 mb-5 alert alert-danger alert-dismissible fade show" role="alert">

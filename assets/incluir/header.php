@@ -24,6 +24,10 @@
   <!-- <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
   <link href="assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
   <link href="assets/vendor/datatable/datatable.css" rel="stylesheet" type="text/css">
+
+  
+  <link href="assets/vendor/choices/css/choices.min.css" rel="stylesheet" type="text/css">
+  <script src="assets/vendor/choices/js/choices.min.js"></script>
   
   <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables-classic@latest/dist/style.css" rel="stylesheet" type="text/css"> -->
 
@@ -325,7 +329,12 @@
         <ul id="Mantenimientos-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
           <li id="paginas">
             <a href="paginas">
-              <i class="bi bi-circle"></i><span>Páginas</span>
+              <i class="bi bi-circle"></i><span>Permisos (páginas)</span>
+            </a>
+          </li>
+          <li id="hab">
+            <a href="hab">
+              <i class="bi bi-circle"></i><span>Habitaciones</span>
             </a>
           </li>
         </ul>
