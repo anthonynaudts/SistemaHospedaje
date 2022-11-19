@@ -78,7 +78,7 @@ window.addEventListener("load", function(event) {
     titulo = URLactual.charAt(0).toUpperCase() + URLactual.slice(1);
     titulocabeza = document.querySelector('title').textContent
     document.querySelector('title').textContent = titulocabeza + " · " + titulo
-
+    // this.document.getElementById(URLactual).classList.remove("collapsed")
     if(URLactual == "tablero"){
         this.document.getElementById("tablero").classList.remove("collapsed")
         // return
@@ -104,8 +104,8 @@ window.addEventListener("load", function(event) {
     if(URLactual != ""){
         desactivarLinksSinPermisos();
     }
-    
-    id = URLactual
+    var URLactual = window.location.pathname;
+    id = URLactual.replace('/', '')
     elemento = this.document.getElementById(id)
     elemento.classList.add('active')
 

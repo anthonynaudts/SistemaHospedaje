@@ -292,7 +292,7 @@
           <i class="bi bi-people"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="usuarios-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
-          <li id="registro">
+          <li id="">
             <a href="registro" id="registro">
               <i class="bi bi-circle"></i><span>Registrar</span>
             </a>
@@ -305,15 +305,15 @@
           <i class="bi bi-calendar-check"></i><span>Reservaciones</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="reservaciones-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
-          <li id="reservacion">
+          <li>
           <!-- class="desactivarLink" onclick="return false;" -->
-            <a href="reservacion">
+            <a href="reservacion" id="reservacion">
               <i class="bi bi-circle"></i><span>Reservación</span>
             </a>
           </li>
-          <li id="reservacion2" class="desactivarLink"> 
+          <li class="desactivarLink"> 
           <!-- class="desactivarLink" onclick="return false;" -->
-            <a href="reservacion">
+            <a href="reservacion" id="reservacion2">
               <i class="bi bi-circle"></i><span>Reservación 2</span>
             </a>
           </li>
@@ -327,13 +327,13 @@
           <i class="bi bi-gear"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="Mantenimientos-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
-          <li id="paginas">
-            <a href="paginas">
+          <li>
+            <a href="paginas" id="paginas">
               <i class="bi bi-circle"></i><span>Permisos (páginas)</span>
             </a>
           </li>
-          <li id="hab">
-            <a href="hab">
+          <li>
+            <a href="hab" id="hab">
               <i class="bi bi-circle"></i><span>Habitaciones</span>
             </a>
           </li>
