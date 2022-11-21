@@ -99,6 +99,7 @@ window.addEventListener("load", function(event) {
 
     if(URLactual == "hab"){
         cargarTipoHab();
+        cargarCaracteristicasHab();
     }
 
     if(URLactual != ""){
@@ -376,6 +377,39 @@ function ActualizarUsuario(event){
     });
 } 
 
+
+function ActualizarCaracteristicaHab(event){
+    if(!validarFormularios(event))
+        return
+
+    var idCaractHab = document.getElementById("idCaractHab").value,
+    descCaracteristica = document.getElementById("descCaracteristica").value,
+    iconoCaracteristica = document.getElementById("iconoCaracteristica").value
+
+    $.ajax({
+        url: RUTACONSULTAS + "ActualizarCaracteristicaHab" + ".php",
+        method: "POST",
+        data: {
+            idCaractHab: idCaractHab,
+            descCaracteristica: descCaracteristica.trim(),
+            iconoCaracteristica: iconoCaracteristica.trim()
+        },
+    }).done(function(res) {
+        try {
+            if(res){
+                alertaFormularios("Se guardó correctamente!", "success")
+                cargarCaracteristicasHab()
+                limpiarFormulario(event)
+            }else{
+                alertaFormularios("Ocurrió un error al momento guardar la información!", "warning")
+            }
+        } catch (error) {
+            alertaFormularios("Ocurrió un error al momento guardar la información! ", "warning")
+            console.log(error)
+        }
+    });
+} 
+
 // Activa los filtros de las tablas
 function activarDataTable(){
     const dataTable = new simpleDatatables.DataTable(".datatable", {
@@ -533,6 +567,42 @@ function cargarPaginas(){
     });
 }
 
+
+function cargarCaracteristicasHab(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaCaracteristicasHab" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            // console.table(result)
+            contenedorExis = document.getElementById("listarCaracteristicasHab")
+            
+            contenedorExis.innerHTML = ""
+            result.forEach(element => {
+                
+                carga = `<tr class="text-center">
+                <td>${element.descCaracteristica}</td>
+                <td><i class="bi bi-${element.iconoCaracteristica}"></i></td>
+                <td>
+                    <span onclick='editarCaracteristicasHab({"idCaracteristica":"${element.idCaracteristica}", "descCaracteristica": "${element.descCaracteristica}", "iconoCaracteristica": "${element.iconoCaracteristica}"})' class="btn btn-warning btn-sm text-white" title="Editar"><i class="bi bi-pencil"></i></span>
+                </td>
+                </tr>`
+                contenedorExis.innerHTML += carga
+            });
+            
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function editarCaracteristicasHab(datos){
+    $("#idCaractHab").val(datos.idCaracteristica)
+    $("#descCaracteristica").val(datos.descCaracteristica)
+    $("#iconoCaracteristica").val(datos.iconoCaracteristica)
+}
+
 function cargarTipoHab(){
     $.ajax({
         url: RUTACONSULTAS + "consultaTipoHab" + ".php",
@@ -576,6 +646,7 @@ function seleccionarPagina(datos){
     $("#idPagina").val(datos.idPagina)
     $("#URLPagina").val(datos.paginaNombre)
 }
+
 
 function ElementoEnArreglo(objeto, elemento){
     array =Object.values(objeto)

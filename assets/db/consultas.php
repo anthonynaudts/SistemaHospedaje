@@ -30,6 +30,13 @@
         }
     }
 
+    function mostrarCaracteristicasHab(){
+        $datos = json_decode(consultaGeneral("SELECT idCaracteristica, descCaracteristica FROM caracteristicasHab order by descCaracteristica ASC"), true);
+        foreach ($datos as $item) {
+            echo "<option value='".$item["idCaracteristica"]."'>".$item["descCaracteristica"]."</option>";
+        }
+    }
+
     function mostrarProvincias(){
         $datos = json_decode(consultaGeneral("SELECT * FROM provincias order by nombreProvincia ASC"), true);
         foreach ($datos as $item) {
@@ -92,6 +99,28 @@
     function consultaPaginas(){
         try{
             $query = "SELECT * FROM paginas order by pagina ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+            // return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
+    function consultaCaracteristicasHab(){
+        try{
+            $query = "SELECT * FROM caracteristicasHab order by descCaracteristica ASC";
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
             if ($obtenerDatos == FALSE)
@@ -287,6 +316,11 @@
 
     function ActualizarPermisos($idPagina, $idPosicion, $estado){
         $datos = json_decode(insertarGeneral("EXEC ActualizarPermisos '".intval($idPagina)."','".intval($idPosicion)."', '".$estado."'"), true);
+        echo $datos;
+    }
+
+    function ActualizarCaracteristicaHab($idCaracteristica, $descCaracteristica, $iconoCaracteristica){
+        $datos = json_decode(insertarGeneral("EXEC ActualizarCaracteristicaHab '".intval($idCaracteristica)."','".$descCaracteristica."', '".$iconoCaracteristica."'"), true);
         echo $datos;
     }
 
