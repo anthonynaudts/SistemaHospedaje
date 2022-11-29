@@ -37,6 +37,20 @@
         }
     }
 
+    function mostrarTipoHab(){
+        $datos = json_decode(consultaGeneral("SELECT idTipoHab, nombreTipoHab FROM tipoHabitaciones order by idTipoHab ASC"), true);
+        foreach ($datos as $item) {
+            echo "<option value='".$item["idTipoHab"]."'>".$item["nombreTipoHab"]."</option>";
+        }
+    }
+
+    function mostrarEstadosHab(){
+        $datos = json_decode(consultaGeneral("SELECT idEstadoHab, desEstado FROM estadosHab order by idEstadoHab ASC"), true);
+        foreach ($datos as $item) {
+            echo "<option value='".$item["idEstadoHab"]."'>".$item["desEstado"]."</option>";
+        }
+    }
+
     function mostrarProvincias(){
         $datos = json_decode(consultaGeneral("SELECT * FROM provincias order by nombreProvincia ASC"), true);
         foreach ($datos as $item) {
@@ -312,6 +326,11 @@
     function actualizarPaginas($idPagina, $pagina){
         $datos = json_decode(insertarGeneral("EXEC ActualizarPaginas '".intval($idPagina)."','".$pagina."'"), true);
         echo $datos[0]["idPagina"];
+    }
+
+    function ActualizarTipoHab($idTipoHab, $nombreTipoHab, $descripcionTipoHab){
+        $datos = json_decode(insertarGeneral("EXEC ActualizarTipoHab '".intval($idTipoHab)."','".$nombreTipoHab."' ,'".$descripcionTipoHab."'"), true);
+        echo $datos;
     }
 
     function ActualizarPermisos($idPagina, $idPosicion, $estado){

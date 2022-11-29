@@ -377,6 +377,45 @@ function ActualizarUsuario(event){
     });
 } 
 
+function ActualizarTipoHab(event){
+    if(!validarFormularios(event))
+        return
+
+    var codTipoHab = document.getElementById("codTipoHab").value,
+    nombreTipoHab = document.getElementById("nombreTipoHab").value,
+    descripcionTipoHab = document.querySelector(".ql-editor > *")
+    if(codTipoHab != "")
+        codTipoHab = codTipoHab
+
+    $.ajax({
+        url: RUTACONSULTAS + "ActualizarTipoHab" + ".php",
+        method: "POST",
+        data: {
+            idTipoHab: codTipoHab,
+            nombreTipoHab: nombreTipoHab.trim(),
+            descripcionTipoHab: descripcionTipoHab.innerHTML
+        },
+    }).done(function(res) {
+        try {
+            $(".ql-editor > *").html("")
+            if(res){
+                if(codTipoHab > 0)
+                    alertaFormularios("Actualizado correctamente!", "success")
+                else
+                    alertaFormularios("Creado correctamente!", "success")
+
+                cargarTipoHab()
+                limpiarFormulario(event)
+            }else{
+                alertaFormularios("Ocurrió un error al momento de la creación!", "warning")
+            }
+        } catch (error) {
+            alertaFormularios("Ocurrió un error al momento de la creación!", "warning")
+            console.log(error)
+        }
+    });
+} 
+
 
 function ActualizarCaracteristicaHab(event){
     if(!validarFormularios(event))
@@ -628,7 +667,7 @@ function cargarTipoHab(){
                   </h2>
                   <div id="f-c-${element.idTipoHab}" class="accordion-collapse collapse" aria-labelledby="h-h-${element.idTipoHab}" data-bs-parent="#listadoTipoHab">
                     <div class="accordion-body">${element.descripcionTipoHab}</div>
-                    <span class="btn btn-warning btn-sm text-white mb-2" title="Editar"><i class="bi bi-pencil"></i> Editar</span>
+                    <span onclick='seleccionarTipoHab({"idTipoHab":"${element.idTipoHab}", "nombreTipoHab": "${element.nombreTipoHab}", "descripcionTipoHab": "${element.descripcionTipoHab}"})' class="btn btn-warning btn-sm text-white mb-2" title="Editar"><i class="bi bi-pencil"></i> Editar</span>
                   </div>
                 </div>
                 `
@@ -645,6 +684,12 @@ function seleccionarPagina(datos){
     cargarPermisos(datos.idPagina)
     $("#idPagina").val(datos.idPagina)
     $("#URLPagina").val(datos.paginaNombre)
+}
+
+function seleccionarTipoHab(datos){
+    $("#codTipoHab").val(datos.idTipoHab)
+    $("#nombreTipoHab").val(datos.nombreTipoHab)
+    $(".ql-editor > *").html(datos.descripcionTipoHab)
 }
 
 

@@ -53,7 +53,7 @@
                                         <select class="form-select" aria-label="Default select example" name="selectTipoHab" id="selectTipoHab" required>
                                             <option value="" selected>-Seleccionar tipo habitación</option>
                                             <!-- <option value="1">One</option> -->
-                                            <?php mostrarPosiciones(); ?>
+                                            <?php mostrarTipoHab(); ?>
                                         </select>
                                         <div class="invalid-feedback">¡Por favor, seleccione un tipo de habitación!</div>
                                 </div>
@@ -68,7 +68,7 @@
                                         <select class="form-select" aria-label="Default select example" name="selectTipoHab" id="selectTipoHab" required>
                                             <option value="" selected>-Seleccionar el estado de habitación</option>
                                             <!-- <option value="1">One</option> -->
-                                            <?php mostrarPosiciones(); ?>
+                                            <?php mostrarEstadosHab(); ?>
                                         </select>
                                         <div class="invalid-feedback">¡Por favor, seleccione el estado de la habitación!</div>
                                 </div>
@@ -82,7 +82,21 @@
                                     <label for="" class="form-label">Precio temp alta RD$</label>
                                     <input type="text" name="" class="form-control" id="" placeholder="0.00" pattern="^[0-9]+">
                                   </div>
+
                                 </div>
+
+                                <div class="col-6 mt-2">
+                                    <label for="habIncluye" class="form-label">Incluye</label>
+                                      <select class="form-select" id="choices-multiple-remove-button" placeholder="Seleccionar" multiple>
+                                        <?php mostrarCaracteristicasHab(); ?>
+                                      </select> 
+                                  </div>
+
+                                  <script>
+                                    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                                      removeItemButton: true,
+                                    }); 
+                                  </script>
 
                                 <!-- <div class="col-6">
                                   <label for="" class="form-label">Precio grupos RD$</label>
@@ -105,45 +119,31 @@
                       <div class="card-body">
                         <h5 class="card-title">Tipo habitación</h5>
 
-                        <form id="formularioRegistroTipoHab" onsubmit="" class="row g-3 needs-validation" novalidate>
+                        <form id="formularioRegistroTipoHab" onsubmit="ActualizarTipoHab(event)" class="row g-3 needs-validation" novalidate>
                           <div class="col-12">
                               <div class="col-12">
-                                <label for="idEmpleado" class="form-label">Cod. Tipo Hab.</label>
-                                <input type="text" name="idEmpleado" class="form-control" id="idEmpleado" disabled>
+                                <label for="codTipoHab" class="form-label">Cod. Tipo Hab.</label>
+                                <input type="text" name="codTipoHab" class="form-control" id="codTipoHab" disabled>
                               </div>
                         
                               <div class="col-12 mt-2">
-                                <label for="yourName" class="form-label">Nombre</label>
-                                <input type="text" name="yourName" class="form-control" id="yourName" pattern="^[a-zA-Z ]+$" minlength="8" required>
+                                <label for="nombreTipoHab" class="form-label">Nombre</label>
+                                <input type="text" name="nombreTipoHab" class="form-control" id="nombreTipoHab" pattern="^[a-zA-Z ]+$" minlength="8" required>
                                 <div class="invalid-feedback">¡Por favor, escriba el nombre del tipo de habitación!</div>
                               </div>
 
                               <div class="col-12 mt-2">
-                                <label for="yourName" class="form-label">Descripción</label>
+                                <label for="descripcionTipoHab" class="form-label">Descripción</label>
                                 <!-- Quill Editor Default -->
-                                <div class="quill-editor-default">
-                                  <!-- <p>Hello World!</p>
-                                  <p>This is Quill <strong>default</strong> editor</p> -->
+                                <div id="descripcionTipoHab" class="quill-editor-default">
                                 </div>
                                 <!-- End Quill Editor Default -->
                               </div>
                               
-                              <div class="col-12 mt-2">
-                                <label for="habIncluye" class="form-label">Incluye</label>
-                                  <select class="form-select rounded" id="choices-multiple-remove-button" placeholder="Seleccionar" multiple>
-                                    <?php mostrarCaracteristicasHab(); ?>
-                                    </select> 
-                              </div>
-
-                              <script>
-                                var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                                  removeItemButton: true,
-                                }); 
-                              </script>
 
                             </div>
                               <div class="col-12 d-flex justify-content-end">
-                                <button class="btn btn-outline-danger col-4 me-2" type="reset" onclick="$('#accionUsuarios').text('Registrar usuario')">Limpiar</button>
+                                <button class="btn btn-outline-danger col-4 me-2" type="reset" onclick='$(".ql-editor > *").html("")'>Limpiar</button>
                                 <button id="accionUsuarios" class="btn btn-success col-8" type="submit">Guardar</button>
                               </div>
 
