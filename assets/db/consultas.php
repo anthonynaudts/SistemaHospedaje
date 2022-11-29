@@ -44,6 +44,13 @@
         }
     }
 
+    function mostrarNivelHab(){
+        $datos = json_decode(consultaGeneral("SELECT idNivel, nivelTexto, nivelNum FROM edificioNiveles order by idNivel ASC"), true);
+        foreach ($datos as $item) {
+            echo "<option value='".$item["idNivel"]."'>".$item["nivelNum"]. " - " .$item["nivelTexto"]."</option>";
+        }
+    }
+
     function mostrarEstadosHab(){
         $datos = json_decode(consultaGeneral("SELECT idEstadoHab, desEstado FROM estadosHab order by idEstadoHab ASC"), true);
         foreach ($datos as $item) {
@@ -326,6 +333,11 @@
     function actualizarPaginas($idPagina, $pagina){
         $datos = json_decode(insertarGeneral("EXEC ActualizarPaginas '".intval($idPagina)."','".$pagina."'"), true);
         echo $datos[0]["idPagina"];
+    }
+
+    function ActualizarHab($idHabitacion, $idTipoHab, $imagen, $precioTempAlta, $precioTempBaja, $incluye, $idNivel, $idEstadoHab){
+        $datos = json_decode(insertarGeneral("EXEC actualizarHab '".intval($idHabitacion)."','".$idTipoHab."','".$imagen."','".$precioTempAlta."','".$precioTempBaja."','".$incluye."','".$idNivel."','".$idEstadoHab."'"), true);
+        echo $datos[0]["idHabitacion"];
     }
 
     function ActualizarTipoHab($idTipoHab, $nombreTipoHab, $descripcionTipoHab){

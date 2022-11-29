@@ -416,6 +416,63 @@ function ActualizarTipoHab(event){
     });
 } 
 
+function ActualizarHab(event){
+    if(!validarFormularios(event))
+        return
+
+    var idHab = document.getElementById("idHab").value,
+    selectNivelHab = document.getElementById("selectNivelHab").value,
+    selectTipoHab = document.getElementById("selectTipoHab").value,
+    imagenHab = document.getElementById("imagenHab").value,
+    selectEstadoHab = document.getElementById("selectEstadoHab").value,
+    precioTempBaja = document.getElementById("precioTempBaja").value,
+    precioTempAlta = document.getElementById("precioTempAlta").value,
+    incluye = document.getElementById("choices-multiple-remove-button").selectedOptions
+
+    listaIncluye = ""
+    for(let i = 0; i<incluye.length; i++){
+        if(i == incluye.length - 1)
+            listaIncluye += incluye[i].value
+        else
+            listaIncluye += incluye[i].value + ','
+    }
+
+    if(idHab != "")
+        idHab = idHab
+
+    $.ajax({
+        url: RUTACONSULTAS + "ActualizarHab" + ".php",
+        method: "POST",
+        data: {
+            idHab: idHab,
+            selectNivelHab: selectNivelHab,
+            selectTipoHab: selectTipoHab,
+            imagenHab: imagenHab,
+            selectEstadoHab: selectEstadoHab,
+            precioTempAlta: precioTempAlta,
+            precioTempBaja: precioTempBaja,
+            listaIncluye: listaIncluye.toString()
+        },
+    }).done(function(res) {
+        try {
+            if(res){
+                if(idHab > 0)
+                    alertaFormularios("Actualizado correctamente!", "success")
+                else
+                    alertaFormularios("Creado correctamente!", "success")
+
+                // cargarTipoHab()
+                limpiarFormulario(event)
+            }else{
+                alertaFormularios("Ocurrió un error al momento de la creación!", "warning")
+            }
+        } catch (error) {
+            alertaFormularios("Ocurrió un error al momento de la creación!", "warning")
+            console.log(error)
+        }
+    });
+} 
+
 
 function ActualizarCaracteristicaHab(event){
     if(!validarFormularios(event))
