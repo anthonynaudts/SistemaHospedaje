@@ -24,6 +24,21 @@
 
 }
 
+.listaIncluyeHab{
+  list-style: none;
+}
+
+.btnEditaHab{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border-radius: var(--bs-card-inner-border-radius);  
+}
+
 .imagenPerfil{
   max-height: 150px;
     min-width: 150px;

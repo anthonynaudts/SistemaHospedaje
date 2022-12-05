@@ -100,6 +100,7 @@ window.addEventListener("load", function(event) {
     if(URLactual == "hab"){
         cargarTipoHab();
         cargarCaracteristicasHab();
+        cargarHabitaciones();
     }
 
     if(URLactual != ""){
@@ -416,6 +417,39 @@ function ActualizarTipoHab(event){
     });
 } 
 
+function buscarHabitacion(idHab){
+    $.ajax({
+        url: RUTACONSULTAS + "buscarHabitacion" + ".php",
+        method: "POST",
+        data: {
+            idHab: idHab
+        },
+    }).done(function(res) {
+        try {
+            var datosHabitacion = JSON.parse(res)[0]
+            if(datosHabitacion){
+                document.getElementById("idHab").value = idHab
+                document.getElementById("selectNivelHab").value = datosHabitacion.idNivel
+                document.getElementById("selectTipoHab").value = datosHabitacion.idTipoHab
+                document.getElementById("selectEstadoHab").value = datosHabitacion.idEstadoHab
+                document.getElementById("precioTempAlta").value = datosHabitacion.precioTempAlta
+                document.getElementById("precioTempBaja").value = datosHabitacion.precioTempBaja
+                // datosHabitacion.incluye
+                listaIncluye = datosHabitacion.incluye.split(",")
+                for (let index = 0; index < listaIncluye.length; index++) {
+                    const element = listaIncluye[index];
+                    // $('#choices-multiple-remove-button option[value="'+element+'"]').attr("selected","selected");
+                }
+                // $('#choices-multiple-remove-button option[value=""]').attr("selected","selected");
+                // document.getElementById("choices-multiple-remove-button").value = datosHabitacion.idNivel
+            }
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
 function ActualizarHab(event){
     if(!validarFormularios(event))
         return
@@ -423,7 +457,6 @@ function ActualizarHab(event){
     var idHab = document.getElementById("idHab").value,
     selectNivelHab = document.getElementById("selectNivelHab").value,
     selectTipoHab = document.getElementById("selectTipoHab").value,
-    imagenHab = document.getElementById("imagenHab").value,
     selectEstadoHab = document.getElementById("selectEstadoHab").value,
     precioTempBaja = document.getElementById("precioTempBaja").value,
     precioTempAlta = document.getElementById("precioTempAlta").value,
@@ -440,28 +473,36 @@ function ActualizarHab(event){
     if(idHab != "")
         idHab = idHab
 
+        var formData = new FormData();
+        
+        var files = $('#imagenHab')[0].files[0];
+        formData.append('file',files);
+        formData.append('idHab',idHab);
+        formData.append('selectNivelHab',selectNivelHab);
+        formData.append('selectTipoHab',selectTipoHab);
+        formData.append('selectEstadoHab',selectEstadoHab);
+        formData.append('precioTempAlta',precioTempAlta);
+        formData.append('precioTempBaja',precioTempBaja);
+        formData.append('listaIncluye',listaIncluye.toString());
+
+        
     $.ajax({
         url: RUTACONSULTAS + "ActualizarHab" + ".php",
         method: "POST",
-        data: {
-            idHab: idHab,
-            selectNivelHab: selectNivelHab,
-            selectTipoHab: selectTipoHab,
-            imagenHab: imagenHab,
-            selectEstadoHab: selectEstadoHab,
-            precioTempAlta: precioTempAlta,
-            precioTempBaja: precioTempBaja,
-            listaIncluye: listaIncluye.toString()
-        },
+        data: formData,
+        cache: false, 
+        contentType: false,
+        processData: false
     }).done(function(res) {
         try {
+            console.log(res)
             if(res){
                 if(idHab > 0)
                     alertaFormularios("Actualizado correctamente!", "success")
                 else
                     alertaFormularios("Creado correctamente!", "success")
 
-                // cargarTipoHab()
+                cargarHabitaciones()
                 limpiarFormulario(event)
             }else{
                 alertaFormularios("Ocurrió un error al momento de la creación!", "warning")
@@ -590,10 +631,75 @@ function cargarUsuarios(){
                 </div>
               </div>
               `
+            contenedorExis.innerHTML = contenedor
+            activarDataTable();
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function cargarHabitaciones(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaHabitaciones" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("listarHabitaciones")
+            
+            let datos = ""
+            result.forEach(element => {
+                listaElementosInluye = ""
+                datosIncluye = element.incluye
+                // // console.log(datosIncluye.descCaracteristica)
+                datosIncluye.forEach(elementoIncluye => {
+                    elementoIncluye = elementoIncluye.split(",")
+                    listaElementosInluye += `<li><i class="bi bi-${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`
+                    
+                });
+                carga = `
+                <div class="col">
+                <div class="card h-100 position-relative">
+                <div class="position-absolute top-0 end-0 btnEditaHab bg-warning" onclick="buscarHabitacion(${element.idHabitacion})">
+                    <i class="bi bi-pencil text-white"></i>
+                </div>
+                  <img src="assets/img/habitaciones/${element.imagen}" class="card-img-top" alt="">
+                  <div class="card-body py-0 pb-0">
+                    <h5 class="card-title pb-1 m-0">N${element.nivelNum}-${element.idHabitacion}</h5>
+                    <p class="card-text mb-0"><strong>Tipo:</strong> ${element.nombreTipoHab}</p>
+                    <!-- <p class="card-text mb-1"><strong>Nivel:</strong> ${element.nivelTexto}</p> -->
+                    <p class="card-text mb-0"><strong>Precio alta:</strong> ${element.precioTempAlta}</p>
+                    <p class="card-text mb-0"><strong>precio baja:</strong> ${element.precioTempBaja}</p>
+                    
+                    <p class="card-text mb-0"><strong>Incluye:</strong></p>
+                    <ul class="listaIncluyeHab mt-1">
+                        ${
+                            listaElementosInluye
+                        }
+                    </ul>
+                  </div>
+                  <div class="card-footer py-0 text-center" style="background-color: ${element.colorEstado};">
+                    <small class="fw-bold text-black">${element.desEstado}</small>
+                  </div>
+                </div>
+                </div>
+                `
+                datos += carga
+            });
+
+            contenedor = `<div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Habitaciones <span>| Listado de habitaciones</span></h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    ${datos}
+                </div>
+                </div>
+              </div>
+              `
 
               contenedorExis.innerHTML = contenedor
-
-            activarDataTable();
 
         } catch (error) {
             console.log(error)

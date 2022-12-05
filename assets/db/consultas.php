@@ -204,6 +204,49 @@
         }
     }
 
+    function buscarCaracteristica($idCaracteristica){
+        $datos = json_decode(consultaGeneral("SELECT descCaracteristica, iconoCaracteristica FROM caracteristicasHab WHERE idCaracteristica = '".$idCaracteristica."'"), true);
+        foreach ($datos as $item) {
+            return $item['descCaracteristica'].','.$item['iconoCaracteristica'];
+        }
+    }
+    
+    function consultaHabitaciones(){
+        try{
+            $query = "SELECT * FROM listarHabitaciones order by nivelNum, idHabitacion ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                // $datos[$cont] = $row;
+                $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
+                $datos[$cont]['nombreTipoHab'] = $row["nombreTipoHab"];
+                $datos[$cont]['imagen'] = $row["imagen"];
+                $datos[$cont]['precioTempAlta'] = $row["precioTempAlta"];
+                $datos[$cont]['precioTempBaja'] = $row["precioTempBaja"];
+                // $datos[$cont]['incluye'] = explode(",",$row["incluye"]);
+                $listaIncluye = explode(",", $row["incluye"]);
+                $elementIconos = [];
+                for($i=0; $i < count($listaIncluye); $i++) { 
+                    $elementIconos[$i] = buscarCaracteristica($listaIncluye[$i]);
+                }
+                $datos[$cont]['incluye'] = $elementIconos;
+                $datos[$cont]['nivelNum'] = $row["nivelNum"];
+                $datos[$cont]['desEstado'] = $row["desEstado"];
+                $datos[$cont]['colorEstado'] = $row["colorEstado"];
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
     function buscarUsuario($idUsuario){
         try{
             $query = "SELECT * FROM usuarios WHERE idUsuario = '".$idUsuario."'";
@@ -224,6 +267,28 @@
             echo("Error " . $e);
         }
     }
+
+    function buscarHabitacion($idHab){
+        try{
+            $query = "SELECT * FROM habitaciones WHERE idHabitacion = '".$idHab."'";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+    
     
     function consultaPermisos($idPagina){
         try{
@@ -336,7 +401,7 @@
     }
 
     function ActualizarHab($idHabitacion, $idTipoHab, $imagen, $precioTempAlta, $precioTempBaja, $incluye, $idNivel, $idEstadoHab){
-        $datos = json_decode(insertarGeneral("EXEC actualizarHab '".intval($idHabitacion)."','".$idTipoHab."','".$imagen."','".$precioTempAlta."','".$precioTempBaja."','".$incluye."','".$idNivel."','".$idEstadoHab."'"), true);
+        $datos = json_decode(insertarGeneral("EXEC actualizarHab '".intval($idHabitacion)."','".intval($idTipoHab)."','".$imagen."','".$precioTempAlta."','".$precioTempBaja."','".$incluye."','".$idNivel."','".intval($idEstadoHab)."'"), true);
         echo $datos[0]["idHabitacion"];
     }
 
