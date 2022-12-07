@@ -428,20 +428,18 @@ function buscarHabitacion(idHab){
         try {
             var datosHabitacion = JSON.parse(res)[0]
             if(datosHabitacion){
+                document.getElementById('formularioRegistroHab').reset();
                 document.getElementById("idHab").value = idHab
                 document.getElementById("selectNivelHab").value = datosHabitacion.idNivel
                 document.getElementById("selectTipoHab").value = datosHabitacion.idTipoHab
                 document.getElementById("selectEstadoHab").value = datosHabitacion.idEstadoHab
                 document.getElementById("precioTempAlta").value = datosHabitacion.precioTempAlta
                 document.getElementById("precioTempBaja").value = datosHabitacion.precioTempBaja
-                // datosHabitacion.incluye
+                
                 listaIncluye = datosHabitacion.incluye.split(",")
                 for (let index = 0; index < listaIncluye.length; index++) {
-                    const element = listaIncluye[index];
-                    // $('#choices-multiple-remove-button option[value="'+element+'"]').attr("selected","selected");
+                    multipleCancelButton.setChoiceByValue(listaIncluye[index].toString())
                 }
-                // $('#choices-multiple-remove-button option[value=""]').attr("selected","selected");
-                // document.getElementById("choices-multiple-remove-button").value = datosHabitacion.idNivel
             }
                 
         } catch (error) {
