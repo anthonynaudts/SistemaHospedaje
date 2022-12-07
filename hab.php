@@ -86,11 +86,11 @@
                                 <div class="col-6 has-validation d-flex flex-wrap justify-content-around">
                                   <div class="col-6 pe-2">
                                       <label for="precioTempAlta" class="form-label">Precio temp alta RD$</label>
-                                      <input type="text" name="precioTempAlta" class="form-control" id="precioTempAlta" placeholder="0.00" pattern="^[0-9]+" required>
+                                      <input type="text" name="precioTempAlta" class="form-control" id="precioTempAlta" placeholder="0.00" pattern="^[+]?([0-9]*[.])?[0-9]+$" required>
                                   </div>  
                                   <div class="col-6">
                                       <label for="precioTempBaja" class="form-label">Precio temp baja RD$</label>
-                                      <input type="text" name="precioTempBaja" class="form-control" id="precioTempBaja" placeholder="0.00" pattern="^[0-9]+" required>
+                                      <input type="text" name="precioTempBaja" class="form-control" id="precioTempBaja" placeholder="0.00" pattern="^[+]?([0-9]*[.])?[0-9]+$" required>
                                   </div>
                                 </div>
 
