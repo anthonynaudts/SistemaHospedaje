@@ -233,6 +233,7 @@
                     $elementIconos[$i] = buscarCaracteristica($listaIncluye[$i]);
                 }
                 $datos[$cont]['incluye'] = $elementIconos;
+                $datos[$cont]['idNivel'] = $row["idNivel"];
                 $datos[$cont]['nivelNum'] = $row["nivelNum"];
                 $datos[$cont]['desEstado'] = $row["desEstado"];
                 $datos[$cont]['colorEstado'] = $row["colorEstado"];
@@ -268,9 +269,9 @@
         }
     }
 
-    function buscarHabitacion($idHab){
+    function buscarHabitacion($idHab, $idNivel){
         try{
-            $query = "SELECT * FROM habitaciones WHERE idHabitacion = '".$idHab."'";
+            $query = "SELECT * FROM habitaciones WHERE idHabitacion = '".$idHab."' AND idNivel = '".$idNivel."'";
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
             if ($obtenerDatos == FALSE)

@@ -417,12 +417,13 @@ function ActualizarTipoHab(event){
     });
 } 
 
-function buscarHabitacion(idHab){
+function buscarHabitacion(idHab, idNivel){
     $.ajax({
         url: RUTACONSULTAS + "buscarHabitacion" + ".php",
         method: "POST",
         data: {
-            idHab: idHab
+            idHab: idHab,
+            idNivel: idNivel
         },
     }).done(function(res) {
         try {
@@ -660,10 +661,10 @@ function cargarHabitaciones(){
                 carga = `
                 <div class="col">
                 <div class="card h-100 position-relative">
-                <div class="position-absolute top-0 end-0 btnEditaHab bg-warning" onclick="buscarHabitacion(${element.idHabitacion})">
+                <div class="position-absolute top-0 end-0 btnEditaHab bg-warning" onclick="buscarHabitacion(${element.idHabitacion}, ${element.idNivel})">
                     <i class="bi bi-pencil text-white"></i>
                 </div>
-                  <img src="assets/img/habitaciones/${element.imagen}" class="card-img-top" alt="">
+                  <img src="assets/img/habitaciones/${(element.imagen == ''? 'imagen-no-disponible.png' : element.imagen)}" class="card-img-top" alt="">
                   <div class="card-body py-0 pb-0">
                     <h5 class="card-title pb-1 m-0">N${element.nivelNum}-${element.idHabitacion}</h5>
                     <p class="card-text mb-0"><strong>Tipo:</strong> ${element.nombreTipoHab}</p>
