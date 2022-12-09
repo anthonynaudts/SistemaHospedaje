@@ -24,6 +24,17 @@
 
 }
 
+.conserjeriaDatos{
+  border: 1px solid #888888;
+  border-radius: var(--bs-border-radius);
+  border-bottom: 4px solid;
+  margin: 6px;
+}
+
+.conserjeriaDatos > h5{
+  padding: 2px 1px;
+}
+
 .listaIncluyeHab{
   list-style: none;
 }
