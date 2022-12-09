@@ -237,6 +237,8 @@
                 $datos[$cont]['nivelNum'] = $row["nivelNum"];
                 $datos[$cont]['desEstado'] = $row["desEstado"];
                 $datos[$cont]['colorEstado'] = $row["colorEstado"];
+                $datos[$cont]['cantidadAdultosHab'] = $row["cantidadAdultosHab"];
+                $datos[$cont]['cantidadNinosHab'] = $row["cantidadNinosHab"];
                 $cont++;
             }
             return json_encode($datos);
@@ -401,8 +403,8 @@
         echo $datos[0]["idPagina"];
     }
 
-    function ActualizarHab($idHabitacion, $idTipoHab, $imagen, $precioTempAlta, $precioTempBaja, $incluye, $idNivel, $idEstadoHab){
-        $datos = json_decode(insertarGeneral("EXEC actualizarHab '".intval($idHabitacion)."','".intval($idTipoHab)."','".$imagen."','".$precioTempAlta."','".$precioTempBaja."','".$incluye."','".$idNivel."','".intval($idEstadoHab)."'"), true);
+    function ActualizarHab($idHabitacion, $idTipoHab, $imagen, $precioTempAlta, $precioTempBaja, $incluye, $idNivel, $idEstadoHab, $cantidadAdultosHab, $cantidadNinosHab){
+        $datos = json_decode(insertarGeneral("EXEC actualizarHab '".intval($idHabitacion)."','".intval($idTipoHab)."','".$imagen."','".$precioTempAlta."','".$precioTempBaja."','".$incluye."','".$idNivel."','".intval($idEstadoHab)."', '".intval($cantidadAdultosHab)."', '".intval($cantidadNinosHab)."'"), true);
         echo $datos[0]["idHabitacion"];
     }
 

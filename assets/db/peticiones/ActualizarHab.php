@@ -21,7 +21,7 @@ try {
         $nombreGuardado = NULL;
     }
 
-    echo ActualizarHab($_POST["idHab"], $_POST["selectTipoHab"], $nombreGuardado, $_POST["precioTempAlta"], $_POST["precioTempBaja"], $_POST["listaIncluye"], $_POST["selectNivelHab"], $_POST["selectEstadoHab"]);
+    echo ActualizarHab($_POST["idHab"], $_POST["selectTipoHab"], $nombreGuardado, $_POST["precioTempAlta"], $_POST["precioTempBaja"], $_POST["listaIncluye"], $_POST["selectNivelHab"], $_POST["selectEstadoHab"], $_POST["cantidadAdultosHab"], $_POST["cantidadNinosHab"]);
 
 } catch(Exception $e){
     return 0;

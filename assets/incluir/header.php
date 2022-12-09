@@ -24,6 +24,7 @@
   <!-- <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
   <link href="assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
   <link href="assets/vendor/datatable/datatable.css" rel="stylesheet" type="text/css">
+  <link href="assets/vendor/fontawesome/css/all.css" rel="stylesheet">
 
   
   <link href="assets/vendor/choices/css/choices.min.css" rel="stylesheet" type="text/css">
@@ -315,6 +316,19 @@
           <!-- class="desactivarLink" onclick="return false;" -->
             <a href="reservacion" id="reservacion2">
               <i class="bi bi-circle"></i><span>Reservación 2</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li id="aconserjeria" class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Conserjeria-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-light fa-hand-sparkles"></i><span>Conserjeria</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Conserjeria-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="conserjeria" id="conserjeria">
+              <i class="bi bi-circle"></i><span>Limpieza</span>
             </a>
           </li>
         </ul>

@@ -459,6 +459,8 @@ function ActualizarHab(event){
     selectEstadoHab = document.getElementById("selectEstadoHab").value,
     precioTempBaja = document.getElementById("precioTempBaja").value,
     precioTempAlta = document.getElementById("precioTempAlta").value,
+    cantidadAdultosHab = document.getElementById("cantidadAdultosHab").value,
+    cantidadNinosHab = document.getElementById("cantidadNinosHab").value,
     incluye = document.getElementById("choices-multiple-remove-button").selectedOptions
 
     listaIncluye = ""
@@ -482,6 +484,8 @@ function ActualizarHab(event){
         formData.append('selectEstadoHab',selectEstadoHab);
         formData.append('precioTempAlta',precioTempAlta);
         formData.append('precioTempBaja',precioTempBaja);
+        formData.append('cantidadAdultosHab',cantidadAdultosHab);
+        formData.append('cantidadNinosHab',cantidadNinosHab);
         formData.append('listaIncluye',listaIncluye.toString());
 
         
@@ -655,7 +659,7 @@ function cargarHabitaciones(){
                 // // console.log(datosIncluye.descCaracteristica)
                 datosIncluye.forEach(elementoIncluye => {
                     elementoIncluye = elementoIncluye.split(",")
-                    listaElementosInluye += `<li><i class="bi bi-${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`
+                    listaElementosInluye += `<li><i class="${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`
                     
                 });
                 carga = `
@@ -671,6 +675,8 @@ function cargarHabitaciones(){
                     <!-- <p class="card-text mb-1"><strong>Nivel:</strong> ${element.nivelTexto}</p> -->
                     <p class="card-text mb-0"><strong>Precio alta:</strong> ${element.precioTempAlta}</p>
                     <p class="card-text mb-0"><strong>precio baja:</strong> ${element.precioTempBaja}</p>
+                    <p class="card-text mb-0"><strong>Adultos:</strong> ${element.cantidadAdultosHab}</p>
+                    <p class="card-text mb-0"><strong>Niños:</strong> ${element.cantidadNinosHab}</p>
                     
                     <p class="card-text mb-0"><strong>Incluye:</strong></p>
                     <ul class="listaIncluyeHab mt-1">
@@ -784,7 +790,7 @@ function cargarCaracteristicasHab(){
                 
                 carga = `<tr class="text-center">
                 <td>${element.descCaracteristica}</td>
-                <td><i class="bi bi-${element.iconoCaracteristica}"></i></td>
+                <td><i class="${element.iconoCaracteristica}"></i></td>
                 <td>
                     <span onclick='editarCaracteristicasHab({"idCaracteristica":"${element.idCaracteristica}", "descCaracteristica": "${element.descCaracteristica}", "iconoCaracteristica": "${element.iconoCaracteristica}"})' class="btn btn-warning btn-sm text-white" title="Editar"><i class="bi bi-pencil"></i></span>
                 </td>

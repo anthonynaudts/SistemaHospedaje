@@ -1,7 +1,7 @@
 <?php require("assets/incluir/header.php"); ?>
 
 <div class="pagetitle">
-      <h1>Registro</h1>
+      <h1>Habitaciones</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -81,6 +81,17 @@
                                             <?php mostrarEstadosHab(); ?>
                                         </select>
                                         <div class="invalid-feedback">¡Por favor, seleccione el estado de la habitación!</div>
+                                </div>
+
+                                <div class="col-6 has-validation d-flex flex-wrap justify-content-around">
+                                  <div class="col-6 pe-2">
+                                      <label for="cantidadAdultosHab" class="form-label">Cantidad adultos</label>
+                                      <input type="number" name="cantidadAdultosHab" class="form-control" id="cantidadAdultosHab" placeholder="0" required>
+                                  </div>  
+                                  <div class="col-6">
+                                      <label for="cantidadNinosHab" class="form-label">Cantidad niños</label>
+                                      <input type="number" name="cantidadNinosHab" class="form-control" id="cantidadNinosHab" placeholder="0" required>
+                                  </div>
                                 </div>
 
                                 <div class="col-6 has-validation d-flex flex-wrap justify-content-around">
