@@ -1,6 +1,6 @@
 <?php
     require 'conexion.php';
-//BUG token para consusltas
+    
     // Consultas
     function consultaGeneral($query){
         try{
@@ -250,6 +250,33 @@
         }
     }
 
+    function cargarHabitacionesparaLimpieza(){
+        try{
+            $query = "SELECT * FROM listarHabitacionesParaLimpieza WHERE idEstadoHab = 4 order by nivelNum, idHabitacion ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                // $datos[$cont] = $row;
+                $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
+                $datos[$cont]['nombreTipoHab'] = $row["nombreTipoHab"];
+                $datos[$cont]['imagen'] = $row["imagen"];
+                $datos[$cont]['idNivel'] = $row["idNivel"];
+                $datos[$cont]['nivelNum'] = $row["nivelNum"];
+                $datos[$cont]['nivelTexto'] = $row["nivelTexto"];
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
     function buscarUsuario($idUsuario){
         try{
             $query = "SELECT * FROM usuarios WHERE idUsuario = '".$idUsuario."'";
@@ -390,6 +417,11 @@
         catch(Exception $e){
             echo("Error". $e);
         }
+    }
+
+    function actualizarEstadoHab($idHab, $idNivel, $idEstado){
+        $datos = json_decode(insertarGeneral("UPDATE habitaciones SET idEstadoHab = '".intval($idEstado)."' WHERE idNivel ='".$idNivel."' AND idHabitacion = '".$idHab."'"), true);
+        echo 1;
     }
 
     function actualizarUsuarios($idUsuario, $nombre, $idPosicion, $correo, $usuario, $contrasena, $imagenPerfil, $horaEntrada, $horaSalida, $idProvincia, $estado, $celular){

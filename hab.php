@@ -74,7 +74,7 @@
                                 </div>
                                 
                                 <div class="col-6">
-                                    <label for="selectEstadoHab" class="form-label">Estado habitaciónn</label>
+                                    <label for="selectEstadoHab" class="form-label">Estado habitación</label>
                                         <select class="form-select" aria-label="Default select example" name="selectEstadoHab" id="selectEstadoHab" required>
                                             <option value="" selected>-Seleccionar el estado de habitación</option>
                                             <!-- <option value="1">One</option> -->

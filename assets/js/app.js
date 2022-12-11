@@ -103,6 +103,10 @@ window.addEventListener("load", function(event) {
         cargarHabitaciones();
     }
 
+    if(URLactual == "conserjeria"){
+        cargarHabitacionesparaLimpieza();
+    }
+
     if(URLactual != ""){
         desactivarLinksSinPermisos();
     }
@@ -417,6 +421,34 @@ function ActualizarTipoHab(event){
     });
 } 
 
+function actualizarEstadoHab(idHab, idNivel, refInput){
+    idInput = "selectEstadoHab" + refInput
+    console.log(idInput)
+    idEstado = document.getElementById(idInput).value
+
+    $.ajax({
+        url: RUTACONSULTAS + "actualizarEstadoHab" + ".php",
+        method: "POST",
+        data: {
+            idHab: idHab,
+            idNivel: idNivel,
+            idEstado: idEstado
+        },
+    }).done(function(res) {
+        try {
+            if(res){
+                alertaFormularios("Actualizado correctamente!", "success")
+                cargarHabitacionesparaLimpieza()
+            }else{
+                alertaFormularios("Ocurrió un error!", "warning")
+            }
+        } catch (error) {
+            alertaFormularios("Ocurrió un error!", "warning")
+            console.log(error)
+        }
+    });
+}
+
 function buscarHabitacion(idHab, idNivel){
     $.ajax({
         url: RUTACONSULTAS + "buscarHabitacion" + ".php",
@@ -670,7 +702,7 @@ function cargarHabitaciones(){
                 </div>
                   <img src="assets/img/habitaciones/${(element.imagen == ''? 'imagen-no-disponible.png' : element.imagen)}" class="card-img-top" alt="">
                   <div class="card-body py-0 pb-0">
-                    <h5 class="card-title pb-1 m-0">N${element.nivelNum}-${element.idHabitacion}</h5>
+                    <h5 class="card-title pb-1 m-0">Habitación ${element.nivelNum}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion}</h5>
                     <p class="card-text mb-0"><strong>Tipo:</strong> ${element.nombreTipoHab}</p>
                     <!-- <p class="card-text mb-1"><strong>Nivel:</strong> ${element.nivelTexto}</p> -->
                     <p class="card-text mb-0"><strong>Precio alta:</strong> ${element.precioTempAlta}</p>
@@ -697,6 +729,68 @@ function cargarHabitaciones(){
             contenedor = `<div class="card recent-sales overflow-auto">
             <div class="card-body">
               <h5 class="card-title">Habitaciones <span>| Listado de habitaciones</span></h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    ${datos}
+                </div>
+                </div>
+              </div>
+              `
+
+              contenedorExis.innerHTML = contenedor
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function cargarHabitacionesparaLimpieza(){
+    $.ajax({
+        url: RUTACONSULTAS + "cargarHabitacionesparaLimpieza" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("cargarHabitacionesparaLimpieza")
+            
+            let datos = ""
+            result.forEach(element => {
+                
+                carga = `
+                <div class="col">
+                <div class="card h-100 position-relative">
+                <div class="position-absolute top-0 end-0 btnEditaHab bg-warning" onclick="buscarHabitacion(${element.idHabitacion}, ${element.idNivel})">
+                    <i class="bi bi-pencil text-white"></i>
+                </div>
+                  <img src="assets/img/habitaciones/${(element.imagen == ''? 'imagen-no-disponible.png' : element.imagen)}" class="card-img-top" alt="">
+                  <div class="card-body py-0 pb-0">
+                    <h5 class="card-title pb-1 m-0">Habitación ${element.nivelNum}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion}</h5>
+                    <p class="card-text mb-0"><strong>${element.nombreTipoHab}</strong></p>
+                    <p class="card-text mb-0 mt-1"><i class="fa-solid fa-location-dot"></i> ${element.nivelTexto}, habitación ${element.nivelNum}</p>
+                    <hr>
+                    <form class="row">
+                        <div class="col-10">
+                            <label for="selectEstadoHabN${element.idNivel}H${element.idHabitacion}" class="form-label mb-0"><strong>Estado habitación</strong></label>
+                                <select class="form-select" aria-label="Default select example" name="selectEstadoHabN${element.idNivel}H${element.idHabitacion}" id="selectEstadoHabN${element.idNivel}H${element.idHabitacion}" required>
+                                    <option value="4" selected>Limpieza</option>
+                                    <option value="1">Disponible</option>
+                                    <option value="5">Mantenimiento</option>
+                                </select>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center align-items-end">
+                            <button class="btn btn-success" type="button" onclick="actualizarEstadoHab(${element.idHabitacion}, ${element.idNivel}, 'N${element.idNivel}H${element.idHabitacion}')"><i class="fa-duotone fa-floppy-disks"></i></button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+                </div>
+                `
+                datos += carga
+            });
+
+            contenedor = `<div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Habitaciones <span>| Pendientes por limpieza</span></h5>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     ${datos}
                 </div>
