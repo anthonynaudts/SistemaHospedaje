@@ -1529,7 +1529,7 @@ $(function () {
 			options['format'] = 'dddd DD MMMM YYYY - HH:mm';
 			if ($dateTimePicker.attr("data-time-picker") == "date") {
 				options['format'] = 'dddd, DD MMMM YYYY';
-				// options['format'] = 'dddd, DD MMMM YYYY';
+				// options['format'] = 'yyyy-MM-dd';
 				options['minDate'] = new Date();
 			} else if ($dateTimePicker.attr("data-time-picker") == "time") {
 				options['format'] = 'HH:mm';
@@ -1675,4 +1675,61 @@ $(function () {
 		}
 	}
 }());
+
+const RUTACONSULTAS = "../../assets/db/peticiones/"; 
+cargarHabitacionesDisponibles()
+function cargarHabitacionesDisponibles(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaHabitaciones" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            var result = JSON.parse(res);
+            var contenedorExis = document.getElementById("listarHabitacionesDisponibles")
+            
+            let datos = ""
+            result.forEach(element => {
+                var listaElementosInluye = ""
+                var datosIncluye = element.incluye
+                // // console.log(datosIncluye.descCaracteristica)
+                datosIncluye.forEach(elementoIncluye => {
+                    elementoIncluye = elementoIncluye.split(",")
+                    listaElementosInluye += `<li><i class="${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`
+                    
+                });
+                var carga = `
+				<div class="cell-sm-6 cell-md-4 padre-thumbnail-classic">
+				<a class="thumbnail-classic" data-lightgallery="item">
+                <figure>
+                  <img src="../../assets/img/habitaciones/${(element.imagen == ''? 'imagen-no-disponible.png' : element.imagen)}" alt="" width="370" height="276"/>
+                </figure>
+                <div class="col w-100 px-3">
+                  <div class="card-body py-0 pb-0 text-start">
+                    <h5 class="card-title pb-1 m-0">${element.nombreTipoHab} (${element.nivelNum}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion})</h5>
+                    <p class="m-0"><strong>Precio p/n:</strong> precioTempAlta</p>
+                    <p class="m-0"><strong>Adultos:</strong> ${element.cantidadAdultosHab}</p>
+                    <p class="m-0"><strong>Niños:</strong> ${element.cantidadNinosHab}</p>
+                    <p class="m-0"><strong>Incluye:</strong></p>
+                    <ul class="listaIncluyeHab mt-1 ms-2">
+                        ${
+                            listaElementosInluye
+                        }
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+                `
+                datos += carga
+            });
+
+            var contenedor = `${datos}`
+
+              contenedorExis.innerHTML = contenedor
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
 
