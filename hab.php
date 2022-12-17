@@ -29,10 +29,6 @@
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#general-caracHab">Características Hab.</button>
                 </li>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar contraseña</button>
-                </li>
-
               </ul>
               <div class="tab-content pt-2">
 
@@ -272,12 +268,6 @@
 
 
                 </div>
-
-
-                </div>
-
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                  a
                 </div>
 
               </div><!-- End Bordered Tabs -->

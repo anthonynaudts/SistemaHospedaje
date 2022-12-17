@@ -1,6 +1,7 @@
 
-<!-- icon list--><!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<?php require("../assets/db/sesion.php"); ?>
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="es">
   <head>
     <!-- Site Title-->
     <title>Habitaciones disponibles</title>
@@ -11,11 +12,11 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic%7CPoppins:300,400,500,700">
-    <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
-    <link href="css/fontawesome/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+      <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+      <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
+      <link href="css/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
@@ -62,9 +63,11 @@
                     <ul class="rd-navbar-nav">
                       <li><a href="index">Inicio</a>
                       </li>
-                      <li class="active"><a href="about-us">Sobre nosotros</a>
+                      <li><a href="about-us">Sobre nosotros</a>
                       </li>
                       <li><a href="contacts">Contacto</a>
+                      </li>
+                      <li><a href="habitaciones">Habitaciones</a>
                       </li>
                       <li><a href="typography">Typography</a>
                       </li>
@@ -77,15 +80,83 @@
         </div>
       </header>
       <!-- Breadcrumbs & Page title-->
-      <section class="section section-md">
+      <section class="section">
         <div class="shell">
-          <h3>Habitaciones</h3>
-          <p>Royal Villas ofrece los mejores alojamientos con diseños únicos que brindan un ambiente lujoso y relajante. Las telas y los acabados seleccionados especialmente <br> varían de una habitación a otra, ofreciendo a los huéspedes una variedad de ambientes hermosos y únicos para elegir.</p>
+          <div> 
+            <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
+              <div class="hotel-booking-form">
+                <h3>Consultar disponibilidad</h3>
+                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                  <div class="range range-sm-bottom spacing-20">
+                    <!-- <div class="cell-lg-12 cell-md-4">
+                      <p class="text-uppercase">Nombre</p>
+                      <div class="form-wrap">
+                        <input class="form-input" id="contact-first-name" type="text" name="name" data-constraints="@Required">
+                        <label class="form-label" for="contact-first-name">Nombre completo</label>
+                      </div>
+                    </div> -->
+                    <div class="cell-lg-3 cell-md-4 cell-sm-6">
+                      <p class="text-uppercase">Llegada</p>
+                      <div class="form-wrap">
+                        <label class="form-label form-label-icon" for="date-in"><i class="fa-solid fa-calendar-arrow-down"></i>&nbsp;<span>Fecha check-in</span></label>
+                        <input class="form-input" id="date-in" data-time-picker="date" type="text" name="date" data-constraints="@Required">
+                      </div>
+                    </div>
+                    <div class="cell-lg-3 cell-md-4 cell-sm-6">
+                      <p class="text-uppercase">Partida</p>
+                      <div class="form-wrap">
+                        <label class="form-label form-label-icon" for="date-out"><i class="fa-solid fa-calendar-arrow-up"></i>&nbsp;<span>Fecha check-out</span></label>
+                        <input class="form-input" id="date-out" data-time-picker="date" type="text" name="date" data-constraints="@Required">
+                      </div>
+                    </div>
+                    <div class="cell-lg-2 cell-md-4 cell-xs-6">
+                      <p class="text-uppercase">Adultos</p>
+                      <div class="form-wrap form-wrap-validation">
+                        <!--Select 2-->
+                        <select class="form-input select-filter" data-minimum-results-search="-1" data-placeholder="1" data-constraints="@Required">
+                          <option>&nbsp;</option>
+                          <?php 
+                            for ($i=1; $i <= consultaMaximoPersonas("Adultos"); $i++) { 
+                              echo '<option value="'.$i.'">'.$i.'</option>';
+                            }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="cell-lg-2 cell-md-4 cell-xs-6">
+                      <p class="text-uppercase">Niños</p>
+                      <div class="form-wrap form-wrap-validation">
+                        <!--Select 2-->
+                        <select class="form-input select-filter" data-minimum-results-search="-1" data-placeholder="0" data-constraints="@Required">
+                          <option>&nbsp;</option>
+                          <?php 
+                            for ($k=0; $k <= consultaMaximoPersonas("Ninos"); $k++) { 
+                              echo '<option value="'.$k.'">'.$k.'</option>';
+                            }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="cell-lg-2 cell-md-4">
+                      <button class="button button-primary button-square button-block button-effect-ujarak" type="submit"><span>Consultar disponibilidad</span></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+      </div>
+
+
           <div class="range range-30 justify-content-lg-evenly" data-lightgallery="group" id="listarHabitacionesDisponibles">
             
           </div>
         </div>
       </section>
+
+
+      
+
       <section class="section section-md bg-secondary-3 text-center">
         <div class="shell">
           <h2>Lo que dice la gente</h2>

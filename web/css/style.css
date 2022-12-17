@@ -2991,6 +2991,10 @@ dl {
 	padding: 15px;
 }
 
+.padre-thumbnail-classic:nth-child(even){
+	background-color: #f4f4f4;
+}
+
 .thumbnail-classic figure {
 	width: 100%;
 	transform: translate3d(0, 0, 0);
@@ -3002,6 +3006,7 @@ dl {
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100%;
+	height: 210px;
 	/* max-width: none; */
 	/* min-width: 101.5%; */
 	object-fit: cover;
@@ -7241,7 +7246,7 @@ html .range-30 {
 }
 
 html .range-30 > *:before {
-	content: '';
+	/* content: ''; */
 	display: table;
 	width: 0;
 }

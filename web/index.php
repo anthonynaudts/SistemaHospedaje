@@ -100,6 +100,8 @@
                       </li>
                       <li><a href="contacts">Contacto</a>
                       </li>
+                      <li><a href="habitaciones">Habitaciones</a>
+                      </li>
                       <li><a href="typography">Typography</a>
                       </li>
                     </ul>
@@ -166,13 +168,13 @@
                 <!-- RD Mailform-->
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
                   <div class="range range-sm-bottom spacing-20">
-                    <div class="cell-lg-12 cell-md-4">
+                    <!-- <div class="cell-lg-12 cell-md-4">
                       <p class="text-uppercase">Nombre</p>
                       <div class="form-wrap">
                         <input class="form-input" id="contact-first-name" type="text" name="name" data-constraints="@Required">
                         <label class="form-label" for="contact-first-name">Nombre completo</label>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="cell-lg-12 cell-md-4 cell-sm-6">
                       <p class="text-uppercase">Llegada</p>
                       <div class="form-wrap">

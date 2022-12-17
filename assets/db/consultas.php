@@ -30,6 +30,13 @@
         }
     }
 
+    function mostrarTipoDocumento(){
+        $datos = json_decode(consultaGeneral("SELECT * FROM tipoDocumentos order by idTipoDocumento ASC"), true);
+        foreach ($datos as $item) {
+            echo "<option value='".$item["idTipoDocumento"]."'>".$item["desTipoDocumento"]."</option>";
+        }
+    }
+
     function mostrarCaracteristicasHab(){
         $datos = json_decode(consultaGeneral("SELECT idCaracteristica, descCaracteristica FROM caracteristicasHab order by descCaracteristica ASC"), true);
         foreach ($datos as $item) {
@@ -204,6 +211,37 @@
         }
     }
 
+    function consultaMaximoPersonas($tipoPersona){
+        try{
+            $query = "SELECT MAX(cantidadAdultosHab)maxcantidadAdultosHab, MAX(cantidadNinosHab)maxcantidadNinosHab FROM habitaciones";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                // $datos[$cont] = $row;
+                $datos['maxcantidadAdultosHab'] = $row["maxcantidadAdultosHab"];
+                $datos['maxcantidadNinosHab'] = $row["maxcantidadNinosHab"];
+                $cont++;
+            }
+
+            if($tipoPersona == "Adultos"){
+                return $datos['maxcantidadAdultosHab'];
+            }else{
+                return $datos['maxcantidadNinosHab'];
+            }
+            // return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
+    // echo consultaMaximoPersonas("Adultos");
+
     function buscarCaracteristica($idCaracteristica){
         $datos = json_decode(consultaGeneral("SELECT descCaracteristica, iconoCaracteristica FROM caracteristicasHab WHERE idCaracteristica = '".$idCaracteristica."'"), true);
         foreach ($datos as $item) {
@@ -266,6 +304,45 @@
                 $datos[$cont]['idNivel'] = $row["idNivel"];
                 $datos[$cont]['nivelNum'] = $row["nivelNum"];
                 $datos[$cont]['nivelTexto'] = $row["nivelTexto"];
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
+    function cargarHabitacionesDisponibles(){
+        try{
+            $query = "SELECT * FROM listarHabitaciones order by nivelNum, idHabitacion ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                // $datos[$cont] = $row;
+                $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
+                $datos[$cont]['nombreTipoHab'] = $row["nombreTipoHab"];
+                $datos[$cont]['imagen'] = $row["imagen"];
+                $datos[$cont]['precioTempAlta'] = $row["precioTempAlta"];
+                $datos[$cont]['precioTempBaja'] = $row["precioTempBaja"];
+                // $datos[$cont]['incluye'] = explode(",",$row["incluye"]);
+                $listaIncluye = explode(",", $row["incluye"]);
+                $elementIconos = [];
+                for($i=0; $i < count($listaIncluye); $i++) { 
+                    $elementIconos[$i] = buscarCaracteristica($listaIncluye[$i]);
+                }
+                $datos[$cont]['incluye'] = $elementIconos;
+                $datos[$cont]['idNivel'] = $row["idNivel"];
+                $datos[$cont]['nivelNum'] = $row["nivelNum"];
+                $datos[$cont]['desEstado'] = $row["desEstado"];
+                $datos[$cont]['colorEstado'] = $row["colorEstado"];
+                $datos[$cont]['cantidadAdultosHab'] = $row["cantidadAdultosHab"];
+                $datos[$cont]['cantidadNinosHab'] = $row["cantidadNinosHab"];
                 $cont++;
             }
             return json_encode($datos);

@@ -1682,6 +1682,9 @@ function cargarHabitacionesDisponibles(){
     $.ajax({
         url: RUTACONSULTAS + "consultaHabitaciones" + ".php",
         method: "POST",
+		data: {
+            // idNivel: idNivel
+        },
     }).done(function(res) {
         try {
             var result = JSON.parse(res);
@@ -1697,8 +1700,10 @@ function cargarHabitacionesDisponibles(){
                     listaElementosInluye += `<li><i class="${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`
                     
                 });
+
+
                 var carga = `
-				<div class="cell-sm-6 cell-md-4 padre-thumbnail-classic">
+				<div class="cell-sm-6 cell-md-4 padre-thumbnail-classic d-flex flex-column justify-content-between align-items-end">
 				<a class="thumbnail-classic" data-lightgallery="item">
                 <figure>
                   <img src="../../assets/img/habitaciones/${(element.imagen == ''? 'imagen-no-disponible.png' : element.imagen)}" alt="" width="370" height="276"/>
@@ -1708,7 +1713,7 @@ function cargarHabitacionesDisponibles(){
                     <h5 class="card-title pb-1 m-0">${element.nombreTipoHab} (${element.nivelNum}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion})</h5>
                     <p class="m-0"><strong>Precio p/n:</strong> precioTempAlta</p>
                     <p class="m-0"><strong>Adultos:</strong> ${element.cantidadAdultosHab}</p>
-                    <p class="m-0"><strong>Niños:</strong> ${element.cantidadNinosHab}</p>
+					${(element.cantidadNinosHab > 0 ? "<p class='m-0'><strong>Niños: </strong>"+element.cantidadNinosHab+"</p>" : '')}
                     <p class="m-0"><strong>Incluye:</strong></p>
                     <ul class="listaIncluyeHab mt-1 ms-2">
                         ${
@@ -1718,6 +1723,7 @@ function cargarHabitacionesDisponibles(){
                   </div>
                 </div>
               </a>
+			  <button class="btn btn-success col-8 mt-2" type="submit">Reservar</button>
             </div>
                 `
                 datos += carga
