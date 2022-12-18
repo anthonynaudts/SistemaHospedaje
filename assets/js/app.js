@@ -107,6 +107,10 @@ window.addEventListener("load", function(event) {
         cargarHabitacionesparaLimpieza();
     }
 
+    if(URLactual == "clientes"){
+        cargarClientes();
+    }
+    
     if(URLactual != ""){
         desactivarLinksSinPermisos();
     }
@@ -164,60 +168,13 @@ function alertaFormularios(mensaje, tipoMensaje){
         customWrapper: '',
       })
 return
-//[p] nueva alerta
-
-    tiposAlertas = {
-        "success":{
-            clase: "alert-success",
-            icono: "bi-check-circle"
-        },
-        "danger":{
-            clase: "alert-danger",
-            icono: "bi-exclamation-octagon"
-        },
-        "info":{
-            clase: "alert-info",
-            icono: "bi-info-circle"
-        },
-        "warning":{
-            clase: "alert-warning",
-            icono: "bi-exclamation-triangle"
-        }
-    };
-
-    
-
-    contenedorExis = document.getElementById(contenedor.srcElement.id)
-// var capa = document.getElementById("capa");
-    var div = document.createElement("div");
-    div.classList.add("alert", tiposAlertas[tipoMensaje].clase, "alert-dismissible", "fade", "show")
-    div.setAttribute("role", "alert")
-//   < class="alert alert-danger alert-dismissible fade show" role="alert">
-    div.innerHTML = `
-        <i class="bi ${tiposAlertas[tipoMensaje].icono} me-1"></i>
-        ${mensaje}
-        <button id="botonCerrarAlertas" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-
-    contenedorExis.insertBefore(div, contenedorExis.getElementsByTagName('div')[0])
-    
-    setTimeout(()=>{
-        document.getElementById("botonCerrarAlertas").click()
-    }, 3500)
-
-
 }
 
-function limpiarFormulario(formulario){
-    // formulario.preventDefault();
-    // console.log(formulario.srcElement)
-    
+function limpiarFormulario(formulario){    
     formulario1 = document.getElementById(formulario.srcElement.id)
     formulario1.classList.remove('was-validated')
-    // console.log(formulario1.classList)
     
     $(`#${formulario.srcElement.id}`).trigger("reset"); 
-    // $(`#${formulario.srcElement.id}`).removeClass('was-validated');
-    // $(`#${formulario.srcElement.id}`).addClass('needs-validation');
 }
 
 
@@ -657,6 +614,66 @@ function cargarUsuarios(){
                     <th scope="col">Hora salida</th>
                     <th scope="col">Provincia</th>
                     <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                    <tbody>
+                        ${datos}
+                    </tbody>
+                </table>
+                </div>
+              </div>
+              `
+            contenedorExis.innerHTML = contenedor
+            activarDataTable();
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function cargarClientes(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultaClientes" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            // console.table(result)
+            contenedorExis = document.getElementById("listarClientesRegistrados")
+            
+            let datos = ""
+            // Lista todos los datos de los usuarios y los almacena en la variable datos
+            result.forEach(element => {
+
+                carga = `
+                <tr>
+                    <th scope="row"><span>${element.idCliente}</span></th>
+                    <td>${element.nombreCliente}</td>
+                    <td>${element.apellidosCliente}</td>
+                    <td>${element.correoCliente}</td>
+                    <td>${element.telefonoCliente}</td>
+                    <td>${element.desTipoDocumento}</td>
+                    <td>${element.numDocumento}</td>
+                </tr>
+                `
+                datos += carga
+            });
+
+
+            contenedor = `<div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Clientes <span>| Listado de clientes</span></h5>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Cod</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Tipo Documento</th>
+                    <th scope="col">Num. Documento</th>
                   </tr>
                 </thead>
                     <tbody>

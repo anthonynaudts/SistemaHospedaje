@@ -100,6 +100,29 @@
             echo("Error " . $e);
         }
     }
+    
+    function loginCliente($correoCliente, $contrasenaCliente){
+        session_start();
+        try{
+            $conn = conectarBD();
+            $sql = "SELECT * FROM clientes WHERE correoCliente = '".$correoCliente."' AND contrasenaCliente = '".md5($contrasenaCliente)."'";
+            $obtenerDatos = sqlsrv_query($conn, $sql);
+            if($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $_SESSION['idCliente'] = $row["idCliente"];
+                $_SESSION['nombreCliente'] = $row["nombreCliente"];
+                $_SESSION['apellidosCliente'] = $row["apellidosCliente"];
+                $_SESSION['correoCliente'] = $row["correoCliente"];
+            }
+            echo isset($_SESSION['idCliente']);
+            
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
 
 
     function consultaPosiciones(){
@@ -193,6 +216,27 @@
     function consultaUsuarios(){
         try{
             $query = "SELECT * FROM listarUsuarios order by idUsuario ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+    
+    function consultaClientes(){
+        try{
+            $query = "SELECT * FROM listarClientes order by idCliente ASC";
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
             if ($obtenerDatos == FALSE)
@@ -314,10 +358,11 @@
             echo("Error " . $e);
         }
     }
-
+// echo cargarHabitacionesDisponibles();
     function cargarHabitacionesDisponibles(){
         try{
-            $query = "SELECT * FROM listarHabitaciones order by nivelNum, idHabitacion ASC";
+            // $query = "SELECT * FROM listarHabitaciones order by nivelNum, idHabitacion ASC";
+            $query = "EXEC listarHabxTemporada";
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
             if ($obtenerDatos == FALSE)
@@ -328,8 +373,7 @@
                 $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
                 $datos[$cont]['nombreTipoHab'] = $row["nombreTipoHab"];
                 $datos[$cont]['imagen'] = $row["imagen"];
-                $datos[$cont]['precioTempAlta'] = $row["precioTempAlta"];
-                $datos[$cont]['precioTempBaja'] = $row["precioTempBaja"];
+                $datos[$cont]['precioHab'] = $row["precioHab"];
                 // $datos[$cont]['incluye'] = explode(",",$row["incluye"]);
                 $listaIncluye = explode(",", $row["incluye"]);
                 $elementIconos = [];
@@ -501,11 +545,16 @@
         echo 1;
     }
 
+    function actualizarClientes($idCliente, $nombreCliente, $apellidosCliente, $correoCliente, $contrasenaCliente, $telefonoCliente, $idTipoDocumento, $numDocumento){
+        $contrasenaCliente = ($contrasenaCliente!="")?md5($contrasenaCliente):"";
+        $datos = json_decode(insertarGeneral("EXEC actualizarClientes '".intval($idCliente)."','".$nombreCliente."','".$apellidosCliente."','".$correoCliente."','".$contrasenaCliente."', '".$telefonoCliente."', '".intval($idTipoDocumento)."', '".$numDocumento."'"), true);
+        echo ($datos[0]["idCliente"] > 0)? true : false;
+    }   
     function actualizarUsuarios($idUsuario, $nombre, $idPosicion, $correo, $usuario, $contrasena, $imagenPerfil, $horaEntrada, $horaSalida, $idProvincia, $estado, $celular){
         $contrasena = ($contrasena!="")?md5($contrasena):"";
         $datos = json_decode(insertarGeneral("EXEC ActualizarUsuarios '".intval($idUsuario)."','".$nombre."','".$correo."','".$usuario."','".$contrasena."', '".$imagenPerfil."', '".intval($idPosicion)."', '".$horaEntrada."', '".$horaSalida."', '".$idProvincia."', '".$celular."', '".$estado."'"), true);
         echo ($datos[0]["idUsuario"] > 0)? true : false;
-    }   
+    } 
 
     function actualizarPaginas($idPagina, $pagina){
         $datos = json_decode(insertarGeneral("EXEC ActualizarPaginas '".intval($idPagina)."','".$pagina."'"), true);

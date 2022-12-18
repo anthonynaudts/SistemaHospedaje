@@ -1,5 +1,8 @@
 
-<?php require("../assets/db/sesion.php"); ?>
+<?php require("../assets/db/sesion.php"); 
+(isset($_SESSION['idCliente']))? $clienteActual = $_SESSION['nombreCliente']. ' '. $_SESSION['apellidosCliente'] : $clienteActual = "Acceder";
+?>
+
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
   <head>
@@ -18,6 +21,7 @@
       <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
       <link href="css/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+  <link href="../assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
   <body>
@@ -43,8 +47,8 @@
                   <div class="contact-info me-1">
                     <div class="unit unit-middle unit-horizontal unit-spacing-xs">
                       <!-- <div class="unit__left"><span class="icon icon-primary text-middle mdi mdi-phone"></span></div> -->
-                      <i class="fa-solid fa-circle-user"></i>
-                      <div class="unit__body"><a class="text-middle">Invitado</a></div>
+                      <i class="fa-solid fa-circle-user">&nbsp;</i>
+                      <div class="unit__body"><a class="text-middle" href="registro"><?php echo $clienteActual; ?></a></div>
                     </div>
                   </div>
                 </div>
@@ -84,30 +88,30 @@
       </header>
       <!-- Breadcrumbs & Page title-->
       <div class="d-flex justify-content-evenly">
-      <section class="section">
+      <section class="section <?php echo (isset($_SESSION['idCliente']))? 'd-none' : ''; ?>">
         <div class="shell">
           <div> 
             <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
               <div class="hotel-booking-form">
                 <h3>Login</h3>
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
+                <form id="loginCliente" class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" onsubmit="loginCliente(event)">
                   <div class="range range-sm-bottom spacing-20">
                     <div class="cell-lg-12 cell-md-4">
                       <p class="text-uppercase">Correo</p>
                       <div class="form-wrap">
-                        <input class="form-input" id="correoUsuario" type="email" name="correoUsuario" data-constraints="@Required">
-                        <label class="form-label" for="correoUsuario">Correo</label>
+                        <input class="form-input" id="correoUsuarioLogin" type="email" name="correoUsuarioLogin" data-constraints="@Required">
+                        <label class="form-label" for="correoUsuarioLogin">Correo</label>
                       </div>
                     </div>
                     <div class="cell-lg-12 cell-md-4">
                       <p class="text-uppercase">Contraseña</p>
                       <div class="form-wrap">
-                        <input class="form-input" id="contrasenaUsuario" type="password" name="contrasenaUsuario" data-constraints="@Required">
-                        <label class="form-label" for="contrasenaUsuario">Correo</label>
+                        <input class="form-input" id="contrasenaUsuarioLogin" type="password" name="contrasenaUsuarioLogin" data-constraints="@Required">
+                        <label class="form-label" for="contrasenaUsuarioLogin">Contraseña</label>
                       </div>
                     </div>
                     <div class="cell-lg-6 cell-md-4">
-                      <button class="button button-primary button-square button-block button-effect-ujarak" type="submit"><span>Acceder</span></button>
+                      <button class="button button-primary button-square button-block button-effect-ujarak" type="buttom"><span>Acceder</span></button>
                     </div>
                   </div>
                 </form>
@@ -117,13 +121,50 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section <?php echo (isset($_SESSION['idCliente']))? '' : 'd-none'; ?>">
+        <div class="shell">
+          <div> 
+            <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
+              <div class="hotel-booking-form">
+                <h3>Datos cliente</h3>
+                <div class="page-footer-minimal-inner">
+                    <ul class="list-unstyled">
+                      <li>
+                      <div class="group-xs"> 
+                          <div>
+                            <dl class="list-desc">
+                              <dt>Nombre:  </dt>
+                              <dd class="text-gray-darker"><span><?php echo $_SESSION['nombreCliente']. ' '. $_SESSION['apellidosCliente']; ?></span></dd>
+                            </dl>
+                          </div>
+                          <div>
+                            <dl class="list-desc">
+                              <dt>Correo: </dt>
+                              <dd class="text-gray-darker"><span><?php echo $_SESSION['correoCliente']; ?></span></dd>
+                            </dl>
+                          </div>
+                        </div>
+                        
+                      </li>
+                    </ul>
+                  </div>
+
+                  <button class="button button-primary button-square button-block button-effect-ujarak" type="buttom"><span>Ver mis reservas</span></button>
+
+                <button class="button-effect-ujarak mt-3" type="buttom" onclick="cerrarSesionCliente()"><span>Cerrar sesión</span></button>
+              </div>
+            </div>
+      </div>
+        </div>
+      </section>
+
+      <section class="section <?php echo (isset($_SESSION['idCliente']))? 'd-none' : ''; ?>">
         <div class="shell">
           <div> 
             <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
               <div class="hotel-booking-form">
                 <h3>Registro</h3>
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
+                <form id="RegistroClientes" class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" onsubmit="ActualizarClientes(event)">
                   <div class="range range-sm-bottom spacing-20">
                     <div class="cell-lg-6 cell-md-4">
                       <p class="text-uppercase">Nombre</p>
@@ -152,7 +193,7 @@
                       <p class="text-uppercase">Num. documento</p>
                       <div class="form-wrap">
                         <input class="form-input" id="numDocumento" type="text" name="numDocumento" data-constraints="@Required">
-                        <label class="form-label" for="numDocumento">0000</label>
+                        <label class="form-label" for="numDocumento">000000</label>
                       </div>
                     </div>
                     <div class="cell-lg-6 cell-md-4">
@@ -166,18 +207,18 @@
                       <p class="text-uppercase">Contraseña</p>
                       <div class="form-wrap">
                         <input class="form-input" id="contrasenaUsuario" type="password" name="contrasenaUsuario" data-constraints="@Required">
-                        <label class="form-label" for="contrasenaUsuario">Correo</label>
+                        <label class="form-label" for="contrasenaUsuario">Contraseña</label>
                       </div>
                     </div>
                     <div class="cell-lg-6 cell-md-4">
                       <p class="text-uppercase">Teléfono</p>
                       <div class="form-wrap">
-                        <input class="form-input" id="telefonoUsuario" type="text" name="ntelefonoUsuarioame" data-constraints="@Required">
+                        <input class="form-input" id="telefonoUsuario" type="text" name="telefonoUsuario" data-constraints="@Required">
                         <label class="form-label" for="telefonoUsuario">Teléfono</label>
                       </div>
                     </div>
                     <div class="cell-lg-6 cell-md-4">
-                      <button class="button button-primary button-square button-block button-effect-ujarak" type="submit"><span>Registrar</span></button>
+                      <button class="button button-primary button-square button-block button-effect-ujarak" type="submit"><span>Registrarme</span></button>
                     </div>
                   </div>
                 </form>
@@ -303,5 +344,7 @@
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/simple-notify-master/simple-notify.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
   </body>
 </html>

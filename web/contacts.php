@@ -11,6 +11,9 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic%7CPoppins:300,400,500,700">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+      <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
@@ -79,8 +82,8 @@
                   <!-- Contact Info-->
                   <div class="contact-info">
                     <div class="unit unit-middle unit-horizontal unit-spacing-xs">
-                      <!-- <div class="unit__left"><span class="icon icon-primary text-middle mdi mdi-phone"></span></div> -->
-                      <!-- <div class="unit__body"><a class="text-middle" href="tel:#">+1 (409) 987–5874</a></div> -->
+                      <i class="fa-solid fa-circle-user">&nbsp;</i>
+                      <div class="unit__body"><a class="text-middle" href="registro">Acceder</a></div>
                     </div>
                   </div>
                 </div>
@@ -105,6 +108,8 @@
                       <li><a href="about-us">Sobre nosotros</a>
                       </li>
                       <li class="active"><a href="contacts">Contacto</a>
+                      </li>
+                      <li><a href="habitaciones">Habitaciones</a>
                       </li>
                       <li><a href="typography">Typography</a>
                       </li>

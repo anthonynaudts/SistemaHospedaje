@@ -16,7 +16,6 @@
       <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
       <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
       <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
-      <link href="css/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
@@ -35,13 +34,13 @@
                 <div class="left-side">
                 </div>
                 <div class="center-side">
-                  <!-- RD Navbar Brand-->
                   <div class="rd-navbar-brand fullwidth-brand"><a class="brand-name" href="index.html"><img src="images/logo-default-314x48.png" alt="" width="314" height="48"/></a></div>
                 </div>
                 <div class="right-side">
-                  <!-- Contact Info-->
                   <div class="contact-info">
                     <div class="unit unit-middle unit-horizontal unit-spacing-xs">
+                      <i class="fa-solid fa-circle-user">&nbsp;</i>
+                      <div class="unit__body"><a class="text-middle" href="registro">Acceder</a></div>
                     </div>
                   </div>
                 </div>

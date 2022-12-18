@@ -290,12 +290,25 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#usuarios-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-people"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-people"></i><span>Empleados</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="usuarios-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
           <li id="">
             <a href="registro" id="registro">
               <i class="bi bi-circle"></i><span>Registrar</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#clientes-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-people"></i><span>Clientes</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="clientes-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
+          <li id="">
+            <a href="clientes" id="clientes">
+              <i class="bi bi-circle"></i><span>Consultar</span>
             </a>
           </li>
         </ul>

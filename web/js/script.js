@@ -602,7 +602,7 @@ $(function () {
 			},
 			{
 				type: regula.Constraint.Email,
-				newMessage: "El correo electrónico no válido."
+				newMessage: "El correo electrónico es no válido."
 			},
 			{
 				type: regula.Constraint.Numeric,
@@ -1676,11 +1676,65 @@ $(function () {
 	}
 }());
 
+
+function validarFormularios(formulario){
+    formulario.preventDefault();
+    var elementos = formulario.srcElement.getElementsByTagName("input")
+    for(var i = 0; i < elementos.length; i++){
+        if(elementos[i].required){
+            if(elementos[i].type == "checkbox" || elementos[i].type == "radio"){
+                if(!elementos[i].checked){
+                    console.log("¡Formulario con datos requeridos no seleccionados!")
+                    return false
+                }
+            }else if(elementos[i].value.length == 0){
+                console.log("¡Formulario con datos requeridos vacíos!")
+                return false
+            }
+        }
+    }
+    return true
+}
+
+function alertaFormularios(mensaje, tipoMensaje){
+
+    new Notify ({
+        status: tipoMensaje,
+        title: mensaje,
+        text: '',
+        effect: 'slide',
+        speed: 300,
+        customClass: '',
+        customIcon: '',
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 4000,
+        gap: 20,
+        distance: 20,
+        type: 1,
+        position: 'right bottom',
+        customWrapper: '',
+      })
+return
+}
+
+function limpiarFormulario(formulario){    
+    // var formulario1 = document.getElementById(formulario.srcElement.id)
+    $(`#${formulario.srcElement.id}`).trigger("reset"); 
+}
+
+var URLactual = window.location.pathname;
+    URLactual = URLactual.replace("/", "")
 const RUTACONSULTAS = "../../assets/db/peticiones/"; 
-cargarHabitacionesDisponibles()
+
+if(URLactual == "web/habitaciones"){
+	cargarHabitacionesDisponibles()
+}
+
 function cargarHabitacionesDisponibles(){
     $.ajax({
-        url: RUTACONSULTAS + "consultaHabitaciones" + ".php",
+        url: RUTACONSULTAS + "cargarHabitacionesDisponibles" + ".php",
         method: "POST",
 		data: {
             // idNivel: idNivel
@@ -1701,7 +1755,6 @@ function cargarHabitacionesDisponibles(){
                     
                 });
 
-
                 var carga = `
 				<div class="cell-sm-6 cell-md-4 padre-thumbnail-classic d-flex flex-column justify-content-between align-items-end">
 				<a class="thumbnail-classic" data-lightgallery="item">
@@ -1711,7 +1764,7 @@ function cargarHabitacionesDisponibles(){
                 <div class="col w-100 px-3">
                   <div class="card-body py-0 pb-0 text-start">
                     <h5 class="card-title pb-1 m-0">${element.nombreTipoHab} (${element.nivelNum}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion})</h5>
-                    <p class="m-0"><strong>Precio p/n:</strong> precioTempAlta</p>
+                    <!--<p class="m-0 text-primary fz-2"><strong>Precio noche:</strong> RD$ ${element.precioHab.toLocaleString('en')}</p> -->
                     <p class="m-0"><strong>Adultos:</strong> ${element.cantidadAdultosHab}</p>
 					${(element.cantidadNinosHab > 0 ? "<p class='m-0'><strong>Niños: </strong>"+element.cantidadNinosHab+"</p>" : '')}
                     <p class="m-0"><strong>Incluye:</strong></p>
@@ -1723,7 +1776,10 @@ function cargarHabitacionesDisponibles(){
                   </div>
                 </div>
               </a>
-			  <button class="btn btn-success col-8 mt-2" type="submit">Reservar</button>
+			  <div class="d-flex flex-column align-items-end">
+				<p class="m-0 fz-2"><strong>Precio noche: <span class="text-success" style="font-size: 18px;">RD$ ${element.precioHab.toLocaleString('en')}</span></strong></p>
+				<button class="button btn btn-primary col-8 mt-2 p-2" type="submit">Reservar</button>
+			  </div>
             </div>
                 `
                 datos += carga
@@ -1739,3 +1795,86 @@ function cargarHabitacionesDisponibles(){
     });
 }
 
+function ActualizarClientes(event){
+    if(!validarFormularios(event))
+        return
+
+    var nombreUsuario = document.getElementById("nombreUsuario").value,
+    apellidosUsuario = document.getElementById("apellidosUsuario").value,
+    idTipoDocumento = document.getElementById("idTipoDocumento").value,
+    numDocumento = document.getElementById("numDocumento").value,
+    correoUsuario = document.getElementById("correoUsuario").value,
+    contrasenaUsuario = document.getElementById("contrasenaUsuario").value,
+    telefonoUsuario = document.getElementById("telefonoUsuario").value
+	numDocumento = numDocumento.replace("-","")
+
+    $.ajax({
+        url: RUTACONSULTAS + "actualizarClientes" + ".php",
+        method: "POST",
+        data: {
+            nombreCliente: nombreUsuario.trim(),
+            apellidosCliente: apellidosUsuario.trim(),
+            idTipoDocumento: idTipoDocumento,
+            numDocumento: numDocumento.trim(),
+            correoCliente: correoUsuario.trim(),
+            contrasenaCliente: contrasenaUsuario.trim(),
+            telefonoCliente: telefonoUsuario.trim()
+        },
+    }).done(function(res) {
+        try {
+			limpiarFormulario(event)
+            if(res){
+				alertaFormularios("Usuario registradp correctamente!", "success")
+                
+            }else{
+                alertaFormularios("Ocurrió un error al momento de registrarte!", "warning")
+            }
+        } catch (error) {
+            alertaFormularios("Ocurrió un error al momento de registrarte!", "warning")
+            console.log(error)
+        }
+    });
+} 
+
+function loginCliente(event){
+    if(!validarFormularios(event))
+        return
+
+    var correoCliente = document.getElementById("correoUsuarioLogin").value,
+    contrasenaCliente = document.getElementById("contrasenaUsuarioLogin").value
+
+    $.ajax({
+        url: RUTACONSULTAS + "loginCliente" + ".php",
+        method: "POST",
+        data: {
+            correoCliente: correoCliente.trim(),
+            contrasenaCliente: contrasenaCliente.trim()
+        },
+    }).done(function(res) {
+        try {
+			console.log(res)
+			limpiarFormulario(event)
+            if(res)
+                window.location="registro";
+            else
+                alertaFormularios("Usuario o contraseña incorrectos", "error")
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function cerrarSesionCliente(){
+    
+    $.ajax({
+        url: RUTACONSULTAS + "cerrarSesionCliente" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+                window.location="registro";
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
