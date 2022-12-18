@@ -1759,6 +1759,14 @@ function mensajeContinuarReservacion(){
 	} else{
 		document.getElementById("datosReservacion").classList.add("d-none")
 	}
+	var totalPrecio = 0,
+		totalHabSelect = carrito.habitaciones.length
+
+	carrito.habitaciones.forEach(element => {
+		totalPrecio += element.precioHab
+	});
+
+	document.getElementById("datosReservacionGeneral").innerText = `${totalPrecio}  ${totalHabSelect}`
 }
 
 function cargarHabitacionesDisponibles(){

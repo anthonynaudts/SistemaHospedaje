@@ -389,7 +389,7 @@
     <section id="datosReservacion" class="datosReservacion d-flex align-items-center p-4 d-none">
       <div class="row w-100">
         <div class="col-md-9 bg-black">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, ea corrupti ipsa consequuntur necessitatibus, obcaecati esse quae magnam maxime ratione voluptatem voluptatum vero dolore? Quidem distinctio illo fuga odio inventore?</p>
+          <p id="datosReservacionGeneral">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, ea corrupti ipsa consequuntur necessitatibus, obcaecati esse quae magnam maxime ratione voluptatem voluptatum vero dolore? Quidem distinctio illo fuga odio inventore?</p>
         </div>
         <div class="col-md-3 d-flex justify-content-end align-items-center">
 				  <button class="button btn btn-success col-8" type="submit">Continuar</button>
