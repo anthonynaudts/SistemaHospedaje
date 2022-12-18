@@ -425,6 +425,8 @@ function buscarHabitacion(idHab, idNivel){
                 document.getElementById("selectEstadoHab").value = datosHabitacion.idEstadoHab
                 document.getElementById("precioTempAlta").value = datosHabitacion.precioTempAlta
                 document.getElementById("precioTempBaja").value = datosHabitacion.precioTempBaja
+                document.getElementById("cantidadAdultosHab").value = datosHabitacion.cantidadAdultosHab
+                document.getElementById("cantidadNinosHab").value = datosHabitacion.cantidadNinosHab
                 
                 listaIncluye = datosHabitacion.incluye.split(",")
                 for (let index = 0; index < listaIncluye.length; index++) {

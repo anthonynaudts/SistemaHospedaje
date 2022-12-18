@@ -284,7 +284,37 @@
         }
     }
 
-    // echo consultaMaximoPersonas("Adultos");
+    function datosDashboard($totalInfo){
+        try{
+            switch ($totalInfo) {
+                case 'totalClientes':
+                    $query = "SELECT COUNT(idCliente)info FROM clientes";
+                    break;
+                case 'totalHab':
+                    $query = "SELECT COUNT(idHabitacion)info FROM habitaciones";
+                    break;
+                case 'totalReservas':
+                    $query = "SELECT COUNT(idReserva)info FROM reservas";
+                    break;
+            }
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+            return json_encode($datos[0]["info"]);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
 
     function buscarCaracteristica($idCaracteristica){
         $datos = json_decode(consultaGeneral("SELECT descCaracteristica, iconoCaracteristica FROM caracteristicasHab WHERE idCaracteristica = '".$idCaracteristica."'"), true);
@@ -358,10 +388,9 @@
             echo("Error " . $e);
         }
     }
-// echo cargarHabitacionesDisponibles();
+    
     function cargarHabitacionesDisponibles(){
         try{
-            // $query = "SELECT * FROM listarHabitaciones order by nivelNum, idHabitacion ASC";
             $query = "EXEC listarHabxTemporada";
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
@@ -369,9 +398,9 @@
                 die(print_r(sqlsrv_errors(),true));
                 $cont = 0;
             while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
-                // $datos[$cont] = $row;
                 $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
                 $datos[$cont]['nombreTipoHab'] = $row["nombreTipoHab"];
+                $datos[$cont]['descripcionTipoHab'] = $row["descripcionTipoHab"];
                 $datos[$cont]['imagen'] = $row["imagen"];
                 $datos[$cont]['precioHab'] = $row["precioHab"];
                 // $datos[$cont]['incluye'] = explode(",",$row["incluye"]);

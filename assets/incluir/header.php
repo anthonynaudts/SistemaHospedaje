@@ -50,23 +50,16 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
+    <!-- <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Búsqueda" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div><!-- End Search Bar -->
+    </div> -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
@@ -141,7 +134,7 @@
 
         </li><!-- End Notification Nav -->
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
@@ -229,7 +222,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            <!-- <li>
               <a class="dropdown-item d-flex align-items-center" href="perfil">
                 <i class="bi bi-person"></i>
                 <span>Mi perfil</span>
@@ -237,10 +230,10 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="perfil">
                 <i class="bi bi-gear"></i>
                 <span>Configuraciones de la cuenta</span>
               </a>
@@ -248,17 +241,6 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-question-circle"></i>
-                <span>¿Necesitas ayuda?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
             <li>
               <a class="dropdown-item d-flex align-items-center" href="salir">
                 <i class="bi bi-box-arrow-right"></i>
@@ -303,7 +285,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#clientes-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-people"></i><span>Clientes</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa-light fa-users"></i><span>Clientes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="clientes-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
           <li id="">
@@ -351,7 +333,7 @@
 
       <li id="mantenimientos" class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#Mantenimientos-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gear"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa-light fa-gears"></i><span>Mantenimientos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="Mantenimientos-nav" class="nav-content collapse modulo" data-bs-parent="#sidebar-nav">
           <li>
@@ -544,14 +526,14 @@
           <i class="bi bi-person"></i>
           <span>Perfil</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="pages-faq.html">
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+      </li>End F.A.Q Page Nav -->
 
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">

@@ -1732,6 +1732,35 @@ if(URLactual == "web/habitaciones"){
 	cargarHabitacionesDisponibles()
 }
 
+var carrito = {'habitaciones': []};
+
+function carritoHabitaciones(idNivel, idHab, nombreTipoHab, precioHab) {
+		carrito.habitaciones.push({ 'cod': idNivel+''+idHab, 'idNivel': idNivel, 'idHab': idHab, 'nombreTipoHab':nombreTipoHab, 'precioHab':precioHab });
+		  localStorage.setItem('carrito', JSON.stringify(carrito));
+		  var restoredSession = JSON.parse(localStorage.getItem('carrito'));
+		  console.log(restoredSession);
+
+		  mensajeContinuarReservacion()
+		  alertaFormularios(`${nombreTipoHab} agregada al carrito!`, "success")
+		// carrito.habitaciones.sort()
+		
+}
+
+function eliminarElementoCarrito(posicion){
+	carrito.habitaciones.splice(posicion, 1)
+	// delete carrito.habitaciones[posicion]
+	// carrito.habitaciones.sort()
+	mensajeContinuarReservacion()
+}
+
+function mensajeContinuarReservacion(){
+	if(carrito.habitaciones.length > 0){
+		document.getElementById("datosReservacion").classList.remove("d-none")
+	} else{
+		document.getElementById("datosReservacion").classList.add("d-none")
+	}
+}
+
 function cargarHabitacionesDisponibles(){
     $.ajax({
         url: RUTACONSULTAS + "cargarHabitacionesDisponibles" + ".php",
@@ -1764,7 +1793,7 @@ function cargarHabitacionesDisponibles(){
                 <div class="col w-100 px-3">
                   <div class="card-body py-0 pb-0 text-start">
                     <h5 class="card-title pb-1 m-0">${element.nombreTipoHab} (${element.nivelNum}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion})</h5>
-                    <!--<p class="m-0 text-primary fz-2"><strong>Precio noche:</strong> RD$ ${element.precioHab.toLocaleString('en')}</p> -->
+                    <p class="m-0 text-primary">${element.descripcionTipoHab}</p>
                     <p class="m-0"><strong>Adultos:</strong> ${element.cantidadAdultosHab}</p>
 					${(element.cantidadNinosHab > 0 ? "<p class='m-0'><strong>Niños: </strong>"+element.cantidadNinosHab+"</p>" : '')}
                     <p class="m-0"><strong>Incluye:</strong></p>
@@ -1778,7 +1807,7 @@ function cargarHabitacionesDisponibles(){
               </a>
 			  <div class="d-flex flex-column align-items-end">
 				<p class="m-0 fz-2"><strong>Precio noche: <span class="text-success" style="font-size: 18px;">RD$ ${element.precioHab.toLocaleString('en')}</span></strong></p>
-				<button class="button btn btn-primary col-8 mt-2 p-2" type="submit">Reservar</button>
+				<button onclick="carritoHabitaciones(${element.idNivel}, ${element.idHabitacion}, '${element.nombreTipoHab}', ${element.precioHab})" class="button btn btn-primary col-8 mt-2 p-2" type="buttom">Reservar</button>
 			  </div>
             </div>
                 `

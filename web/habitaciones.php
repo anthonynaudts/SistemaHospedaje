@@ -17,6 +17,7 @@
       <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
       <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link href="../assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
   <body>
@@ -143,9 +144,7 @@
                 </form>
               </div>
             </div>
-
       </div>
-
 
           <div class="range range-30 justify-content-lg-evenly" data-lightgallery="group" id="listarHabitacionesDisponibles">
             
@@ -387,9 +386,21 @@
         </div>
       </div>
     </div>
+    <section id="datosReservacion" class="datosReservacion d-flex align-items-center p-4 d-none">
+      <div class="row w-100">
+        <div class="col-md-9 bg-black">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, ea corrupti ipsa consequuntur necessitatibus, obcaecati esse quae magnam maxime ratione voluptatem voluptatum vero dolore? Quidem distinctio illo fuga odio inventore?</p>
+        </div>
+        <div class="col-md-3 d-flex justify-content-end align-items-center">
+				  <button class="button btn btn-success col-8" type="submit">Continuar</button>
+        </div>
+
+      </div>
+    </section>
     <!-- Javascript-->
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/simple-notify-master/simple-notify.min.js"></script>
   </body>
 </html>
