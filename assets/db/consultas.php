@@ -388,10 +388,41 @@
             echo("Error " . $e);
         }
     }
-    
-    function cargarHabitacionesDisponibles(){
+
+    function prueba($fechaLlegada, $fechaSalida){
         try{
-            $query = "EXEC listarHabxTemporada";
+            $query = "EXEC datosTemporales '".$fechaLlegada."', '".$fechaSalida."'";
+            $conn = conectarBD();
+            $insertReview = sqlsrv_query($conn, $query);
+            if($insertReview == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+            $cont = 0;
+            while($row = sqlsrv_fetch_array($insertReview, SQLSRV_FETCH_ASSOC)){
+                $datos[$cont] = $row;
+                $cont++;
+            }
+
+            sqlsrv_free_stmt($insertReview);
+            sqlsrv_close($conn);
+            // return json_encode($datos);
+        }
+        catch(Exception $e){
+            echo("Error". $e);
+        }
+    }
+
+
+    function cargarHabitacionesDisponibles($fechaLlegada, $fechaSalida){
+        try{
+            if($fechaLlegada == "" || $fechaSalida == ""){
+                $query = "EXEC listarHabxTemporada";
+            }else{
+                prueba($fechaLlegada, $fechaSalida);
+                // $query = "EXEC listarHabxTemporada3 '2022-12-15', '2022-12-30'";
+                $query = "EXEC listarHabxTemporada3 '".$fechaLlegada."', '".$fechaSalida."'";
+                
+            }
+            $datos = [];
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
             if ($obtenerDatos == FALSE)

@@ -86,15 +86,8 @@
             <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
               <div class="hotel-booking-form">
                 <h3>Consultar disponibilidad</h3>
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                <form class="rd-mailform">
                   <div class="range range-sm-bottom spacing-20">
-                    <!-- <div class="cell-lg-12 cell-md-4">
-                      <p class="text-uppercase">Nombre</p>
-                      <div class="form-wrap">
-                        <input class="form-input" id="contact-first-name" type="text" name="name" data-constraints="@Required">
-                        <label class="form-label" for="contact-first-name">Nombre completo</label>
-                      </div>
-                    </div> -->
                     <div class="cell-lg-3 cell-md-4 cell-sm-6">
                       <p class="text-uppercase">Llegada</p>
                       <div class="form-wrap">
@@ -109,12 +102,11 @@
                         <input class="form-input" id="date-out" data-time-picker="date" type="text" name="date" data-constraints="@Required">
                       </div>
                     </div>
-                    <div class="cell-lg-2 cell-md-4 cell-xs-6">
+                    <!--<div class="cell-lg-2 cell-md-4 cell-xs-6">
                       <p class="text-uppercase">Adultos</p>
                       <div class="form-wrap form-wrap-validation">
-                        <!--Select 2-->
                         <select class="form-input select-filter" data-minimum-results-search="-1" data-placeholder="1" data-constraints="@Required">
-                          <option>&nbsp;</option>
+                          <option value="" selected>0</option>
                           <?php 
                             for ($i=1; $i <= consultaMaximoPersonas("Adultos"); $i++) { 
                               echo '<option value="'.$i.'">'.$i.'</option>';
@@ -122,23 +114,22 @@
                             ?>
                         </select>
                       </div>
-                    </div>
-                    <div class="cell-lg-2 cell-md-4 cell-xs-6">
+                    </div>-->
+                    <!-- <div class="cell-lg-2 cell-md-4 cell-xs-6">
                       <p class="text-uppercase">Niños</p>
                       <div class="form-wrap form-wrap-validation">
-                        <!--Select 2-->
                         <select class="form-input select-filter" data-minimum-results-search="-1" data-placeholder="0" data-constraints="@Required">
-                          <option>&nbsp;</option>
+                          <option value="" selected>0</option>
                           <?php 
-                            for ($k=0; $k <= consultaMaximoPersonas("Ninos"); $k++) { 
+                            for ($k=1; $k <= consultaMaximoPersonas("Ninos"); $k++) { 
                               echo '<option value="'.$k.'">'.$k.'</option>';
                             }
                             ?>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="cell-lg-2 cell-md-4">
-                      <button class="button button-primary button-square button-block button-effect-ujarak" type="submit"><span>Consultar disponibilidad</span></button>
+                      <button onclick="cargarHabitacionesDisponibles()" class="button button-primary button-square button-block button-effect-ujarak" type="button"><span>Consultar disponibilidad</span></button>
                     </div>
                   </div>
                 </form>
@@ -388,8 +379,12 @@
     </div>
     <section id="datosReservacion" class="datosReservacion d-flex align-items-center p-4 d-none">
       <div class="row w-100">
-        <div class="col-md-9 bg-black">
-          <p id="datosReservacionGeneral">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, ea corrupti ipsa consequuntur necessitatibus, obcaecati esse quae magnam maxime ratione voluptatem voluptatum vero dolore? Quidem distinctio illo fuga odio inventore?</p>
+        <div class="col-md-9 d-flex justify-content-between align-items-center text-dark">
+          <div class="d-flex justify-content-between flex-column align-items-start">
+            <p id="datosReservacionGeneralListaHab"></p>
+            <span id="datosReservacionGeneralCantHabSeleccionadas"></span>
+          </div>
+          <span><strong>Total:<span id="datosReservacionGeneralPrecioTotal" class="text-primary" style="font-size: 18px;"></span></strong></span>
         </div>
         <div class="col-md-3 d-flex justify-content-end align-items-center">
 				  <button class="button btn btn-success col-8" type="submit">Continuar</button>

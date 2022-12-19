@@ -204,6 +204,10 @@ img {
 	bottom: 0;
 }
 
+.notify__title{
+	font-size: 14px !important;
+}
+
 .w-100{
 	width: 100%;
 }

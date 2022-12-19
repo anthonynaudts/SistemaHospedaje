@@ -1528,8 +1528,10 @@ $(function () {
 
 			options['format'] = 'dddd DD MMMM YYYY - HH:mm';
 			if ($dateTimePicker.attr("data-time-picker") == "date") {
-				options['format'] = 'dddd, DD MMMM YYYY';
-				// options['format'] = 'yyyy-MM-dd';
+				// options['format'] = 'dddd, DD MMMM YYYY';
+				options['format'] = 'YYYY-MM-DD';
+				// document.getElementById("date-in-oculto").value == options['format'];
+				
 				options['minDate'] = new Date();
 			} else if ($dateTimePicker.attr("data-time-picker") == "time") {
 				options['format'] = 'HH:mm';
@@ -1538,7 +1540,6 @@ $(function () {
 			options["time"] = ($dateTimePicker.attr("data-time-picker") != "date");
 			options["date"] = ($dateTimePicker.attr("data-time-picker") != "time");
 			options["shortTime"] = true;
-
 
 			$dateTimePicker.bootstrapMaterialDatePicker(options);
 		}
@@ -1732,16 +1733,41 @@ if(URLactual == "web/habitaciones"){
 	cargarHabitacionesDisponibles()
 }
 
+
+function validarElementoEnCarrito(cod){
+	var existe = false
+	carrito.habitaciones.forEach(element => {
+		if(cod == element.cod){
+			return existe = true
+		}	
+	});
+	return existe
+}
+
+
 var carrito = {'habitaciones': []};
 
 function carritoHabitaciones(idNivel, idHab, nombreTipoHab, precioHab) {
-		carrito.habitaciones.push({ 'cod': idNivel+''+idHab, 'idNivel': idNivel, 'idHab': idHab, 'nombreTipoHab':nombreTipoHab, 'precioHab':precioHab });
-		  localStorage.setItem('carrito', JSON.stringify(carrito));
-		  var restoredSession = JSON.parse(localStorage.getItem('carrito'));
-		  console.log(restoredSession);
 
-		  mensajeContinuarReservacion()
-		  alertaFormularios(`${nombreTipoHab} agregada al carrito!`, "success")
+	var fechaLlegada = document.getElementById("date-in").value, 
+			fechaSalida = document.getElementById("date-out").value
+
+	if(fechaLlegada == "" || fechaSalida == ""){
+		return alertaFormularios('Debe introducir las fechas de llegada y salida', "warning")
+	}
+
+	var cod = idNivel+''+idHab
+	if(validarElementoEnCarrito(cod)){
+		return alertaFormularios('Esta habitación ya está agregada', "warning")
+	}
+
+	carrito.habitaciones.push({ 'cod': cod, 'idNivel': idNivel, 'idHab': idHab, 'nombreTipoHab':nombreTipoHab, 'precioHab':precioHab });
+	localStorage.setItem('carrito', JSON.stringify(carrito));
+	var restoredSession = JSON.parse(localStorage.getItem('carrito'));
+	console.log(restoredSession);
+
+	mensajeContinuarReservacion()
+	alertaFormularios(`${nombreTipoHab} agregada al carrito!`, "success")
 		// carrito.habitaciones.sort()
 		
 }
@@ -1754,6 +1780,7 @@ function eliminarElementoCarrito(posicion){
 }
 
 function mensajeContinuarReservacion(){
+	var listadoHab = "<strong>Habitaciones:</strong> ";
 	if(carrito.habitaciones.length > 0){
 		document.getElementById("datosReservacion").classList.remove("d-none")
 	} else{
@@ -1763,18 +1790,26 @@ function mensajeContinuarReservacion(){
 		totalHabSelect = carrito.habitaciones.length
 
 	carrito.habitaciones.forEach(element => {
+		listadoHab += element.nombreTipoHab + ", "
 		totalPrecio += element.precioHab
 	});
 
-	document.getElementById("datosReservacionGeneral").innerText = `${totalPrecio}  ${totalHabSelect}`
+	document.getElementById("datosReservacionGeneralListaHab").innerHTML = listadoHab.slice(0, -2)
+	document.getElementById("datosReservacionGeneralCantHabSeleccionadas").innerHTML = "<strong>Cantidad de habitaciones: </strong>"+totalHabSelect
+	document.getElementById("datosReservacionGeneralPrecioTotal").innerHTML = `<span class="fz-5">${totalPrecio.toLocaleString('en-US')}</span>`
+	
 }
 
 function cargarHabitacionesDisponibles(){
+		var fechaLlegada = document.getElementById("date-in").value, 
+			fechaSalida = document.getElementById("date-out").value
+
     $.ajax({
         url: RUTACONSULTAS + "cargarHabitacionesDisponibles" + ".php",
         method: "POST",
 		data: {
-            // idNivel: idNivel
+            fechaLlegada: fechaLlegada,
+			fechaSalida: fechaSalida
         },
     }).done(function(res) {
         try {
@@ -1814,7 +1849,7 @@ function cargarHabitacionesDisponibles(){
                 </div>
               </a>
 			  <div class="d-flex flex-column align-items-end">
-				<p class="m-0 fz-2"><strong>Precio noche: <span class="text-success" style="font-size: 18px;">RD$ ${element.precioHab.toLocaleString('en')}</span></strong></p>
+				<p class="m-0 fz-2"><strong>Precio noche: <span class="text-success" style="font-size: 18px;">RD$ ${element.precioHab.toLocaleString('en-US')}</span></strong></p>
 				<button onclick="carritoHabitaciones(${element.idNivel}, ${element.idHabitacion}, '${element.nombreTipoHab}', ${element.precioHab})" class="button btn btn-primary col-8 mt-2 p-2" type="buttom">Reservar</button>
 			  </div>
             </div>
