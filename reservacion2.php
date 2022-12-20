@@ -4,10 +4,6 @@
 <script src='assets/calendario_lib/main.js'></script>
 <script src='assets/calendario_lib/locales-all.js'></script>
 
-
-<!-- //[p] Notificacion 2 horas antes de la salida -->
-<!-- //[p] Colores de estados de reservas (Verde confirmada, amarillo pendiente, rojo cancelada) -->
-
 <style>
 
   /* body {
@@ -51,7 +47,6 @@
               <p class="m-0"><i class="bi bi-door-open-fill text-primary"></i>&nbsp;habitacion</p>
               <p class="m-0"><i class="bi bi-tags-fill text-primary"></i>&nbsp;habitacion</p>
 
-              <!-- //ERROR corrector ortografico extension -->
             </div>
             <div class="modal-footer p-0">
               <button type="button" class="border-0 w-50 py-2 m-0 text-danger"><i class="bi bi-trash-fill"></i>&nbsp;Borrar</button>

@@ -141,7 +141,7 @@
                       <hr class="divider divider-left divider-custom">
                       <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
                         <div class="unit__left"><span class="text-middle icon icon-sm mdi mdi-phone icon-primary"></span></div>
-                        <div class="unit__body"><a class="text-middle link link-gray-dark" href="tel:#">1-800-1234-567</a></div>
+                        <div class="unit__body"><a class="text-middle link link-gray-dark" href="tel:#">(809) 158-1234</a></div>
                       </div>
                     </div>
                     <div class="cell-xs-6 cell-sm-12">
@@ -149,16 +149,16 @@
                       <hr class="divider divider-left divider-custom">
                       <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
                         <div class="unit__left"><span class="text-middle icon icon-sm mdi mdi-map-marker icon-primary"></span></div>
-                        <div class="unit__body"><a class="text-middle link link-gray-dark" href="contacts.html">267 Park Avenue New York, NY 90210</a></div>
+                        <div class="unit__body"><a class="text-middle link link-gray-dark" href="contacts.html">Av. Juan pablo duarte 87, Santiago de los caballeros</a></div>
                       </div>
                     </div>
                     <div class="cell-xs-6 cell-sm-12">
-                      <p class="aside-title"> opening hours</p>
+                      <p class="aside-title"> Hora de apertura</p>
                       <hr class="divider divider-left divider-custom">
                       <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
                         <div class="unit__left"><span class="text-middle icon icon-sm mdi mdi-clock icon-primary"></span></div>
                         <div class="unit__body text-gray-darker">
-                          <p>We work every day 9:00–23:00</p>
+                          <p>Estamos abierto las 24 horas todos los dias de la semana</p>
                         </div>
                       </div>
                     </div>

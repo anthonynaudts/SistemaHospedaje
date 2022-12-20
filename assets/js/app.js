@@ -1,7 +1,6 @@
 const RUTACONSULTAS = "./assets/db/peticiones/"; 
 
 function desactivarLinksSinPermisos(){
-    //[p] Buscar con queryselector los elementos id de mantenimiento ej, y si es menor que 2 desactivar todos
     $.ajax({
         url: RUTACONSULTAS + "consultaPermisosGeneral" + ".php",
         method: "POST"
@@ -12,34 +11,23 @@ function desactivarLinksSinPermisos(){
             result.forEach(pagina => {
                 if(pagina.estado != 1){
                     document.getElementById(pagina.pagina).classList.add("desactivarLink")
-                    // document.getElementById(pagina.pagina).setAttribute("onclick", "return false;");
-                    
-                    // [ ] asignar onclick return false a cada página para que desactive el click
                 }else{
                     document.getElementById(pagina.pagina).classList.remove("desactivarLink")
-                    // document.getElementById(pagina.pagina).setAttribute("onclick", "return true;");
                 }
             });
 
 
             var listaModulos = document.querySelectorAll(".modulo")
-            // const myElement = document.getElementById('foo');
             listaModulos.forEach(element => {
-                // console.log(element)
-                // console.log("Elementos Módulo = " +element.childElementCount)
                 let noActivos = 0
                 for (const child of element.children) {
-                    // console.log(child.classList == "desactivarLink");
                     (child.classList == "desactivarLink")? noActivos ++: ''
                 }
-                // console.log("No activos = " + noActivos)
                 if(element.childElementCount == noActivos)
                     element.parentElement.style.display = "none"
                 else
                     element.parentElement.style.display = "block"
             });
-            // listaModulos = listaModulos.children
-            // console.log(listaModulos) 
 
             document.getElementById("loader").classList.remove("d-flex")
             document.getElementById("loader").classList.add("d-none")
@@ -52,7 +40,6 @@ function desactivarLinksSinPermisos(){
     });
 }
 
-// [p]Validar si correo existe
 
 function consultaGeneral(query){
     $.ajax({
@@ -78,14 +65,11 @@ window.addEventListener("load", function(event) {
     titulo = URLactual.charAt(0).toUpperCase() + URLactual.slice(1);
     titulocabeza = document.querySelector('title').textContent
     document.querySelector('title').textContent = titulocabeza + " · " + titulo
-    // this.document.getElementById(URLactual).classList.remove("collapsed")
     if(URLactual == "tablero"){
         this.document.getElementById("tablero").classList.remove("collapsed")
-        // return
     }
     if(URLactual == "perfil"){
         this.document.getElementById("perfil").classList.remove("collapsed")
-        // return
     }
 
     if(URLactual == "paginas"){
@@ -231,8 +215,6 @@ function cambiarContrasena(event){
         alertaFormularios("La contraseña de confirmación no coincide con la nueva contraseña", "error")
         return
     }
-
-    // [p] Hacer procedicimiento almacenado que verifique si la contraseña actual coninciden, de lo contrario enviar error
 
     contrasenaActual = document.getElementById("contrasenaActual").value
     
@@ -582,7 +564,6 @@ function cargarUsuarios(){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
-            // console.table(result)
             contenedorExis = document.getElementById("listarUsuariosRegistrados")
             
             let datos = ""
@@ -649,7 +630,6 @@ function cargarClientes(){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
-            // console.table(result)
             contenedorExis = document.getElementById("listarClientesRegistrados")
             
             let datos = ""
@@ -717,7 +697,6 @@ function cargarHabitaciones(){
             result.forEach(element => {
                 listaElementosInluye = ""
                 datosIncluye = element.incluye
-                // // console.log(datosIncluye.descCaracteristica)
                 datosIncluye.forEach(elementoIncluye => {
                     elementoIncluye = elementoIncluye.split(",")
                     listaElementosInluye += `<li><i class="${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`
@@ -920,10 +899,6 @@ function cargarPosiciones(){
     $.ajax({
         url: RUTACONSULTAS + "consultaPosiciones" + ".php",
         method: "POST",
-        // data: {
-        //     usuario: usuario.trim(),
-        //     contrasena: contrasena.trim()
-        // },
     }).done(function(res) {
         try {
             result = JSON.parse(res)
@@ -950,7 +925,6 @@ function cargarPaginas(){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
-            // console.table(result)
             contenedorExis = document.getElementById("listarPaginas")
             
             contenedorExis.innerHTML = ""
@@ -985,7 +959,6 @@ function cargarCaracteristicasHab(){
     }).done(function(res) {
         try {
             result = JSON.parse(res)
-            // console.table(result)
             contenedorExis = document.getElementById("listarCaracteristicasHab")
             
             contenedorExis.innerHTML = ""
@@ -1097,7 +1070,7 @@ function cargarPermisos(idPagina){
             });
                 
         } catch (error) {
-            console.log(error) //[ ] muestra error cuando no tiene permisos
+            console.log(error)
             elementos.forEach(element => {
                 id = element.children[0].id.split("-")
                 input = document.getElementById("idPos-"+id[1])
@@ -1119,8 +1092,6 @@ function ActualizarPermisos(idPagina, idPosicion, estado){
         },
     }).done(function(res) {
         try {
-            // if(res)
-            // console.log(res)
 
         } catch (error) {
             console.log(error)
@@ -1135,7 +1106,6 @@ function ActualizarPaginas(event){
         let datos = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(event.target))));
         info = JSON.stringify(datos);
         result = JSON.parse(info)
-        // console.log(result.urlPagina)
         id = document.getElementById("idPagina").value
         if(id == "")
             id = 0
@@ -1154,7 +1124,6 @@ function ActualizarPaginas(event){
                 cargarPaginas()
 
                 elementos = document.getElementById("paginaPosiciones").childNodes
-                //[ ]Json resultado para tomar id
 
                 contador = 0
                 elementos.forEach(element => {
@@ -1163,7 +1132,6 @@ function ActualizarPaginas(event){
                     ActualizarPermisos(res, id[1], (input.checked)? 1: 0)
                     contador++
                 });
-                // cargarPermisos(res)
                 desactivarLinksSinPermisos()
                 limpiarFormulario(event)
 
@@ -1183,7 +1151,7 @@ function obtenerFechaHoy(){
     let day = date.getDate()
     let month = date.getMonth() + 1
     let year = date.getFullYear()
-            // let fechaHoy = ''
+    
     if(month < 10){
         fechaHoy = `${year}-0${month}-${day}`
     }else if(day <10){
@@ -1210,7 +1178,7 @@ function noFoto(querySelector){
 }
 
 
-function EliminarPagina(idPagina){ //[ ]Confirmar eliminar
+function EliminarPagina(idPagina){
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -1254,20 +1222,3 @@ function EliminarPagina(idPagina){ //[ ]Confirmar eliminar
       })
       
 } 
-
-
-
-
-
-
-// let datos = Object.fromEntries(new FormData(e.target));
-// JSON.stringify(datos);
-
-
-
-// event.preventDefault();
-//         console.log(event)
-//         let datos = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(event.target))));
-//         // info = JSON.stringify(datos);
-//         // result = JSON.parse(info)
-//         console.log(datos)

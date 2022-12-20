@@ -1,2 +1,0 @@
-[p] Recomendar habitaciones dependiendo cantidad de personas. EJ:
-    4 personas, recomendar 1 habitación para 4 personas o 2 habitaciones para 2 personas

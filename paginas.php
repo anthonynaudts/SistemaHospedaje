@@ -61,13 +61,7 @@
                     <th scope="col">Acción</th>
                   </tr>
                 </thead>
-                <!-- //[ ] eliminar tablas filas con diferentes colores y lineas de bordes -->
                 <tbody id="listarPaginas">
-                  <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td><a href="#">Seleccionar</a></td>
-                  </tr> -->
                 </tbody>
               </table>
               

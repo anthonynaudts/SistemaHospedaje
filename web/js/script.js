@@ -76,9 +76,8 @@ function lazyInit(element, func) {
 	$window.on('scroll', scrollHandler);
 }
 
-// Initialize scripts that require a loaded window
 $window.on('load', function () {
-	// Material Parallax
+	
 	if (plugins.materialParallax.length) {
 		if (!isNoviBuilder && !isIE && !isMobile) {
 			plugins.materialParallax.parallax();
@@ -1827,7 +1826,6 @@ function mensajeContinuarReservacion(){
 function borrarCarrito(){
 	carrito = JSON.parse(localStorage.getItem('carrito'))
 	var carrito = {'habitaciones': []};
-	// carrito.habitaciones = [];
 	localStorage.setItem('carrito', JSON.stringify(carrito));
 	mensajeContinuarReservacion();
 }
@@ -1925,7 +1923,7 @@ function cargarHabitacionesDisponibles(){
             result.forEach(element => {
                 var listaElementosInluye = ""
                 var datosIncluye = element.incluye
-                // // console.log(datosIncluye.descCaracteristica)
+
                 datosIncluye.forEach(elementoIncluye => {
                     elementoIncluye = elementoIncluye.split(",")
                     listaElementosInluye += `<li><i class="${elementoIncluye[1]}"></i> ${elementoIncluye[0]}</li>`

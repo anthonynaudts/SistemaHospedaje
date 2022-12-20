@@ -117,13 +117,10 @@
                     // console.table(arg.event.id)
                     // console.log(arg.event.id, arg.event.startStr, arg.event.endStr)
                     actualizarFechasEvento(arg.event.id, arg.event.startStr, arg.event.endStr)
-                    // [p] Actualizar fechas en base de datos
                   },
                   eventResize: function(arg){
                     // Evento cambiar tamaño
                     actualizarFechasEvento(arg.event.id, arg.event.startStr, arg.event.endStr)
-                    // console.log(arg.event.id, arg.event.startStr, arg.event.endStr)
-                    // [p] Actualizar fechas en base de datos
                   },
                   editable: true,
                   dayMaxEvents: false, // allow "more" link when too many events
@@ -133,7 +130,6 @@
                 calendar.render();
             //   });
 
-            document.getElementById("abrirModal").click() // BUG Eliminar al arreglar modal
                 
         } catch (error) {
             console.log(error)

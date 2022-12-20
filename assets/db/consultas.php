@@ -398,7 +398,6 @@
                 die(print_r(sqlsrv_errors(),true));
                 $cont = 0;
             while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
-                // $datos[$cont] = $row;
                 $datos[$cont]['cantReservas'] = $row["cantReservas"];
                 $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
                 $datos[$cont]['idNivel'] = $row["idNivel"];
@@ -457,13 +456,11 @@
 
             sqlsrv_free_stmt($insertReview);
             sqlsrv_close($conn);
-            // return json_encode($datos);
         }
         catch(Exception $e){
             echo("Error". $e);
         }
     }
-
 
     function cargarHabitacionesDisponibles($fechaLlegada, $fechaSalida){
         try{
@@ -471,7 +468,6 @@
                 $query = "EXEC listarHabxTemporada";
             }else{
                 datosTemporales($fechaLlegada, $fechaSalida);
-                // $query = "EXEC listarHabxTemporada3 '2022-12-15', '2022-12-30'";
                 $query = "EXEC listarHabxTemporada3 '".$fechaLlegada."', '".$fechaSalida."'";
                 
             }
@@ -487,7 +483,6 @@
                 $datos[$cont]['descripcionTipoHab'] = $row["descripcionTipoHab"];
                 $datos[$cont]['imagen'] = $row["imagen"];
                 $datos[$cont]['precioHab'] = $row["precioHab"];
-                // $datos[$cont]['incluye'] = explode(",",$row["incluye"]);
                 $listaIncluye = explode(",", $row["incluye"]);
                 $elementIconos = [];
                 for($i=0; $i < count($listaIncluye); $i++) { 
@@ -572,7 +567,6 @@
                 echo json_encode("NULL"); 
             sqlsrv_free_stmt($obtenerDatos);
             sqlsrv_close($conn);
-            // return json_encode($datos);
         }
         catch(Exception $e){
             echo("Error " . $e);
@@ -626,7 +620,6 @@
     }
 
     function eliminarPagina($idPagina){
-        //[ ] eliminar datos tambien de la tabla permisos_paginas
         $datos = json_decode(eliminarGeneral("DELETE FROM paginas WHERE idPagina = '".$idPagina."'; DELETE FROM permisos_paginas WHERE idPagina = '".$idPagina."' "), true);
         echo ($datos);
     }
