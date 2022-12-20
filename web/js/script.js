@@ -1756,6 +1756,9 @@ function carritoHabitaciones(idNivel, idHab, nombreTipoHab, precioHab) {
 		return alertaFormularios('Debe introducir las fechas de llegada y salida', "warning")
 	}
 
+	localStorage.setItem('fechaLlegadaGLOBAL', fechaLlegada);
+	localStorage.setItem('fechaSalidaGLOBAL', fechaSalida);
+
 	var cod = idNivel+''+idHab
 	if(validarElementoEnCarrito(cod)){
 		return alertaFormularios('Esta habitación ya está agregada', "warning")
@@ -1768,36 +1771,135 @@ function carritoHabitaciones(idNivel, idHab, nombreTipoHab, precioHab) {
 
 	mensajeContinuarReservacion()
 	alertaFormularios(`${nombreTipoHab} agregada al carrito!`, "success")
-		// carrito.habitaciones.sort()
 		
 }
 
 function eliminarElementoCarrito(posicion){
+	carrito = JSON.parse(localStorage.getItem('carrito'))
 	carrito.habitaciones.splice(posicion, 1)
-	// delete carrito.habitaciones[posicion]
-	// carrito.habitaciones.sort()
-	mensajeContinuarReservacion()
+	localStorage.setItem('carrito', JSON.stringify(carrito));
+	confirmarReserva()
+}
+
+window.onload = function () {
+	if(URLactual != "web/confirmar"){
+		mensajeContinuarReservacion();
+	}
+		
+
+	if(URLactual == "web/confirmar"){
+		console.log("Confirmar")
+		confirmarReserva()
+	}
 }
 
 function mensajeContinuarReservacion(){
-	var listadoHab = "<strong>Habitaciones:</strong> ";
-	if(carrito.habitaciones.length > 0){
-		document.getElementById("datosReservacion").classList.remove("d-none")
-	} else{
+	carrito = JSON.parse(localStorage.getItem('carrito'))
+	if(carrito.habitaciones.length > 0 && URLactual == "web/habitaciones"){
+		document.getElementById("date-in").value = localStorage.getItem('fechaLlegadaGLOBAL')
+		document.getElementById("date-out").value = localStorage.getItem('fechaSalidaGLOBAL')
+
+		var listadoHab = "<strong>Habitaciones:</strong> ";
+	
+		if(carrito.habitaciones.length > 0){
+			document.getElementById("datosReservacion").classList.remove("d-none")
+		} else{
+			document.getElementById("datosReservacion").classList.add("d-none")
+		}
+
+		var totalPrecio = 0,
+			totalHabSelect = carrito.habitaciones.length
+
+		carrito.habitaciones.forEach(element => {
+			listadoHab += element.nombreTipoHab + ", "
+			totalPrecio += element.precioHab
+		});
+
+
+		document.getElementById("datosReservacionGeneralListaHab").innerHTML = listadoHab.slice(0, -2)
+		document.getElementById("datosReservacionGeneralCantHabSeleccionadas").innerHTML = "<strong>Cantidad de habitaciones: </strong>"+totalHabSelect
+		document.getElementById("datosReservacionGeneralPrecioTotal").innerHTML = `<span class="fz-5">${totalPrecio.toLocaleString('en-US')}</span>`
+	}else{
 		document.getElementById("datosReservacion").classList.add("d-none")
 	}
-	var totalPrecio = 0,
-		totalHabSelect = carrito.habitaciones.length
+}
 
+function borrarCarrito(){
+	carrito.habitaciones = [];
+	mensajeContinuarReservacion();
+}
+
+
+function confirmarReserva(){
+	carrito = JSON.parse(localStorage.getItem('carrito'))
+	console.log(carrito)
+	var listaHab = ""
+	var contador = 0
+	var totalPrecio = 0
 	carrito.habitaciones.forEach(element => {
-		listadoHab += element.nombreTipoHab + ", "
 		totalPrecio += element.precioHab
+		listaHab += `
+		<div class="d-flex justify-content-between w-100">
+			<p class="text-middle link link-gray-dark text-left">${element.nombreTipoHab}</p>
+			<div class="d-flex align-items-center">
+				<span class="text-success">RD$ ${element.precioHab.toLocaleString('en-US')}</span>&nbsp;&nbsp;
+				<i class="fa-light fa-trash-can text-dark" onclick="eliminarElementoCarrito(${contador})" style="cursor:pointer; font-size: 15px;"></i>
+			</div>
+		</div>
+		`
+		contador++
 	});
 
-	document.getElementById("datosReservacionGeneralListaHab").innerHTML = listadoHab.slice(0, -2)
-	document.getElementById("datosReservacionGeneralCantHabSeleccionadas").innerHTML = "<strong>Cantidad de habitaciones: </strong>"+totalHabSelect
-	document.getElementById("datosReservacionGeneralPrecioTotal").innerHTML = `<span class="fz-5">${totalPrecio.toLocaleString('en-US')}</span>`
-	
+	document.getElementById("listaHabReservar").innerHTML = listaHab
+	document.getElementById("fechaLlegadaConfirmar").innerHTML = `<span class="text-dark" style="font-size:16px;"">Fecha llegada: ${fechaDDMMYYY(localStorage.getItem('fechaLlegadaGLOBAL'))}</span>`
+	document.getElementById("fechaSalidaConfirmar").innerHTML = `<span class="text-dark" style="font-size:16px;"">Fecha salida: ${fechaDDMMYYY(localStorage.getItem('fechaSalidaGLOBAL'))}</span>`
+	document.getElementById("totalPagarConfirmar").innerHTML =  `<span class="text-dark" style="font-size:18px;"">RD$ ${totalPrecio.toLocaleString('en-US')}</span>`
+}
+
+function fechaDDMMYYY(fecha){
+	fecha = fecha.split("-")
+	return fecha[2]+'/'+fecha[1]+'/'+fecha[0]
+}
+
+function agendarReserva(){
+	$.ajax({
+        url: RUTACONSULTAS + "ActualizarReservas" + ".php",
+        method: "POST",
+        data: {
+            idReserva: '',
+            fecha_llegada: localStorage.getItem('fechaLlegadaGLOBAL'),
+			fecha_partida: localStorage.getItem('fechaSalidaGLOBAL')
+        },
+    }).done(function(res) {
+        try {
+			console.log(res)
+			carrito = JSON.parse(localStorage.getItem('carrito'))
+			carrito.habitaciones.forEach(element => {
+				agendarDetalleReserva(res, element.idHab, element.idNivel, element.precioHab)
+			});
+			
+			alertaFormularios("Reserva realizada con  exito!", "success")
+			carrito.habitaciones = [];
+                
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function agendarDetalleReserva(idReserva, idHab, idNivel, precioHab){
+	$.ajax({
+        url: RUTACONSULTAS + "GuardarDetalleReserva" + ".php",
+        method: "POST",
+        data: {
+            idReserva: idReserva,
+            idHab: idHab,
+			idNivel: idNivel,
+			precioHab: precioHab
+        },
+    }).done(function(res) {
+        // console.log(res)
+    });
 }
 
 function cargarHabitacionesDisponibles(){
@@ -1829,7 +1931,7 @@ function cargarHabitacionesDisponibles(){
 
                 var carga = `
 				<div class="cell-sm-6 cell-md-4 padre-thumbnail-classic d-flex flex-column justify-content-between align-items-end">
-				<a class="thumbnail-classic" data-lightgallery="item">
+				<a class="thumbnail-classic text-dark" data-lightgallery="item">
                 <figure>
                   <img src="../../assets/img/habitaciones/${(element.imagen == ''? 'imagen-no-disponible.png' : element.imagen)}" alt="" width="370" height="276"/>
                 </figure>

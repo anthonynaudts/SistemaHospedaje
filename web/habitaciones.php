@@ -1,5 +1,6 @@
-
-<?php require("../assets/db/sesion.php"); ?>
+<?php require("../assets/db/sesion.php"); 
+(isset($_SESSION['idCliente']))? $clienteActual = $_SESSION['nombreCliente']. ' '. $_SESSION['apellidosCliente'] : $clienteActual = "Acceder";
+?>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
   <head>
@@ -41,7 +42,7 @@
                   <div class="contact-info">
                     <div class="unit unit-middle unit-horizontal unit-spacing-xs">
                       <i class="fa-solid fa-circle-user">&nbsp;</i>
-                      <div class="unit__body"><a class="text-middle" href="registro">Acceder</a></div>
+                      <div class="unit__body"><a class="text-middle" href="registro"><?php echo $clienteActual; ?></a></div>
                     </div>
                   </div>
                 </div>
@@ -69,8 +70,6 @@
                       </li>
                       <li><a href="habitaciones">Habitaciones</a>
                       </li>
-                      <li><a href="typography">Typography</a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -80,7 +79,7 @@
         </div>
       </header>
       <!-- Breadcrumbs & Page title-->
-      <section class="section">
+      <section class="section mb-5">
         <div class="shell">
           <div> 
             <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
@@ -88,14 +87,14 @@
                 <h3>Consultar disponibilidad</h3>
                 <form class="rd-mailform">
                   <div class="range range-sm-bottom spacing-20">
-                    <div class="cell-lg-3 cell-md-4 cell-sm-6">
+                    <div class="cell-lg-4 cell-md-4 cell-sm-6">
                       <p class="text-uppercase">Llegada</p>
                       <div class="form-wrap">
                         <label class="form-label form-label-icon" for="date-in"><i class="fa-solid fa-calendar-arrow-down"></i>&nbsp;<span>Fecha check-in</span></label>
                         <input class="form-input" id="date-in" data-time-picker="date" type="text" name="date" data-constraints="@Required">
                       </div>
                     </div>
-                    <div class="cell-lg-3 cell-md-4 cell-sm-6">
+                    <div class="cell-lg-4 cell-md-4 cell-sm-6">
                       <p class="text-uppercase">Partida</p>
                       <div class="form-wrap">
                         <label class="form-label form-label-icon" for="date-out"><i class="fa-solid fa-calendar-arrow-up"></i>&nbsp;<span>Fecha check-out</span></label>
@@ -128,14 +127,14 @@
                         </select>
                       </div>
                     </div> -->
-                    <div class="cell-lg-2 cell-md-4">
+                    <div class="cell-lg-4 cell-md-4">
                       <button onclick="cargarHabitacionesDisponibles()" class="button button-primary button-square button-block button-effect-ujarak" type="button"><span>Consultar disponibilidad</span></button>
                     </div>
                   </div>
                 </form>
               </div>
             </div>
-      </div>
+        </div>
 
           <div class="range range-30 justify-content-lg-evenly" data-lightgallery="group" id="listarHabitacionesDisponibles">
             
@@ -387,7 +386,9 @@
           <span><strong>Total:<span id="datosReservacionGeneralPrecioTotal" class="text-primary" style="font-size: 18px;"></span></strong></span>
         </div>
         <div class="col-md-3 d-flex justify-content-end align-items-center">
-				  <button class="button btn btn-success col-8" type="submit">Continuar</button>
+				  <a href="confirmar" class="button btn btn-success col-8" type="submit">Continuar</a>
+          &nbsp;&nbsp;
+          <button onclick="borrarCarrito();" type="button" class="btn-close" aria-label="Close"></button>
         </div>
 
       </div>

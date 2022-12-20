@@ -236,7 +236,7 @@
     
     function consultaClientes(){
         try{
-            $query = "SELECT * FROM listarClientes order by idCliente ASC";
+            $query = "SELECT *, (select COUNT(idReserva) from reservas where reservas.idCliente=listarClientes.idCliente) cantReservas from listarClientes order by idCliente ASC";
             $conn = conectarBD();
             $obtenerDatos = sqlsrv_query($conn, $query);
             if ($obtenerDatos == FALSE)
@@ -362,6 +362,33 @@
         }
     }
 
+    function consultarReservas(){
+        try{
+            $query = "SELECT *, (select SUM(precioHab) from detalleReserva where detalleReserva.idReserva = mostrarReservas.idReserva)totalPrecio from mostrarReservas WHERE fecha_llegada >= GETDATE() order by fecha_llegada ASC";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                // $datos[$cont] = $row;
+                $datos[$cont]['idReserva'] = $row["idReserva"];
+                $datos[$cont]['nombreCliente'] = $row["nombreCliente"];
+                $datos[$cont]['apellidosCliente'] = $row["apellidosCliente"];
+                $datos[$cont]['fecha_llegada'] = $row["fecha_llegada"];
+                $datos[$cont]['fecha_partida'] = $row["fecha_partida"];
+                $datos[$cont]['totalPrecio'] = $row["totalPrecio"];
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
     function cargarHabitacionesparaLimpieza(){
         try{
             $query = "SELECT * FROM listarHabitacionesParaLimpieza WHERE idEstadoHab = 4 order by nivelNum, idHabitacion ASC";
@@ -389,7 +416,7 @@
         }
     }
 
-    function prueba($fechaLlegada, $fechaSalida){
+    function datosTemporales($fechaLlegada, $fechaSalida){
         try{
             $query = "EXEC datosTemporales '".$fechaLlegada."', '".$fechaSalida."'";
             $conn = conectarBD();
@@ -417,7 +444,7 @@
             if($fechaLlegada == "" || $fechaSalida == ""){
                 $query = "EXEC listarHabxTemporada";
             }else{
-                prueba($fechaLlegada, $fechaSalida);
+                datosTemporales($fechaLlegada, $fechaSalida);
                 // $query = "EXEC listarHabxTemporada3 '2022-12-15', '2022-12-30'";
                 $query = "EXEC listarHabxTemporada3 '".$fechaLlegada."', '".$fechaSalida."'";
                 
@@ -639,6 +666,16 @@
     function ActualizarCaracteristicaHab($idCaracteristica, $descCaracteristica, $iconoCaracteristica){
         $datos = json_decode(insertarGeneral("EXEC ActualizarCaracteristicaHab '".intval($idCaracteristica)."','".$descCaracteristica."', '".$iconoCaracteristica."'"), true);
         echo $datos;
+    }
+
+    function ActualizarReservas($idReserva, $idCliente, $fecha_llegada, $fecha_partida){
+        $datos = json_decode(insertarGeneral("EXEC ActualizarReservas '".intval($idReserva)."','".intval($idCliente)."', '".$fecha_llegada."', '".$fecha_partida."'"), true);
+        echo $datos[0]["idReserva"];
+    }
+
+    function GuardarDetalleReserva($idReserva, $idHab, $idNivel, $precioHab){
+        $datos = json_decode(insertarGeneral("INSERT INTO detalleReserva(idReserva, idHabitacion, idNivel, precioHab) VALUES('".intval($idReserva)."','".intval($idHab)."', '".intval($idNivel)."', '".$precioHab."')"), true);
+        echo $datos[0]["idReserva"];
     }
 
     // Funcionar para manejo de eventos

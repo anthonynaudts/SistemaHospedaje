@@ -5,7 +5,7 @@
 <html class="wide wow-animation" lang="en">
   <head>
     <!-- Site Title-->
-    <title>Contacto</title>
+    <title>Confirmar reserva</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +70,7 @@
                       </li>
                       <li><a href="about-us">Sobre nosotros</a>
                       </li>
-                      <li class="active"><a href="contacts">Contacto</a>
+                      <li><a href="contacts">Contacto</a>
                       </li>
                       <li><a href="habitaciones">Habitaciones</a>
                       </li>
@@ -88,79 +88,39 @@
             <div class="range range-50 range-md-center">
               <div class="cell-sm-8">
                 <div class="contact-box">
-                  <h3>Ponerse en contacto</h3>
-                  <p>Estamos disponibles 24/7 por correo electrónico o por teléfono. También puede utilizar nuestro formulario de contacto rápido para hacer una pregunta sobre nuestros servicios. Estaremos encantados de responder a sus preguntas.</p>
-                  <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
-                    <div class="range range-sm-bottom spacing-20">
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                          <input class="form-input" id="contact-first-name" type="text" name="name" data-constraints="@Required">
-                          <label class="form-label" for="contact-first-name">Nombre</label>
+                  <h3>Confirmar reservación</h3>
+                  <p>¡Estás a un paso de completar tu reservación!</p>
+                    <div class="cell-xs-6 cell-sm-12">
+                      <p class="aside-title text-left mt-4">Habitaciones seleccionadas</p>
+                      <hr class="divider divider-left divider-custom m-0">
+                      <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
+                        <div id="listaHabReservar" class="unit__body" style="width: 80%; font-size: 18px">
+                          <p class="text-middle link link-gray-dark">267 Park Avenue New York, NY 90210</p>
                         </div>
-                      </div>
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                          <input class="form-input" id="contact-last-name" type="text" name="phone" data-constraints="@Numeric">
-                          <label class="form-label" for="contact-last-name">Teléfono</label>
-                        </div>
-                      </div>
-                      <div class="cell-xs-12">
-                        <div class="form-wrap">
-                          <textarea class="form-input" id="contact-message" name="message" data-constraints="@Required"></textarea>
-                          <label class="form-label" for="contact-message">Mensaje</label>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                          <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required">
-                          <label class="form-label" for="contact-email">Correo</label>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6">
-                        <button class="button button-primary button-square button-block button-effect-ujarak" type="submit"><span>Enviar mensaje</span></button>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
               <div class="cell-sm-4">
                 <aside class="contact-box-aside text-left">
                   <div class="range range-50">
-                    <!-- <div class="cell-xs-6 cell-sm-12">
-                      <p class="aside-title"> get Social</p>
-                      <hr class="divider divider-left divider-custom">
-                      <ul class="list-inline">
-                        <li><a class="icon icon-sm icon-gray-3 fa fa-instagram" href="#"></a></li>
-                        <li><a class="icon icon-sm icon-gray-3 fa fa-facebook" href="#"></a></li>
-                        <li><a class="icon icon-sm icon-gray-3 fa fa-twitter" href="#"></a></li>
-                        <li><a class="icon icon-sm icon-gray-3 fa fa-youtube" href="#"></a></li>
-                      </ul>
-                    </div> -->
                     <div class="cell-xs-6 cell-sm-12">
-                      <p class="aside-title"> Telefono</p>
-                      <hr class="divider divider-left divider-custom">
-                      <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
-                        <div class="unit__left"><span class="text-middle icon icon-sm mdi mdi-phone icon-primary"></span></div>
-                        <div class="unit__body"><a class="text-middle link link-gray-dark" href="tel:#">1-800-1234-567</a></div>
+                      <p class="aside-title"> Fecha reservación</p>
+                      <hr class="divider divider-left divider-custom m-0">
+                      <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top d-flex flex-column align-items-start">
+                        <div class="unit__body fz-6" id="fechaLlegadaConfirmar"></div>
+                        <div class="unit__body fz-6" id="fechaSalidaConfirmar"></div>
                       </div>
                     </div>
                     <div class="cell-xs-6 cell-sm-12">
-                      <p class="aside-title"> Dirección</p>
-                      <hr class="divider divider-left divider-custom">
+                      <p class="aside-title"> Total a pagar</p>
+                      <hr class="divider divider-left divider-custom m-0">
                       <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
-                        <div class="unit__left"><span class="text-middle icon icon-sm mdi mdi-map-marker icon-primary"></span></div>
-                        <div class="unit__body"><a class="text-middle link link-gray-dark" href="contacts.html">267 Park Avenue New York, NY 90210</a></div>
+                        <div class="unit__body fz-6" id="totalPagarConfirmar"></div>
                       </div>
                     </div>
                     <div class="cell-xs-6 cell-sm-12">
-                      <p class="aside-title"> opening hours</p>
-                      <hr class="divider divider-left divider-custom">
-                      <div class="unit unit-middle unit-horizontal unit-spacing-xs unit-xs-top">
-                        <div class="unit__left"><span class="text-middle icon icon-sm mdi mdi-clock icon-primary"></span></div>
-                        <div class="unit__body text-gray-darker">
-                          <p>We work every day 9:00–23:00</p>
-                        </div>
-                      </div>
+                      <a onclick="agendarReserva()" class="button btn btn-success col-8" type="submit">Reservar</a>
                     </div>
                   </div>
                 </aside>
@@ -279,21 +239,6 @@
         </div>
       </div>
     </div>
-    <section id="datosReservacion" class="datosReservacion d-flex align-items-center p-4 d-none">
-      <div class="row w-100">
-        <div class="col-md-9 d-flex justify-content-between align-items-center text-dark">
-          <div class="d-flex justify-content-between flex-column align-items-start">
-            <p id="datosReservacionGeneralListaHab"></p>
-            <span id="datosReservacionGeneralCantHabSeleccionadas"></span>
-          </div>
-          <span><strong>Total:<span id="datosReservacionGeneralPrecioTotal" class="text-primary" style="font-size: 18px;"></span></strong></span>
-        </div>
-        <div class="col-md-3 d-flex justify-content-end align-items-center">
-				  <button class="button btn btn-success col-8" type="submit">Continuar</button>
-        </div>
-
-      </div>
-    </section>
     <!-- Javascript-->
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>

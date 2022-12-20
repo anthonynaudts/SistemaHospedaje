@@ -1,5 +1,8 @@
 
-<!-- icon list--><!DOCTYPE html>
+<?php require("../assets/db/sesion.php"); 
+(isset($_SESSION['idCliente']))? $clienteActual = $_SESSION['nombreCliente']. ' '. $_SESSION['apellidosCliente'] : $clienteActual = "Acceder";
+?>
+<!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
     <!-- Site Title-->
@@ -11,53 +14,18 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic%7CPoppins:300,400,500,700">
-    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-      <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.css">
+      <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+      <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link href="../assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
   <body>
     <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <!-- Page-->
     <div class="text-center page">
-      <!-- Page preloader-->
-      <!-- <div class="page-loader">
-        <div>
-          <div class="page-loader-body">
-            <div class="loader">
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="window"></div>
-              <div class="door"></div>
-              <div class="hotel-sign"><span>H</span><span>O</span><span>T</span><span>E</span><span>L</span></div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- Page Header-->
       <header class="page-header" style="padding-bottom: 24px">
         <!-- RD Navbar-->
         <div class="rd-navbar-wrap">
@@ -82,7 +50,7 @@
                   <div class="contact-info">
                     <div class="unit unit-middle unit-horizontal unit-spacing-xs">
                       <i class="fa-solid fa-circle-user">&nbsp;</i>
-                      <div class="unit__body"><a class="text-middle" href="registro">Acceder</a></div>
+                      <div class="unit__body"><a class="text-middle" href="registro"><?php echo $clienteActual; ?></a></div>
                     </div>
                   </div>
                 </div>
@@ -110,8 +78,6 @@
                       </li>
                       <li><a href="habitaciones">Habitaciones</a>
                       </li>
-                      <li><a href="typography">Typography</a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -120,27 +86,13 @@
           </nav>
         </div>
       </header>
-      <!-- Breadcrumbs & Page title-->
-      <section class="section-md text-center bg-image breadcrumbs-01">
-        <div class="shell shell-fluid">
-          <div class="range range-xs-center">
-            <div class="cell-xs-12 cell-xl-11">
-              <h2 class="text-white">Sobre nosotros</h2>
-              <ul class="breadcrumbs-custom">
-                <li><a href="index">Inicio</a></li>
-                <li class="active">Sobre nosotros</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section class="section section-md bg-secondary-4 text-center text-sm-left">
         <div class="shell">
           <div class="range range-50 range-md-justify range-sm-middle">
             <div class="cell-sm-6 wow fadeInUp" data-wow-delay=".1s">
               <div class="box-outline box-outline__mod-1">
-                <figure><img src="images/about-01-546x516.jpg" alt="" width="546" height="516"/>
+                <figure><img src="images/slide-01.webp" alt="" width="546" height="516"/>
                 </figure>
               </div>
             </div>
@@ -152,184 +104,8 @@
           </div>
         </div>
       </section>
-      <section class="section section-md">
-        <div class="shell">
-          <h3>Habitaciones</h3>
-          <p>Royal Villas ofrece los mejores alojamientos con diseños únicos que brindan un ambiente lujoso y relajante. Las telas y los acabados seleccionados especialmente <br> varían de una habitación a otra, ofreciendo a los huéspedes una variedad de ambientes hermosos y únicos para elegir.</p>
-          <div class="range range-30" data-lightgallery="group">
-            <div class="cell-sm-6 cell-md-4"><a class="thumbnail-classic" href="images/grid-gallery-1-1200x800_original.jpg" data-lightgallery="item">
-                <figure><img src="images/grid-gallery-1-370x276.jpg" alt="" width="370" height="276"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title">Single Room</p>
-                  <p class="caption-text">Each room has its own unique décor and arrangement.</p>
-                </div></a>
-            </div>
-            <div class="cell-sm-6 cell-md-4"><a class="thumbnail-classic" href="images/grid-gallery-2-1200x800_original.jpg" data-lightgallery="item">
-                <figure><img src="images/grid-gallery-2-370x276.jpg" alt="" width="370" height="276"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title">Double Room</p>
-                  <p class="caption-text">Each room has its own unique décor and arrangement.</p>
-                </div></a>
-            </div>
-            <div class="cell-sm-6 cell-md-4"><a class="thumbnail-classic" href="images/grid-gallery-3-1058x800_original.jpg" data-lightgallery="item">
-                <figure><img src="images/grid-gallery-3-370x276.jpg" alt="" width="370" height="276"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title">Twin Room</p>
-                  <p class="caption-text">Each room has its own unique décor and arrangement.</p>
-                </div></a>
-            </div>
-            <div class="cell-sm-6 cell-md-4"><a class="thumbnail-classic" href="images/grid-gallery-4-1200x797_original.jpg" data-lightgallery="item">
-                <figure><img src="images/grid-gallery-4-370x276.jpg" alt="" width="370" height="276"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title">Family Room</p>
-                  <p class="caption-text">Each room has its own unique décor and arrangement.</p>
-                </div></a>
-            </div>
-            <div class="cell-sm-6 cell-md-4"><a class="thumbnail-classic" href="images/grid-gallery-5-1200x800_original.jpg" data-lightgallery="item">
-                <figure><img src="images/grid-gallery-5-370x276.jpg" alt="" width="370" height="276"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title">Executive Suite</p>
-                  <p class="caption-text">Each room has its own unique décor and arrangement.</p>
-                </div></a>
-            </div>
-            <div class="cell-sm-6 cell-md-4"><a class="thumbnail-classic" href="images/grid-gallery-6-1200x800_original.jpg" data-lightgallery="item">
-                <figure><img src="images/grid-gallery-6-370x276.jpg" alt="" width="370" height="276"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title">VIP Suite</p>
-                  <p class="caption-text">Each room has its own unique décor and arrangement.</p>
-                </div></a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section section-md bg-secondary-3 text-center">
-        <div class="shell">
-          <h2>Lo que dice la gente</h2>
-          <div class="range range-50">
-            <div class="cell-xs-12">
-              <div class="box-outline box-outline-fullwidth box-outline__mod-1">
-                <div class="quote-carousel-wrap">
-                  <!-- Slick Carousel-->
-                  <div class="slick-slider carousel-parent" data-arrows="false" data-loop="true" data-dots="false" data-swipe="true" data-items="1" data-child="#child-carousel" data-for="#child-carousel">
-                    <div class="item">
-                      <div class="quote-center">
-                        <div class="quote-center-title">
-                          <h4>Perfect spa resort & services!</h4>
-                        </div>
-                        <p class="quote-center-body">
-                          <q>The minute you walk out of the airport you are greeted with a warm welcome from Royal Villas staff member, and it doesn't stop. The staff truly seems to love their job and want to make sure your visit and stay is everything you expect.</q>
-                        </p>
-                        <div class="quote-center-cite">
-                          <cite>Jane Neddery</cite><span>Office manager</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="quote-center">
-                        <div class="quote-center-title">
-                          <h4>Great atmosphere and level of customer service</h4>
-                        </div>
-                        <p class="quote-center-body">
-                          <q>Got a Royal Villas certificate as a gift a few months ago, and I really had a fantastic spa experience there. I arrived early & was greeted warmly at the door. Surprisingly, I didn't have to wait. Everything was perfect. Highly recommend this amazing place to everybody!</q>
-                        </p>
-                        <div class="quote-center-cite">
-                          <cite>Sam Brown</cite><span>Journalist</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="quote-center">
-                        <div class="quote-center-title">
-                          <h4>Wonderful and friendly environment</h4>
-                        </div>
-                        <p class="quote-center-body">
-                          <q>No better way to rediscover the joy in everyday living than at Royal Villas. Second time to visit and experience was just as powerful as the first. They exceeded all my expectation one again. This is the place to visit if you are looking for a high-quality spa!</q>
-                        </p>
-                        <div class="quote-center-cite">
-                          <cite>Julie Adams</cite><span>Babysitter</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="slick-slider" id="child-carousel" data-for=".carousel-parent" data-arrows="false" data-loop="true" data-dots="false" data-swipe="true" data-center-mode="true" data-sm-center-mode="true" data-md-center-mode="true" data-lg-center-mode="true" data-center-padding="0.50" data-items="1" data-xs-items="1" data-sm-items="3" data-md-items="3" data-lg-items="3" data-slide-to-scroll="1">
-                    <div class="item">
-                      <figure><img class="img-circle" src="images/about-02-100x100.jpg" alt="" width="100" height="100"/>
-                      </figure>
-                    </div>
-                    <div class="item">
-                      <figure><img class="img-circle" src="images/about-04-100x100.jpg" alt="" width="100" height="100"/>
-                      </figure>
-                    </div>
-                    <div class="item">
-                      <figure><img class="img-circle" src="images/about-05-100x100.jpg" alt="" width="100" height="100"/>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section section-md bg-white">
-        <div class="shell">
-          <h2>Nuestro equipo</h2>
-          <div class="range range-xs-center range-75">
-            <!--team member 1-->
-            <div class="cell-sm-6 cell-md-4 wow fadeInUp" data-wow-delay=".1s">
-              <div class="team-box box-outline">
-                <div class="team-image-box"><img src="images/team-01-295x282.jpg" alt="" width="295" height="282"/>
-                  <div class="team-image-caption">
-                    <ul class="list-inline">
-                      <li><a class="icon-sm icon-white fa-instagram icon" href="#"></a></li>
-                      <li><a class="icon-sm icon-white fa-facebook icon" href="#"></a></li>
-                      <li><a class="icon-sm icon-white fa-twitter icon" href="#"></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="team-caption"><a class="link team-title" href="#">Theresa Smith</a><span>General Manager</span></div>
-              </div>
-            </div>
-            <!--team member 2-->
-            <div class="cell-sm-6 cell-md-4 wow fadeInUp" data-wow-delay=".2s">
-              <div class="team-box box-outline">
-                <div class="team-image-box"><img src="images/team-02-295x282.jpg" alt="" width="295" height="282"/>
-                  <div class="team-image-caption">
-                    <ul class="list-inline">
-                      <li><a class="icon-sm icon-white fa-instagram icon" href="#"></a></li>
-                      <li><a class="icon-sm icon-white fa-facebook icon" href="#"></a></li>
-                      <li><a class="icon-sm icon-white fa-twitter icon" href="#"></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="team-caption"><a class="link team-title" href="#">Albert Mills</a><span>Cosmetologist</span></div>
-              </div>
-            </div>
-            <!--team member 3-->
-            <div class="cell-sm-6 cell-md-4 wow fadeInUp" data-wow-delay=".3s">
-              <div class="team-box box-outline">
-                <div class="team-image-box"><img src="images/team-03-295x282.jpg" alt="" width="295" height="282"/>
-                  <div class="team-image-caption">
-                    <ul class="list-inline">
-                      <li><a class="icon-sm icon-white fa-instagram icon" href="#"></a></li>
-                      <li><a class="icon-sm icon-white fa-facebook icon" href="#"></a></li>
-                      <li><a class="icon-sm icon-white fa-twitter icon" href="#"></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="team-caption"><a class="link team-title" href="#">Sandra Adams</a><span>Receptionist</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Page Footer-->
+      
+      
       <footer class="page-footer text-left text-sm-left">
         <div class="shell-wide">
           <div class="page-footer-minimal">
@@ -439,8 +215,25 @@
         </div>
       </div>
     </div>
+    <section id="datosReservacion" class="datosReservacion d-flex align-items-center p-4 d-none">
+      <div class="row w-100">
+        <div class="col-md-9 d-flex justify-content-between align-items-center text-dark">
+          <div class="d-flex justify-content-between flex-column align-items-start">
+            <p id="datosReservacionGeneralListaHab"></p>
+            <span id="datosReservacionGeneralCantHabSeleccionadas"></span>
+          </div>
+          <span><strong>Total:<span id="datosReservacionGeneralPrecioTotal" class="text-primary" style="font-size: 18px;"></span></strong></span>
+        </div>
+        <div class="col-md-3 d-flex justify-content-end align-items-center">
+				  <button class="button btn btn-success col-8" type="submit">Continuar</button>
+        </div>
+
+      </div>
+    </section>
     <!-- Javascript-->
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/simple-notify-master/simple-notify.min.js"></script>
   </body>
 </html>

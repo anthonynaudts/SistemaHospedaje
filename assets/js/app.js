@@ -103,6 +103,10 @@ window.addEventListener("load", function(event) {
         cargarHabitaciones();
     }
 
+    if(URLactual == "reservacion"){
+        cargarReservaciones()
+    }
+
     if(URLactual == "conserjeria"){
         cargarHabitacionesparaLimpieza();
     }
@@ -657,6 +661,7 @@ function cargarClientes(){
                     <td>${element.telefonoCliente}</td>
                     <td>${element.desTipoDocumento}</td>
                     <td>${element.numDocumento}</td>
+                    <td>${element.cantReservas}</td>
                 </tr>
                 `
                 datos += carga
@@ -676,6 +681,7 @@ function cargarClientes(){
                     <th scope="col">Telefono</th>
                     <th scope="col">Tipo Documento</th>
                     <th scope="col">Num. Documento</th>
+                    <th scope="col">Cant. reservas</th>
                   </tr>
                 </thead>
                     <tbody>
@@ -810,6 +816,54 @@ function cargarHabitacionesparaLimpieza(){
             contenedor = `<div class="card recent-sales overflow-auto">
             <div class="card-body">
               <h5 class="card-title">Habitaciones <span>| Pendientes por limpieza</span></h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    ${datos}
+                </div>
+                </div>
+              </div>
+              `
+
+              contenedorExis.innerHTML = contenedor
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+
+function cargarReservaciones(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultarReservas" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("listaReservas")
+            
+            let datos = ""
+            result.forEach(element => {
+                console.log(element)
+                carga = `
+                <div class="col">
+                <div class="card h-100">
+                  <div class="card-body py-0 pb-0">
+                    <h5 class="card-title pb-1 m-0">${element.nombreCliente} ${element.apellidosCliente}</h5>
+                    <p class="card-text mb-0"><strong>Fecha llegada:</strong> ${element.fecha_llegada}</p>
+                    <p class="card-text mb-1"><strong>Fecha partida:</strong> ${element.fecha_partida}</p>
+                  </div>
+                  <div class="card-footer py-0 text-center">
+                    <small class="fw-bold text-primary" style="font-size: 18px;">RD$ ${element.totalPrecio}</small>
+                  </div>
+                </div>
+                </div>
+                `
+                datos += carga
+            });
+
+            contenedor = `<div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Habitaciones <span>| Listado de habitaciones</span></h5>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     ${datos}
                 </div>

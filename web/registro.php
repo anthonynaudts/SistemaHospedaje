@@ -19,9 +19,8 @@
       <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
       <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
       <link href="../assets/vendor/fontawesome/css/all.css" rel="stylesheet">
-      <link href="css/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-  <link href="../assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
+    <link href="../assets/vendor/simple-notify-master/simple-notify.min.css" rel="stylesheet">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
   <body>
@@ -75,9 +74,6 @@
                       <li><a href="contacts">Contacto</a>
                       </li>
                       <li><a href="habitaciones">Habitaciones</a>
-                      </li>
-                      <li><a href="typography">Typography</a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -126,7 +122,7 @@
           <div> 
             <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
               <div class="hotel-booking-form">
-                <h3>Datos cliente</h3>
+                <h3>Mis datos</h3>
                 <div class="page-footer-minimal-inner">
                     <ul class="list-unstyled">
                       <li>
@@ -340,6 +336,21 @@
         </div>
       </div>
     </div>
+    <section id="datosReservacion" class="datosReservacion d-flex align-items-center p-4 d-none">
+      <div class="row w-100">
+        <div class="col-md-9 d-flex justify-content-between align-items-center text-dark">
+          <div class="d-flex justify-content-between flex-column align-items-start">
+            <p id="datosReservacionGeneralListaHab"></p>
+            <span id="datosReservacionGeneralCantHabSeleccionadas"></span>
+          </div>
+          <span><strong>Total:<span id="datosReservacionGeneralPrecioTotal" class="text-primary" style="font-size: 18px;"></span></strong></span>
+        </div>
+        <div class="col-md-3 d-flex justify-content-end align-items-center">
+				  <button class="button btn btn-success col-8" type="submit">Continuar</button>
+        </div>
+
+      </div>
+    </section>
     <!-- Javascript-->
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
