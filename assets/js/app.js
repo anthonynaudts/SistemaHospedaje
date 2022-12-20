@@ -853,7 +853,7 @@ function cargarReservaciones(){
                     <p class="card-text mb-1"><strong>Fecha partida:</strong> ${element.fecha_partida}</p>
                   </div>
                   <div class="card-footer py-0 text-center">
-                    <small class="fw-bold text-primary" style="font-size: 18px;">RD$ ${element.totalPrecio}</small>
+                    <small class="fw-bold text-primary" style="font-size: 18px;">Monto RD$ ${element.totalPrecio}</small>
                   </div>
                 </div>
                 </div>

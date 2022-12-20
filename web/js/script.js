@@ -1825,7 +1825,10 @@ function mensajeContinuarReservacion(){
 }
 
 function borrarCarrito(){
-	carrito.habitaciones = [];
+	carrito = JSON.parse(localStorage.getItem('carrito'))
+	var carrito = {'habitaciones': []};
+	// carrito.habitaciones = [];
+	localStorage.setItem('carrito', JSON.stringify(carrito));
 	mensajeContinuarReservacion();
 }
 
