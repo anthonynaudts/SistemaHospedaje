@@ -115,6 +115,10 @@ window.addEventListener("load", function(event) {
         cargarClientes();
     }
     
+    if(URLactual == "tablero"){
+        consultarTopHabitaciones();
+    }
+
     if(URLactual != ""){
         desactivarLinksSinPermisos();
     }
@@ -870,6 +874,38 @@ function cargarReservaciones(){
                 </div>
               </div>
               `
+
+              contenedorExis.innerHTML = contenedor
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+}
+
+function consultarTopHabitaciones(){
+    $.ajax({
+        url: RUTACONSULTAS + "consultarTopHabitaciones" + ".php",
+        method: "POST",
+    }).done(function(res) {
+        try {
+            result = JSON.parse(res)
+            contenedorExis = document.getElementById("listarTopHabitaciones")
+            
+            let datos = ""
+            result.forEach(element => {
+                carga = `
+                <tr>
+                    <th scope="row"><img src="assets/img/habitaciones/${element.imagen}" alt=""></th>
+                    <td class="fw-bold">${element.idNivel}${(element.idHabitacion < 10)? '0'+element.idHabitacion: element.idHabitacion}</td>
+                    <td class="text-primary fw-bold">${element.nombreTipoHab}</td>
+                    <td class="fw-bold">${element.cantReservas}</td>
+                </tr>
+                `
+                datos += carga
+            });
+
+            contenedor = `${datos}`
 
               contenedorExis.innerHTML = contenedor
 

@@ -389,6 +389,32 @@
         }
     }
 
+    function consultarTopHabitaciones(){
+        try{
+            $query = "SELECT t.cantReservas, t.idHabitacion, t.idNivel, lh.nombreTipoHab, lh.imagen from top5Hab t, listarHabitaciones lh where t.idHabitacion = lh.idHabitacion and t.idNivel= lh.idNivel";
+            $conn = conectarBD();
+            $obtenerDatos = sqlsrv_query($conn, $query);
+            if ($obtenerDatos == FALSE)
+                die(print_r(sqlsrv_errors(),true));
+                $cont = 0;
+            while($row = sqlsrv_fetch_array($obtenerDatos, SQLSRV_FETCH_ASSOC)){
+                // $datos[$cont] = $row;
+                $datos[$cont]['cantReservas'] = $row["cantReservas"];
+                $datos[$cont]['idHabitacion'] = $row["idHabitacion"];
+                $datos[$cont]['idNivel'] = $row["idNivel"];
+                $datos[$cont]['nombreTipoHab'] = $row["nombreTipoHab"];
+                $datos[$cont]['imagen'] = $row["imagen"];
+                $cont++;
+            }
+            return json_encode($datos);
+            sqlsrv_free_stmt($obtenerDatos);
+            sqlsrv_close($conn);
+        }
+        catch(Exception $e){
+            echo("Error " . $e);
+        }
+    }
+
     function cargarHabitacionesparaLimpieza(){
         try{
             $query = "SELECT * FROM listarHabitacionesParaLimpieza WHERE idEstadoHab = 4 order by nivelNum, idHabitacion ASC";
