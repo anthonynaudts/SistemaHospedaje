@@ -111,22 +111,15 @@
           <div class="page-footer-minimal">
             <div class="shell-wide">
               <div class="range range-50">
-                <div class="cell-sm-6 cell-md-3 cell-lg-4 wow fadeInUp" data-wow-delay=".1s">
+                <div class="cell-sm-6 cell-md-3 cell-lg-6 wow fadeInUp" data-wow-delay=".1s">
                   <div class="page-footer-minimal-inner">
-                    <h4>Opening Hours</h4>
+                    <h4>Hora de apertura</h4>
                     <ul class="list-unstyled">
                       <li>
                         <div class="group-xs"> 
                           <div>
                             <dl class="list-desc">
-                              <dt>Weekdays: </dt>
-                              <dd class="text-gray-darker"><span>8:00–20:00</span></dd>
-                            </dl>
-                          </div>
-                          <div>
-                            <dl class="list-desc">
-                              <dt>Weekends: </dt>
-                              <dd class="text-gray-darker"><span>9:00–18:00</span></dd>
+                              <dt>Estamos abierto las 24 horas todos los dias de la semana </dt>
                             </dl>
                           </div>
                         </div>
@@ -137,37 +130,24 @@
                     </ul>
                   </div>
                 </div>
-                <div class="cell-sm-6 cell-md-5 cell-lg-4 wow fadeInUp" data-wow-delay=".2s">
+                <div class="cell-sm-6 cell-md-5 cell-lg-6 wow fadeInUp" data-wow-delay=".2s">
                   <div class="page-footer-minimal-inner">
-                    <h4>Address</h4>
+                    <h4>Dirección</h4>
                     <ul class="list-unstyled">
                       <li>
                         <dl class="list-desc">
                           <dt><span class="icon icon-sm mdi mdi-map-marker"></span></dt>
-                          <dd><a class="link link-gray-darker" href="#">6036 Richmond hwy., Alexandria, VA, 2230</a></dd>
+                          <dd><a class="link link-gray-darker" href="#">Av. Juan pablo duarte 87, Santiago de los caballeros</a></dd>
                         </dl>
                       </li>
                       <li>
                         <dl class="list-desc">
                           <dt><span class="icon icon-sm mdi mdi-phone"></span></dt>
-                          <dd class="text-gray-darker">Call Us: <a class="link link-gray-darker" href="tel:#">+1 (409) 987–5874</a>
+                          <dd class="text-gray-darker">Llamanos: <a class="link link-gray-darker" href="tel:#">+1 (809) 158-1234</a>
                           </dd>
                         </dl>
                       </li>
                     </ul>
-                  </div>
-                </div>
-                <div class="cell-sm-8 cell-md-4 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="page-footer-minimal-inner-subscribe">
-                    <h4>Join Our Newsletter</h4>
-                    <!-- RD Mailform-->
-                    <form class="rd-mailform rd-mailform-inline form-center" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-                      <div class="form-wrap">
-                        <input class="form-input" id="subscribe-email" type="email" name="email" data-constraints="@Email @Required">
-                        <label class="form-label" for="subscribe-email">Enter your e-mail</label>
-                      </div>
-                      <button class="button button-primary-2 button-effect-ujarak button-square" type="submit"><span>Subscribe</span></button>
-                    </form>
                   </div>
                 </div>
               </div>
